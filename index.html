@@ -139,13 +139,25 @@ Error message and password prompt
 
 <li>$:/temp/info-plugin</li>
 
+<li>$:/temp/NewTagName</li>
+
 <li>$:/themes/tiddlywiki/snowwhite</li>
 
 <li>$:/themes/tiddlywiki/vanilla</li>
 
+<li>Actividades</li>
+
+<li>Contenido</li>
+
+<li>Definiciones</li>
+
 <li>Draft of '$:/ControlPanel'</li>
 
+<li>Funcionamiento</li>
+
 <li>Índice</li>
+
+<li>Introducción DHCP</li>
 
 </ul>
 </p>
@@ -4714,7 +4726,7 @@ Error message and password prompt
 <div modified="20141006094539398" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Tools</pre>
 </div>
-<div list="[[Draft of '$:/ControlPanel']] $:/DefaultTiddlers Índice" title="$:/StoryList">
+<div list="Actividades Contenido Funcionamiento Definiciones [[Introducción DHCP]] Índice" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -4730,6 +4742,9 @@ Error message and password prompt
         }
     }
 }</pre>
+</div>
+<div created="20141012221534022" modified="20141012221553803" title="$:/temp/NewTagName">
+<pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.2">
 <pre>{
@@ -4800,16 +4815,119 @@ Error message and password prompt
     }
 }</pre>
 </div>
+<div created="20141012221844948" modified="20141012221927737" tags="Índice" title="Actividades">
+<pre></pre>
+</div>
+<div created="20141012221525617" modified="20141012221625514" tags="Índice" title="Contenido">
+<pre>''Servicios de configuración automática de red''
+
+#[[Introducción DHCP]]
+#[[Definiciones]]
+#[[Funcionamiento]]</pre>
+</div>
+<div created="20141012221741262" modified="20141012221743325" title="Definiciones">
+<pre>!Componentes
+El servicio DHCP está basado en el modelo cliente/servidor y está formado por los siguientes componentes:
+
+*Servidor DHCP: asigna la configuración de red.
+*Cliente DHCP: realiza las peticiones al servidor y configura el equipo con los parámetros indicados por éste.
+*Protocolo DHCP: conjunto de normas y reglas que permite la comunicación entre servidor y cliente.
+
+!Asignación
+A la hora de analizar las asignaciones de direcciones IP que realiza el servidor DHCP podemos estudiar diferentes conceptos:
+
+!!!Tipos de asignación
+Existen tres tipos de asignación:
+
+*Asignación estática: asigna direcciones IP concretas a máquina concretas. A una dirección física establecida le asigna una IP determinada por el administrador.
+*Asignación dinámica: el servidor asigna un IP dentro de un rango definido por el administrador. Es lo que se llama una &quot;concesión&quot;. Estas concesiones tienen un plazo de validez limitado (//lease time//).
+*Asignación automática: asigna direcciones IP de forma permanente a máquinas clientes la primera vez que hacen la solicitud al servidor DHCP y hasta que el cliente las libera. Es decir, son concesiones de plazo ilimitado. 
+!!!Rango, exclusiones, reservas
+
+;Rango
+:Intervalo consecutivo de direcciones IP validas y disponibles para ser asignadas a clientes DHCP. NOTA: se pueden definir tantos ámbitos y rangos como sea necesario para el entorno de una red.
+;Exclusiones
+:Conjunto de direcciones excluidas de un rango. No podrán ser concedidas. Se suele excluir direcciones de servidores de correo, web, etc.
+;Reservas
+:Consiste en la asignación de una dirección IP fija a un equipo y se puede utilizar para asignar a servidores o ~PCs concretos la misma dirección siempre. Un equipo es identificado en una red por su MAC
+!!!Tiempo de concesión (//lease time//)
+El plazo del contrato o concesión es el tiempo en que un cliente DHCP  mantiene como propios los datos de configuración que le otorgó un servidor. 
+
+*Cada vez que el cliente arranca, cada cierto tiempo o bien cuando se alcanza el límite de concesión, el cliente tiene que solicitar su renovación. El servidor, puede extender el plazo de la concesión al cliente o asignar otra nueva.
+*Para determinar el tiempo de concesión es necesario analizar las características de la red. En una red con un gran número de direcciones IP disponibles y donde la configuración de los clientes raramente cambia, el administrador podría incrementar el tiempo de concesión para reducir el tráfico derivado de las solicitudes de renovación por parte de los clientes. Si, por el contrario, una red tiene un número limitado de direcciones IP y donde la configuración de clientes cambia frecuentemente, el administrador puede reducir el tiempo de concesión para que las direcciones IP que ya no estén siendo usadas puedan estar disponibles para nuevas asignaciones.</pre>
+</div>
 <div draft.of="$:/ControlPanel" draft.title="$:/ControlPanel" modified="20141006094659051" title="Draft of '$:/ControlPanel'">
 <pre>&lt;div class=&quot;tc-control-panel&quot;&gt;
 &lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/ControlPanel]!has[draft.of]]&quot; &quot;$:/core/ui/ControlPanel/Info&quot;&gt;&gt;
 &lt;/div&gt;
 </pre>
 </div>
-<div created="20141006093955487" modified="20141006094209637" title="Índice">
-<pre>
-&lt;&lt;list-links &quot;[tag[Índice]]&quot;&gt;&gt;
+<div created="20141012221818208" modified="20141012221819892" title="Funcionamiento">
+<pre>El funcionamiento del servicio DHCP sigue estos pasos:
+
+#El cliente cuando se conecta a la red envía una solicitud en forma de //broadcast// a través de la red.
+#Todos los servidores alcanzados por la solicitud responden al cliente con sus respectivas propuestas.
+#El cliente acepta una de ellas haciéndoselo saber al servidor elegido.
+#El servidor le entrega la información requerida por un plazo de tiempo (lease time).
+#Esta información se mantiene asociada al cliente mientras éste no desactive la interfaz de red o no expire el plazo de la concesión.
+#Renovaciones:
+##Cada vez que el cliente arranca, cada cierto tiempo o bien cuando se alcanza el límite de la concesión, el cliente tiene que solicitar su renovación.
+##Una vez vencido el plazo del contrato el servidor puede renovar la información del cliente, asignarle otra nueva o extender el plazo.
+!! Obtener una concesión
+Partimos de la situación en la que le servidor DHCP está a la escucha y preparado para atender las peticiones.
+Podemos dividir el proceso en cuatro etapas:
+
+*''Descubrimiento DHCP (DHCPDISCOVER)''
+:El cliente difunde por //broadcast// un paquete DHCPDISCOVER  para localizar el servidor. El paquete tiene las siguientes características:
+:*Puerto destino: 67/UDP
+:*Puerto origen: 68
+:*~IPorigen:0.0.0.0
+:*~IPdestino:255.255.255.255
+:*Lleva un identificador de la transacción
+:*Incluye dirección MAC del cliente.
+*''Oferta DHCP (DHCPOFFER)''
+:Los servidores responden con DHCPOFFER. Ofrecen una IP al cliente, máscara, tiempo de concesión, etc. Cada servidor reserva la IP propuesta para no ofrecerla a otro.
+*''Solicitud DHCP (DHCPREQUEST)''
+:El cliente elige la &quot;mejor&quot; opción. Normalmente elige la primera. Difunde por //broadcast// un mensaje DHCPREQUEST poniendo el nombre del servidor elegido en uno de los campos de opciones (Id del servidor).
+*''Reconocimiento DHCP (DHCPACK) reconocimiento negativo DHCP (DHCPNAK)''
+:Si el mensaje DHCPREQUEST no contiene su dirección, el servidor considera su oferta rechazada. Si contiene su dirección envía un mensaje:
+:*DHCPACK si la dirección aún está disponible.
+:*DHCPNAK si ya no lo está dispoible o no es válida.
+:Si el cliente recibe DHCPACK, puede usar la dirección IP. El cliente, además, debe verificar que la dirección IP es válida y no está duplicada. En el caso de detectar alguna duplicidad o considerar que la dirección no es válida, el cliente puede enviar DHCPDECLINE al servidor y vuelve al paso 1 (DHCPDISCOVER).
+:Si el cliente recibe DHCPNAK, libera la dirección IP y vuelve al paso 1 (DHCPDISCOVER).
+*''¿Qué ocurre si un equipo con una concesión activa cambia de subred?''
+:Al reiniciarse el adaptador mandaría una petición de confirmación al servidor DHCP y éste le indicaría que su IP es inválida. El equipo habrá de solicitar una nueva concesión.
+Esquema de una concesión típica:
+
+ [img[as|http://www.subnetguide.com/images/CCNA_Knowledge/DHCP/DHCP_Process.jpg]]
+
+!!Renovar una concesión
+
+Los clientes intentan renovar su concesión:
+
+*Cuando se inician (máquina o interfaz).
+*Antes de que finalice el período de concesión. Por defecto, un cliente DHCP intenta renovar su concesión a la mitad del plazo de concesión, aunque este parámetro se puede configurar.
+*Si no consigue renovar, al final el plazo libera la IP.
+*También se puede realizar una renovación manual.
+Se realizan dos pasos para renovar una concesión:
+
+#El cliente difunde un DHCPREQUEST con la opción //Request IP address// (la dirección previamente asignada)
+#El servidor DHCP correspondiente devuelve DHCPACK O DHCPNAK.
+__Cuando un equipo se retira de la red__, el servidor detectará que ha caducado la concesión que tenía ese equipo y que no ha recibido ninguna petición de renovación, simplemente liberará la IP.
+
+__Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará un mensaje al servidor DHCP para confirmar si su configuración es válida. Si sí lo es, el servidor comprueba la validez de la concesión y, si es correcta, extiende el tiempo de la concesión a su valor por defecto.
+
 </pre>
+</div>
+<div created="20141006093955487" modified="20141006094209637" title="Índice">
+<pre>&lt;&lt;list-links &quot;[tag[Índice]]&quot;&gt;&gt;
+</pre>
+</div>
+<div created="20141012221658797" modified="20141012221702014" title="Introducción DHCP">
+<pre>;Dinamic Host Configuration Protocol. Protocolo de configuración automática de hosts.
+:Es un protocolo de la capa de aplicación que implementa un servicio de configuración automática de red en redes TCP/IP. 
+*Inconvenientes de la configuración manual: tiempo de trabajo, errores, si un equipo cambia de ubicación y cambia de subred (portátiles-wifi) habrá de reconfigurarse, si hay que reestructurar la red habrá que reconfigurar todos los equipos, etc.
+*Ventajas DHCP: disminución de la carga de trabajo del administrador, reconfiguraciones y reestructuración donde no es necesaria la intervención del administrador, disminución de errores. Además, el tráfico de paquetes que genera el servicio es mínimo. Inconveniente: si falla DHCP, falla todo (por eso, los servidores de una red suelen configurarse manualmente)</pre>
 </div>
 
 </div>
