@@ -129,6 +129,8 @@ Error message and password prompt
 
 <li>$:/state/showeditpreview</li>
 
+<li>$:/state/sidebar</li>
+
 <li>$:/state/tab-1749438307</li>
 
 <li>$:/state/tab/moresidebar-401116514</li>
@@ -156,6 +158,8 @@ Error message and password prompt
 <li>Funcionamiento</li>
 
 <li>Índice</li>
+
+<li>Instalación DHCP</li>
 
 <li>Introducción DHCP</li>
 
@@ -4714,8 +4718,11 @@ Error message and password prompt
 <div created="20141006094550934" modified="20141006094554065" title="$:/SiteTitle">
 <pre>M8</pre>
 </div>
-<div modified="20141006094750323" title="$:/state/showeditpreview">
+<div modified="20141012224619116" title="$:/state/showeditpreview">
 <pre>no</pre>
+</div>
+<div modified="20141012224742776" title="$:/state/sidebar">
+<pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4723,10 +4730,10 @@ Error message and password prompt
 <div modified="20141006094251405" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/Shadows</pre>
 </div>
-<div modified="20141006094539398" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Tools</pre>
+<div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Actividades Contenido Funcionamiento Definiciones [[Introducción DHCP]] Índice" title="$:/StoryList">
+<div list="" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -4743,7 +4750,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20141012221534022" modified="20141012221553803" title="$:/temp/NewTagName">
+<div created="20141012221534022" modified="20141012223603548" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.2">
@@ -4815,8 +4822,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20141012221844948" modified="20141012221927737" tags="Índice" title="Actividades">
-<pre></pre>
+<div created="20141012221844948" modified="20141012224858468" tags="Índice" title="Actividades">
+<pre>&lt;&lt;list-links &quot;[tag[Actividades]]&quot;&gt;&gt;</pre>
 </div>
 <div created="20141012221525617" modified="20141012221625514" tags="Índice" title="Contenido">
 <pre>''Servicios de configuración automática de red''
@@ -4922,6 +4929,62 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 <div created="20141006093955487" modified="20141006094209637" title="Índice">
 <pre>&lt;&lt;list-links &quot;[tag[Índice]]&quot;&gt;&gt;
 </pre>
+</div>
+<div created="20141012223545589" modified="20141012224621008" tags="Actividades" title="Instalación DHCP" type="text/vnd.tiddlywiki">
+<pre>//Esta práctica consiste en instalar y configurar con las opciones básicas el servidor ISC DHCP. Este servidor es el más utilizado sobre sistemas //Linux// y se encuentra disponible en los repositorios de las principales distribuciones.//
+
+Configura el servidor DHCP en debianXX con las siguientes opciones:
+
+*Servirá el rango de direcciones IP comprendidas entre 10.33.XX.20 y 10.33.XX.30 en la red 10.33.XX.0/24
+*Proporcionará los siguientes parámetros a los clientes:
+**Tiempo de concesión: 1 días.
+**Máximo tiempo de concesión: 8 días.
+**Mínimo tiempo de concesión: 1 hora
+**Máscara de red: 255.255.255.0
+**Puerta de enlace: 10.33.XX.1
+**Servidor DNS: 8.8.8.8
+*Al equipo w7XX se le asignará siempre la dirección IP 10.33.XX.4
+*Al equipo ubuntuXX se le asignará una dirección IP dinámica.
+----
+''Ayuda''
+
+*Primero: apaga posibles servidores DHCP o el acceso a ellos (si estás trabajando en red interna no te preocupes por esto).
+*Segundo: accede a la [[web|https://www.isc.org/software/dhcp]] y averigua qué es ISC.
+*Tercero: instala el servidor `apt-get install isc-dhcp-server`
+*Fija la IP de la máquina
+*Indica en qué interfaz de red se van a escuchar las peticiones DHCP. Para ello edita `/etc/default/isc-dhcp-server` y en INTERFACES indicaremos la interfaz de red por donde escucharemos las peticiones. `INTERFACES=&quot;ethX&quot;` (si quisiésemos dar servicio a varias redes lo indicaríamos aquí)
+*Realiza una copia de seguridad de la configuración del servidor antes de modificarla:
+&gt; `cp /etc/dhcp3/dhcpd.conf /etc/dhcp3/dhcpd.conf.bak`
+
+*Edita el archivo de configuración con la configuración deseada:
+```
+#opciones de servidor
+option domain-name &quot;asix.net&quot;;
+option domain-name-servers 8.8.8.8;
+option subnet-mask 255.255.255.0;
+option routers 10.33.1.1;
+default-lease-time 86400;
+max-lease-time 691200;
+min-lease-time 3600;
+
+subnet 10.33.1.0 netmask 255.255.255.0 {
+ range 10.33.1.20 10.33.1.30;
+}
+```
+*Reinicia el servidor para que los cambios surtan efecto:`/etc/init.d/dhcp3-server stop` y `/etc/init.d/dhcp3-server start`
+*Consulta el fichero de //logs// del sistema para comprobar que no hay errores `cat /var/log/syslog`
+*Verifica que el proceso servidor está ejecutándose: `ps -ef | grep dhcp`
+*Comprueba que el servidor está a la escucha `netstat -ltun` en el puerto 67 UDP.
+*Consulta el fichero de concesiones y verifica que todavía no hay ninguna concesión `cat /var/lib/dhcp3/dhcpd.leases`
+*Comprueba que la máquina ubuntuXX (o alguna que tengas disponible) obtiene IP de forma dinámica.
+*Para realizar una reserva de una dirección IP tendrás que editar de nuevo el archivo de configuración y añadir dentro del bloque //subnet//:
+```
+host Windows7 {
+ hardware ethernet 08:00:27:DA:60:0F;
+ fixed-address 10.33.1.4;
+}
+```
+*Reinicia el servidor y comprueba que el host Windows7 (o el que tú hayas puesto) obtiene la IP deseada.</pre>
 </div>
 <div created="20141012221658797" modified="20141012221702014" title="Introducción DHCP">
 <pre>;Dinamic Host Configuration Protocol. Protocolo de configuración automática de hosts.
