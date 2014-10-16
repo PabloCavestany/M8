@@ -153,9 +153,13 @@ Error message and password prompt
 
 <li>Contenido</li>
 
+<li>Cosillas</li>
+
 <li>Definiciones</li>
 
 <li>Draft of '$:/ControlPanel'</li>
+
+<li>Draft of 'Cosillas'</li>
 
 <li>Draft of 'New Tiddler'</li>
 
@@ -164,6 +168,8 @@ Error message and password prompt
 <li>Índice</li>
 
 <li>Introducción DHCP</li>
+
+<li>Vagrant: lo más sencillo</li>
 
 </ul>
 </p>
@@ -4723,7 +4729,7 @@ Error message and password prompt
 <div modified="20141012224619116" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div modified="20141012224742776" title="$:/state/sidebar">
+<div modified="20141016153258730" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
@@ -4735,7 +4741,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="[[Draft of 'New Tiddler']] Índice Actividades [[01_Instalación DHCP]]" title="$:/StoryList">
+<div list="[[Vagrant: lo más sencillo]] [[Draft of 'Cosillas']] Índice" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -4752,7 +4758,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20141012221534022" modified="20141012223603548" title="$:/temp/NewTagName">
+<div created="20141012221534022" modified="20141016153328085" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.2">
@@ -4890,6 +4896,9 @@ host Windows7 {
 #[[Definiciones]]
 #[[Funcionamiento]]</pre>
 </div>
+<div created="20141016153204089" modified="20141016153247219" tags="Índice" title="Cosillas">
+<pre>&lt;&lt;list-links &quot;[tag[Cosillas]]&quot;&gt;&gt;</pre>
+</div>
 <div created="20141012221741262" modified="20141012221743325" title="Definiciones">
 <pre>!Componentes
 El servicio DHCP está basado en el modelo cliente/servidor y está formado por los siguientes componentes:
@@ -4926,6 +4935,9 @@ El plazo del contrato o concesión es el tiempo en que un cliente DHCP  mantiene
 &lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/ControlPanel]!has[draft.of]]&quot; &quot;$:/core/ui/ControlPanel/Info&quot;&gt;&gt;
 &lt;/div&gt;
 </pre>
+</div>
+<div created="20141016153204089" draft.of="Cosillas" draft.title="Cosillas" modified="20141016161623400" tags="Índice" title="Draft of 'Cosillas'">
+<pre>&lt;&lt;list-links &quot;[tag[Cosillas]]&quot;&gt;&gt;</pre>
 </div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
 <pre></pre>
@@ -4996,6 +5008,16 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 :Es un protocolo de la capa de aplicación que implementa un servicio de configuración automática de red en redes TCP/IP. 
 *Inconvenientes de la configuración manual: tiempo de trabajo, errores, si un equipo cambia de ubicación y cambia de subred (portátiles-wifi) habrá de reconfigurarse, si hay que reestructurar la red habrá que reconfigurar todos los equipos, etc.
 *Ventajas DHCP: disminución de la carga de trabajo del administrador, reconfiguraciones y reestructuración donde no es necesaria la intervención del administrador, disminución de errores. Además, el tráfico de paquetes que genera el servicio es mínimo. Inconveniente: si falla DHCP, falla todo (por eso, los servidores de una red suelen configurarse manualmente)</pre>
+</div>
+<div created="20141016153300883" modified="20141016163748717" tags="Cosillas" title="Vagrant: lo más sencillo">
+<pre>*Creo directorio en mi home `mkdir MáquinasVirtuales`
+*Accedo al directorio `cd MáquinasVirtuales`
+*Selecciono box en [[vagrantboxes|http://www.vagrantbox.es/]]
+*Hacemos `vagrant box add Debian7 http://f.willianfernandes.com.br/vagrant-boxes/DebianSqueeze64.box`
+*A continuación: `vagrant init Debian7`
+----
+!Manejo de la máquina
+*Para levantar la máquina `vagrant up`</pre>
 </div>
 
 </div>
