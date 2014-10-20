@@ -117,6 +117,8 @@ Error message and password prompt
 
 <p>This <a class='tc-tiddlylink-external' href='http://tiddlywiki.com' target='_blank'>TiddlyWiki</a> contains the following tiddlers:</p><p><ul>
 
+<li>$:/config/ViewToolbarButtons/Visibility/$:/core/ui/Buttons/close-others</li>
+
 <li>$:/core</li>
 
 <li>$:/DefaultTiddlers</li>
@@ -149,7 +151,17 @@ Error message and password prompt
 
 <li>01_Instalación DHCP</li>
 
+<li>02_Comandos nslookup, host, dig</li>
+
+<li>03_Servidor Bind como caché y reenviador</li>
+
+<li>04_Instalación Servidor DNS</li>
+
 <li>Actividades</li>
+
+<li>Características y funcionamiento del servicio DNS</li>
+
+<li>Clientes DNS (resolver)</li>
 
 <li>Contenido</li>
 
@@ -157,17 +169,31 @@ Error message and password prompt
 
 <li>Definiciones</li>
 
+<li>DNS Dinámico</li>
+
 <li>Draft of '$:/ControlPanel'</li>
 
-<li>Draft of 'Cosillas'</li>
-
 <li>Draft of 'New Tiddler'</li>
+
+<li>Espacio de nombres de dominio</li>
 
 <li>Funcionamiento</li>
 
 <li>Índice</li>
 
 <li>Introducción DHCP</li>
+
+<li>Introducción DNS</li>
+
+<li>Registro de recursos</li>
+
+<li>Resolución recursiva</li>
+
+<li>Servidores de nombres</li>
+
+<li>Temporización</li>
+
+<li>UF1_temporización</li>
 
 <li>Vagrant: lo más sencillo</li>
 
@@ -181,6 +207,9 @@ Error message and password prompt
 <!--~~ Ordinary tiddlers ~~-->
 
 <div id="storeArea" style="display:none;">
+<div modified="20141020004237234" title="$:/config/ViewToolbarButtons/Visibility/$:/core/ui/Buttons/close-others">
+<pre>show</pre>
+</div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="" description="TiddlyWiki5 core plugin" list="readme" plugin-priority="0" plugin-type="plugin" title="$:/core" type="application/json" version="5.1.2">
 <pre>{
     &quot;tiddlers&quot;: {
@@ -4726,10 +4755,10 @@ Error message and password prompt
 <div created="20141006094550934" modified="20141006094554065" title="$:/SiteTitle">
 <pre>M8</pre>
 </div>
-<div modified="20141012224619116" title="$:/state/showeditpreview">
-<pre>no</pre>
+<div modified="20141020005554085" title="$:/state/showeditpreview">
+<pre>yes</pre>
 </div>
-<div modified="20141016153258730" title="$:/state/sidebar">
+<div modified="20141020013851836" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
@@ -4741,7 +4770,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="[[Vagrant: lo más sencillo]] [[Draft of 'Cosillas']] Índice" title="$:/StoryList">
+<div list="" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -4758,7 +4787,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20141012221534022" modified="20141016153328085" title="$:/temp/NewTagName">
+<div created="20141012221534022" modified="20141018100235911" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.2">
@@ -4886,15 +4915,332 @@ host Windows7 {
 ```
 *Reinicia el servidor y comprueba que el host Windows7 (o el que tú hayas puesto) obtiene la IP deseada.</pre>
 </div>
+<div created="20141020012312542" modified="20141020013926341" tags="Actividades" title="02_Comandos nslookup, host, dig">
+<pre>__''Comando //nslookup//''__
+
+*Accede a nslookup en modo interactivo y consulta al servidor 8.8.8.8 los servidores DNS autorizados para el dominio mec.es.:
+```
+nslookup
+&gt;server 8.8.8.8
+&gt;set type=NS
+&gt;mes.es
+```
+*Lo mismo pero ahora pregunta por los servidores de correo autorizados para mec.es.
+*¿Y los servidores autorizados para  el dominio raíz?
+*Pregunta al servidor a.nic.es. por el dominio www.mec.es
+```
+nslookup
+&gt;server a.nic.es
+&gt;www.mec.es
+```
+*Pregunta al servidor a.nic.es por el dominio www.google.com. ¿Qué pasa?
+__''Comando //host//''__
+
+*Obtén la IP de www.mec.es: `host www.mec.es`
+*Obtén el nombre asociado con 8.8.8.8  `host 8.8.8.8`
+*Consulta al servidor 8.8.8.8 por los servidores DNS autorizados para el dominio es.
+`host -t NS es 8.8.8.8`
+
+*Consulta al servidor 8.8.8.8 por el registro SOA del dominio es
+`host -t SOA es 8.8.8.8`
+
+__''Comando //dig//''__
+
+*Obtén IP de www.mec.es `dig www.mec.es` Observa que la información es mucho más completa. Todo lo que sigue a &quot;;&quot; se trata de comentarios añadidos por //dig//. 
+*Obtén el nombre asociado a 8.8.4.4 `dig  -x 8.8.4.4`
+*Consulta al servidor 8.8.8.8 por todos los registros de recursos de dominios mec.es `dig @8.8.8.8 mec.es ANY`
+*¿Cómo podríamos obtener el registro SOA del dominio google.es.?¿Y los registros de tipo A de a.root-servers.net?</pre>
+</div>
+<div created="20141020013028525" modified="20141020013941518" tags="Actividades" title="03_Servidor Bind como caché y reenviador">
+<pre>Antes que nada, localiza el [[manual|http://www.bind9.net//]]
+
+__Instalación__
+
+```
+sudo apt-get update
+sudo apt-get install bind9
+
+Comprobaciones:
+
+#El servidor se ha iniciado
+ps -ef | grep named
+
+#El servidor está a la escucha en los puertos 53 de UDP y TCP
+netstat -ltun
+```
+__Ficheros de configuración__
+
+*/etc/bind/named.conf
+**Fichero de configuración prinicipal
+**No se suele modificar
+**Almacena la configuración de las diferentes zonas generadas por defecto en el momento de la instalación .
+**Incluye el resto de ficheros de configuración (mediante la directiva //include//).
+*/etc/bind/named.conf.options:
+**Configuración de opciones generales de funcionamiento del servidor.
+*/etc/bind/named.conf.local
+**Fichero de configuración de zonas.
+**Se declaran las zonas de resolución directa y de resolución inversa del servidor.
+*/etc/bind/named.conf.default-zones
+**Contiene la declaración de las zonas por defecto que tiene creadas BIND.
+*Ficheros de zonas
+**Ficheros que definen los registros de recursos de cada zona.
+**Son referenciados desde las declaraciones de zonas en /etc/bind/named.conf.local.
+**Al instalar el servidor se crean un conjunto de archivos de zonas por defecto:
+***/etc/bind/db.root: servidores raíz.
+***/etc/bind/db.local: resolución directa del bucle local.
+***/etc/bind/db.127: resolución inversa del bucle local.
+***/etc/bind/db.0: resolución inversa //broadcast//
+***/etc/bind/db.255: resolución inversa de //broadcast//.
+NOTA: Conviene hacer copia de todos aquellos archivos de configuración que vayas a modificar antes de modificarlo.
+
+__Configuración del servidor como solo cache__
+
+Por defecto el servidor está configurado como solo cache (no es autorizado para ninguna zona) que responde a consultas recursivas (tiene la recursividad activada).
+
+#Comprueba que el servidor resuelve nombres de dominio de Internet configurando el cliente para que utilice el servidor DNS instalado. Usa nslookup para resolver un nombre.
+#Para que el servidor puede iniciar consultas recursivas tiene que conocer cuáles son los servidores DNS raíz. Consulta el fichero /etc/bind/db.root. Échale un vistazo.
+#Inicia otra máquina. (Si has instalado bind en ubuntu, inicia debian).
+#Configura el resolver para que utilice el servidor recién instalado.
+#Usa el comando dig para preguntar por algún dominio. Comprueba el tiempo de respuesta.
+#Vuelve  usar el comando dig para preguntar por el mismo dominio. Comprueba que el tiempo de respuesta decrece considerablemente. ¿Por qué?
+#Ejecuta sucesivamente el mismo comando y observa como el campo TTL va decrementando.
+__Configuración del servidor para que reenvíe consultas a reenviadores (//forwaders//)__
+
+#Edita el fichero named.conf.options y configura como reenviador el servidor DNS del instituto eliminando el comentario de la directiva //forwarders//:
+```
+forwarders {
+    192.168.0.207;
+}
+#Reiniciamos
+sudo /etc/init.d/bind9 stop
+sudo /etc/init.d/bind9 start
+```
+</pre>
+</div>
+<div created="20141020013406072" modified="20141020013952385" tags="Actividades" title="04_Instalación Servidor DNS">
+<pre>!!!Actividad_DNS_13: Servidor DNS en Linux.
+Configura el servidor BIND de ubuntuXX:
+
+*El servidor solo servirá a la red local (no sirve a equipos de Internet).
+*Actuará como maestro y tendrá autoridad sobre el dominio asix.net.
+**No se permitirán actualizaciones dinámicas.
+**El servidor DNS maestro será ubuntuXX.asix.net. (registro NS).
+**Los nombres de los equipos serán los de la red virtual (Actividades virtualización). (registro A)
+**Se añadirán los siguientes alias (registro CNAME)
+***ns1.asix.net será un alias de ubuntuXX.asix.net
+***www.asix.net alias de ubuntuXX.asix.net.
+***ftp.asix.net alias de w2008XX.asix.net.
+***mail.asix.net alias de debianXX.asix.net.
+**El equipo debianXX.asix.net actuará como servidor de correo del dominio (registro MX)
+**El tiempo en caché de las respuestas negativas de la zona será de 3 horas.
+*Actuará como maestro y tendrá autoridad sobre la zona de resolución inversa de la red 10.33.XX.0/24.
+**No se permitirán actualizaciones dinámicas.
+**El servidor DNS maestro del dominio será ubuntuXX.asix.net (registro NS).
+**Las direcciones IP de los equipos corresponderán con los que se han definido en la zona de resolución directa.
+**El tiempo en cache de las respuestas negativas de la zona será de 3 horas.
+Habrá que configurar también los equipos de la red para que utilicen el DNS instalado.
+
+__Ayuda__
+
+*Edita el fichero de configuración named.conf.local y declara la zona de resolución directa para el dominio asix.net:
+```
+zone &quot;asix.net&quot;{
+     type master;
+     file &quot;/etc/bind/db.asix.net&quot;;
+};
+```
+*Crea el fichero de resolución directa db.asix.net:
+```
+;la arroba equivale al nombre de la zona
+$TTL 1D
+@   IN     SOA     asix.net. administrador.asix.net. (
+                                  1                                        
+                            43200                                 
+                            36800                                 
+                            2419200                            
+                            10800   )                            ; 3 horas de TTL negativo
+;El espacio en blanco equivale al valor del registro anterior. En este caso asix.net
+        IN   NS    ubuntuXX.asix.net.
+;A continuación vendrían resto de registros
+;Nota: todos los registros sin punto final se les añade el nombre de zona.
+```
+*BIND incluye dos herramientas de chequeo:
+**Comando //named-checkconf//: comprueba el fichero de configuración principal named.conf. La salida muestra los errores.
+**Comando //named-checkzone// ` named-checkzone asix.net /etc/bind/db.asix.net`
+*Reiniciar el servidor
+*Usar los comandos dig  o nslookup para comprobar que todo funciona correctamente.
+*Para configurar la zona inversa:
+**Editamos el fichero de configuración named.conf.local y declaramos la zona de configuración inversa para la red:
+```
+zone &quot;1.33.10.in-addr.arpa&quot; {
+        type master;
+        file &quot;/etc/bind/db.10.33.1&quot;;
+};
+```
+**Creamos el fichero de resolución inversa db.10.33.1 añadiéndole los registros adecuados:
+```
+$TTL 1D
+@   IN     SOA     1.33.10.in-addr.arpa. administrador.asix.net. (
+                             1                                        
+                            43200                                 
+                            36800                                 
+                            2419200                            
+                            10800   )                            ; 3 horas de TTL negativo
+        IN   NS    ubuntuXX.asix.net.
+
+2        IN  PTR  debianXX.asix.net.
+;A continuación vendrían resto de registros
+```
+**Comprobamos los archivos con //named-checkconf// y //named-checkzone 1.33.10.in-addr.arpa  /etc/bind/db.10.33.1//
+**Reiniciamos el servidor y comprobamos con nslookup.
+</pre>
+</div>
 <div created="20141012221844948" modified="20141012224858468" tags="Índice" title="Actividades">
 <pre>&lt;&lt;list-links &quot;[tag[Actividades]]&quot;&gt;&gt;</pre>
 </div>
-<div created="20141012221525617" modified="20141012221625514" tags="Índice" title="Contenido">
+<div created="20141020005735103" modified="20141020005856610" title="Características y funcionamiento del servicio DNS">
+<pre>!!!Características fundamentales
+*Ofrece un servicio de almacenamiento y consulta de información. Se trata de una base de datos distribuida entre múltiples equipos (''servidores de nombres'').
+*La información se ordena según un esquema de nombres jerárquico (''espacio de nombres de dominio'').
+*Las consultas las realizan los clientes DNS y para ello utilizan el ''protocolo DNS''.
+*DNS puede almacenar varios tipos de información y por ello se puede utilizar para varios propositos. Los más comunes son:
+**Resolución directa de nombres (búsqueda directa): obtener la información asociada a un nombre (normalmente IP).
+**Resolución inversa de direcciones (búsqueda inversa): obtener el nombre/s asociado a una IP.
+**Resolución de servidores de correo: dado un nombre de dominio (//gmail.com//) obtener el servidor a través del cual debe realizarse la entrega de correo electrónico. (&quot;gmail-smtp-in.l.google.com&quot;).
+**Otros propósitos: ubicación de servidores para un servicio determinado, listas negras de //spam//, obtención de claves públicas, etc.
+!!!Componentes
+*''Espacio de nombres de dominio (//domain name space//) '': conjunto de nombres que se pueden utilizar para identificar máquinas o servicios de una red.
+*''Base de datos DNS'': Base de datos ''distribuida y redundante'' que almacena información sobre los nombres de dominio. Esta base de datos se organiza en ''zonas'' que almacenan lo que se conoce como ''registros de recursos RR //Resource Records//''
+*''Servidores de nombres ( o servidores DNS) (//name servers//)'': Programas que guardan y gestionan parte de la base de datos DNS (zonas) y que responden a las consultas de los diversos clientes.
+*''Clientes DNS (//resolvers//)'': Programas que realizan consultas a los servidores DNS.
+*''Protocolo DNS'': Conjunto de normas y reglas que siguen los servidores y clientes DNS para comunicarse.
+!!!Funcionamiento:
+*El servicio DNS sigue el modelo cliente/servidor.
+*Los clientes DNS (//resolvers//) preguntan a los servidores DNS y estos responden con la información solicitada.
+*Los servidores pueden: 
+**Realizar preguntas a otros servidores de nombres cuando no tienen la información que les piden.
+**Pueden intercambiar información sobre sus zonas (''tranferencias de zonas'')</pre>
+</div>
+<div created="20141020010433486" modified="20141020011233613" title="Clientes DNS (resolver)">
+<pre>;Resolver
+:cualquier software capaz de preguntar a un servidor DNS e interpretar sus respuestas.
+*Los SO incluyen o permiten instalar un conjunto de librerías, denominadas ''stub resolver'', que realizan estas funciones. Son invocadas por las aplicaciones cuando se utiliza un nombre de dominio.
+*La forma de resolver el nombre de dominio es configurable. Lo más habitual es:
+**El //resolver// consulta la caché de resolución de nombres (si está configurada).
+**Si no está en cache, el //resolver// buscará el archivo //hosts// local. (Linux: /etc/hosts. y Windows: %SYSTEMROOT%\system32\drivers\etc\hosts)
+**Si no está en //hosts//, el //resolver// efectuará una consulta recursiva al servidor de nombres que esté configurado.
+!!Proceso de resolución
+Las consultas a un servidor DNS pueden ser de dos tipos: recursivas o iterativas.
+
+__Consultas recursivas__
+
+Es aquella en la que el servidor tiene que dar una respuesta completa o exacta. Hay tres posibles respuestas:
+
+*Respuesta positiva: da la información solicitada indicando si es autoriazada o no. No se puede averiguar si el servidor que responde con autoridad es maestro o esclavo.
+*Respuesta negativa (NXDOMAIN): indica que el nombre no se pudo resolver.
+*Una indicación de error. Por ejemplo, que no se pudo preguntar a otros servidores por problemas en la red.
+Cuando un servidor recibe una consulta recursiva:
+
+*1-Si es autorizado para alguna zona (maestro o esclavo) comprueba sus archivos de zona. Si encuentra la respuesta responde indicando que la respuesta es autoritativa.
+*2-Si no encuentra la respuesta o no es autorizado y actúa como cache, consulta su cache de respuestas anteriores. Si encuentra la respuesta responde indicando que la respuesta no es autoritativa.
+*3-En otro caso:
+**Si tiene configurados reenviadores entonces reenvía la consulta recursiva a otro servidor DNS. La respuesta que obtenga se la traslada al cliente o el servidor que le preguntó.
+**Si no tiene configurados reenviadores:
+***Inicia una serie de consultas iterativas a otros servidores DNS.
+***Los servidores DNS consultados devuelven referencias (//referrals//) a otros servidores DNS que se usan para realizar otra pregunta.
+***La recursividad finaliza siempre cuando un servidor autorizado del espacio de nombres proporcione una respuesta positiva o negativa.
+Nota 1: Si un servidor que actúa como cache obtiene la respuesta directamente de un servidor maestro, dará una respuesta autoritativa. Si la obtiene de cache dará una respuesta no autoritativa.    
+
+Nota 2: Para que un servidor resuelva consultas recursivas tiene que tener activada la recursividad. La recursividad está asociada con el comportamiento del servidor como caché.           
+
+&lt;&lt;&lt;
+
+Ejemplo:
+
+[img[Consulta Recursiva|https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQJFlgQz3BB_lzrYFagfITLZo15EAkDS74kBEKUc0wPd263P9yD]]
+
+         
+''Paso1'':
+Usuario teclea en el navegador www.rediris.es. El navegador utilizará las librerías locales (//resolver//) para resolver el nombre. Dichas librerías mirarán primero en la caché local y después realizarán una consulta recursiva al servidor que tengan en la configuración.
+
+''Paso 2'':
+El servidor recibe la consulta y, antes que nada, mira en su caché. A continuación, realizará una consulta iterativa.
+
+''Paso 3'':
+El servidor realiza la misma consulta que recibió del cliente a uno de los servidores raíz. El servidor sabe quienes son los servidores raíz porque almacena el fichero //hits file//. Por ejemplo, a.root-servers.net.
+El servidor raíz tendrá algo así:
+
+```
+es.   IN NS b.nic.es.
+b.nic.es.  IN A 195.81.201.11
+```
+
+El servidor raíz que ha recibido la consulta iterativa responde con un listado de servidores autorizados para el dominio &quot;es.&quot;
+
+''Paso 4'':
+El servidor DNS realiza una consulta iterativa a uno de los servidores autorizados del dominio &quot;es&quot; (normalmente, al primero de la lista)
+
+''Paso 5'':
+El servidor autorizado para &quot;es.&quot; tendrá información del dominio &quot;rediris.es.&quot;
+
+```
+rediris.es   IN NS ns1.rediris.es
+ns1.rediris.es IN A 193.100.200.100
+```
+
+Por lo tanto, el servidor autorizado para el dominio &quot;es.&quot; devuelve un listado de los servidores autorizados en los que ha delegado el dominio &quot;rediris.es&quot;
+
+''Paso 6'':
+El servidor DNS realiza una consulta iterativa a uno de los servidores autorizados del dominio &quot;rediris.es.&quot; (normalmente, al primero de la lista)
+
+''Paso 7'':
+El servidor autorizado para &quot;rediris.es&quot; contestará autoritativamente.
+
+```
+www.rediris.es.   IN A 193.100.200
+```
+''Paso 8'':
+El servidor DNS reenviará la respuesta obtenida al cliente que la solicitó.
+
+Pregunta: ¿Qué pasará si ahora algún otro cliente consulta www.redpupila.es?
+&lt;&lt;&lt;
+
+__Consultas Iterativas__
+
+Una consulta iterativa (o no recursiva) es aquella en la que el servidor DNS puede proporcionar una respuesta parcial. Hay cuatro posibles respuestas:
+
+*Respuesta positiva, es decir, da la información del nombre por el que se ha preguntado. En ella se indica si es autorizada o no.
+*Respuesta negativa, indica que el nombre no se pudo resolver (NXDOMAIN).
+*Respuesta indicando una referencia a otros servidores, autorizados o no, a los que se puede preguntar (algo que no es válido en el caso de una consulta recursiva).
+*Una indicación de error.
+Cuando un servidor recibe una consulta iterativa:
+
+*Si es autorizado para alguna zona (maestro o esclavo) comprueba sus archivos de zona y da una respuesta autoritativa.
+*Si no encuentra la respuesta o no es autorizado y actúa como caché, consulta su caché de respuestas anteriores. Si encuentra la respuesta responde indicando que no es autoritativa.
+*Si no se encuentra respuesta exacta con el nombre, devuelve una referencia que apunta a un servidor DNS que está autorizado para un nivel inferior del espacio de nombres de dominio. (Ejemplo anterior)
+!!Caché y TTL
+*Clientes y servidores DNS mantienen en memoria caché, si están configurados para ello, las respuestas que reciben tanto si son positivas o negativas (nombres que no existen).
+*El tiempo que guardan las respuestas en caché se denomina TTL (//Time To Live//) y se define en los archivos de zona de los servidores. Habrá un TTL para respuestas positivas y un TTL para respuestas negativas
+*La RFC 1912 recomienda un valor TTL positivo de 1día o mayor (2 o 3 semanas)
+*La RFC 2308 recomienda un valor TTL negativo de como máximo 3horas.</pre>
+</div>
+<div created="20141012221525617" modified="20141020005442953" tags="Índice" title="Contenido">
 <pre>''Servicios de configuración automática de red''
 
 #[[Introducción DHCP]]
 #[[Definiciones]]
-#[[Funcionamiento]]</pre>
+#[[Funcionamiento]]
+
+''Servicio de nombres de dominio''
+
+#[[Introducción DNS]]
+#[[Características y funcionamiento del servicio DNS]]
+#[[Espacio de nombres de dominio]]
+#[[Servidores de nombres]]
+#[[Clientes DNS (resolver)]]
+#[[Resolución recursiva]]
+#[[Registro de recursos]]
+#[[DNS Dinámico]]</pre>
 </div>
 <div created="20141016153204089" modified="20141016153247219" tags="Índice" title="Cosillas">
 <pre>&lt;&lt;list-links &quot;[tag[Cosillas]]&quot;&gt;&gt;</pre>
@@ -4930,17 +5276,66 @@ El plazo del contrato o concesión es el tiempo en que un cliente DHCP  mantiene
 *Cada vez que el cliente arranca, cada cierto tiempo o bien cuando se alcanza el límite de concesión, el cliente tiene que solicitar su renovación. El servidor, puede extender el plazo de la concesión al cliente o asignar otra nueva.
 *Para determinar el tiempo de concesión es necesario analizar las características de la red. En una red con un gran número de direcciones IP disponibles y donde la configuración de los clientes raramente cambia, el administrador podría incrementar el tiempo de concesión para reducir el tráfico derivado de las solicitudes de renovación por parte de los clientes. Si, por el contrario, una red tiene un número limitado de direcciones IP y donde la configuración de clientes cambia frecuentemente, el administrador puede reducir el tiempo de concesión para que las direcciones IP que ya no estén siendo usadas puedan estar disponibles para nuevas asignaciones.</pre>
 </div>
+<div created="20141020012237430" modified="20141020012247998" title="DNS Dinámico">
+<pre>Las actualizaciones de los archivos de zona se pueden realizar de forma manual o dinámica.
+
+*''Actualizaciones manuales'': Responsabilidad del administrador. Si el archivo es grande e incluye varias redes las probabilidades de error humano son altas y el coste es elevado.
+*''Actualizaciones dinámicas'': proceso por el cual una fuente externa (cliente DNS, servidor DHCP) actualiza los recursos de zona. Es un proceso automático, el administrador no edita los archivos de zona. Las actualizaciones pueden estar realizadas:
+**Directamente por los equipos: Se configura el cliente DNS de cada equipo y el servidor DNS para que admitan este tipo de actualizaciones. 
+**Servidor DHCP: Los clientes envían su nombre al DHCP y éste actualiza el registro DNS. El proceso sería:
+**#CLIENTE DHCP AL Servidor DHCP: Dame una IP, soy Neptuno. (También puede suceder que sea el propio DHCP quién le otorgue un nombre)
+**#Servidor DHCP: te doy IP y tu nombre de dominio es neptuno.asix.cat.
+**#Servidor DHCP: actualiza el  servidor DNS tanto el de resolución directa como el de resolución inversa.</pre>
+</div>
 <div draft.of="$:/ControlPanel" draft.title="$:/ControlPanel" modified="20141006094659051" title="Draft of '$:/ControlPanel'">
 <pre>&lt;div class=&quot;tc-control-panel&quot;&gt;
 &lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/ControlPanel]!has[draft.of]]&quot; &quot;$:/core/ui/ControlPanel/Info&quot;&gt;&gt;
 &lt;/div&gt;
 </pre>
 </div>
-<div created="20141016153204089" draft.of="Cosillas" draft.title="Cosillas" modified="20141016161623400" tags="Índice" title="Draft of 'Cosillas'">
-<pre>&lt;&lt;list-links &quot;[tag[Cosillas]]&quot;&gt;&gt;</pre>
-</div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
 <pre></pre>
+</div>
+<div created="20141020005934470" modified="20141020010135214" title="Espacio de nombres de dominio">
+<pre>;Definición
+:El espacio de nombres de dominio es el conjunto de nombres que se pueden utilizar para identificar máquinas o servicios de una red.
+;Nombres de dominio
+:Cada nombre de dominio puede estar formado por una o varias cadenas de caracteres separadas por puntos. No se distinguen entre mayúsculas y minúsculas.
+&lt;&lt;&lt;
+Ejemplos:
+&quot;pc01.xarxes.asix.cat.&quot;
+&quot;com.&quot;
+&quot;google.com.&quot;
+&lt;&lt;&lt;
+:El ''espacio de nombres'' se puede representar mediante una estructura jerárquica organizada en forma de árbol.
+[img[arbol dns|http://www.mastermagazine.info/termino/wp-content/uploads/DNS.png]]
+
+:Se pueden usar nombres que tengan como máximo 127 niveles y cada parte separada por puntos hasta 63 caracteres. En total no puede superar los 255 caracteres.
+;Dominio raíz. Dominio y subdominios
+:El árbol de dominio empieza en el dominio &quot;.&quot; que se conoce como ''dominio raíz''.
+:Podemos usar los términos domino y subdominio al igual que en un sistema de archivos hablamos de directorios y subdirectorios. Así &quot;asix.cat.&quot; es subdominio de &quot;cat.&quot; y &quot;xarxes.asix.cat.&quot; es subdominio de &quot;asix.cat.&quot;
+;Dominios de primer nivel
+:Son ''TLD Top Level Domains'' o dominios de nivel superior y son los dominios que cuelgan del dominio raíz. Los que cuelgan de los dominios de primer nivel se denominan dominios de segundo nivel y así sucesivamente.
+;Nombres absolutos
+:Nombre formado por todas las partes separadas por puntos desde el nodo correspondiente hasta el dominio raíz. También se les denomina como nombres de dominio completos (FQDN = //Fully Qualified Domain Names//). El &quot;.&quot; final nos permite distinguir si un nombre es FQDN o no.
+!!Administración de nombres de dominio en Internet. Delegación.
+*La administración y organización del espacio de nombres de dominio de Internet se distribuye entre múltiples empresas y organizaciones, estando coordinada por la ''ICANN'' (//Internet Corporation for Assigned Names and Numbers//).
+*ICANN se encarga de mantener el dominio raíz y de mantener los dominios de nivel superior (TLD) existentes. ~InterNIC es la organización asociada a ICANN que permite registrar dominios TLD.
+*Los TLD son clasificados por la ICANN en:
+**''Genéricos (gTLD)'': nombre significativo en función del propósito o del tipo de organización que lo utiliza. Se clasifican a su vez en:
+***Dominios patrocinados (sTLD //sponsored TLD//): operan según las reglas de una entidad que soporta su patrocinio (&quot;aero&quot;, &quot;cat&quot;, &quot;coop&quot;, &quot;edu&quot;, &quot;gov&quot;, etc.)
+***Dominios no patrocinados (uTLD //unsponsored TLD//): operan según las reglas del ICANN con unas políticas globales (&quot;com&quot;, &quot;info&quot;, &quot;org&quot;, &quot;net&quot;, ...).
+**''Geográficos ((ccTLDs //country code ~TLDs//)'': nombres de dos letras establecidos en función de países o regiones. Las tareas de gestión se delegan a una entidad del país o territorio (&quot;es&quot;, &quot;fr&quot;, &quot;np&quot; (nepal),...).
+**''&quot;arpa&quot;'': dominio que se utiliza para la infraestructura técnica de Internet. ICANN lo administra en cooperación con la comunidad técnica de Internet bajo la dirección de la ''IAB''(Internet Architecture Board). 
+**''Dominios reservados'': dominios para pruebas privadas, ejemplos de documentación, etc. (&quot;test&quot;, &quot;localhost&quot;, ...)
+*La administración de cada TLD (incluyendo gestión y registro de dominios de segundo nivel) es delegado en una organización concreta. Estas organizaciones se denominan operadores de registro (//registry operators//) o patrocinadores (//sponsors//) y están acreditadas por la ICANN. Por ejemplo, la ICANN ''delega'' en ''Red.es'' la administración del dominio &quot;es&quot;.
+*Delegación: una organización que administra un dominio cede la gestión de uno, varios o todos sus subdominios a otras organizaciones. Gracias a la delegación se puede conseguir una administración descentralizada de DNS. Ejemplo: Red.es cede a la universidad de Valencia la gestión de uv.es y ésta a su vez cede el dominio mates.uv.es al departamento de matemáticas.
+*La organización que administra un dominio es responsable de los nombres usados en ese dominio, de las direcciones IP asociadas a ellos y, del funcionamiento y mantenimiento de los servidores que almacenan esta información.
+!!Registro de dominios. Agentes registradores
+*Registrar un dominio consiste en &quot;reservar&quot; el nombre durante un tiempo (normalmente, un año).
+*Un nombre de dominio puede ser registrado a través de diferentes compañías, conocidas como ''agentes registradores'' (//registrant//). Estos agentes asesoran a los registradores (personas, empresas u organizaciones que desean registrar un nombre) y tramitan la solicitud haciendo de intermediarios con los agentes de registro.
+*Los agentes registradores deben estar acreditados por los operadores de registro y tienen libertad para asignar una parte del precio del registro.
+</pre>
 </div>
 <div created="20141012221818208" modified="20141012221819892" title="Funcionamiento">
 <pre>El funcionamiento del servicio DHCP sigue estos pasos:
@@ -5008,6 +5403,224 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 :Es un protocolo de la capa de aplicación que implementa un servicio de configuración automática de red en redes TCP/IP. 
 *Inconvenientes de la configuración manual: tiempo de trabajo, errores, si un equipo cambia de ubicación y cambia de subred (portátiles-wifi) habrá de reconfigurarse, si hay que reestructurar la red habrá que reconfigurar todos los equipos, etc.
 *Ventajas DHCP: disminución de la carga de trabajo del administrador, reconfiguraciones y reestructuración donde no es necesaria la intervención del administrador, disminución de errores. Además, el tráfico de paquetes que genera el servicio es mínimo. Inconveniente: si falla DHCP, falla todo (por eso, los servidores de una red suelen configurarse manualmente)</pre>
+</div>
+<div created="20141020005511702" modified="20141020005701488" title="Introducción DNS">
+<pre>*Para facilitar el uso de los servicios y recursos que ofrece la red se han creado sistemas de nombres utilizados por ''servicios de resolución de nombres'' que permiten asociar nombres sencillos con direcciones numéricas. 
+*''Resolver un nombre'' es traducir un nombre de un recurso de la red en su dirección numérica.
+*El principal servicio de resolución de nombres sobre TCP/IP es el servicio ''DNS Domain Name System''.
+*Tipos de sistemas de nombres:
+**Sistemas de nombres planos: sin ningún tipo de agrupamiento, sin jerarquía que permita clasificarlos. Ejemplos: DNIs, nombres de las ciudades, nombres NETBIOS de //Windows//, etc.
+**Sistemas de nombres jerárquicos: uso de nombres agrupados según algún criterio (distribución geográfica, tamaño, etc.). Ejemplos: números de teléfono (0034933894455, 0034 Identifica a España, 93 Barcelona); nombres usados en los sistemas de ficheros de los sistemas operativos (C:\datos\apuntes.txt), etc.
+*''DNS ofrece un sistema de nombres jerárquico''.
+*Mini Historia DNS: 
+**Inicialmente se utilizaba un sistema de nombres planos. La relación entre IP y nombres se almacenaba en un archivo host.txt localizado en un servidor central. Los equipos obtenían periódiamente por FTP el archivo y así podían usar los nombres que contenía.
+**Cuando la red aumentó aparecieron los problemas: sobrecarga del servidor como consecuencia del aumento del tamaño del fichero y del número de descargas, sobrecarga de la red, aumento de la probabilidad de duplicidad de nombres, dificultad de administrar el fichero y gestionar las múltiples peticiones de nuevos nombres, etc.
+**En 1983 se creó el nuevo sistema DNS. Se buscaba que ofreciera: escalabilidad, administración descentralizada, velocidad, etc.</pre>
+</div>
+<div created="20141020011434908" modified="20141020012155848" title="Registro de recursos">
+<pre>!Formato general
+Los RR tienen dos representaciones: la textual y en binario. La representación en binario, definida en RFC 1035, es la utilizada en los mensajes del protocolo. Nosotros, lógicamente, veremos la representación textual.
+Formato:
+
+NombreDeDominio  [TTL] Clase Tipo Tipo-Dato
+
+*~NombreDeDominio: nombre del recurso.
+*TTL //Time To Live//: Número de segundos que puede estar el registro en caché. Opcional (Existirá un valor global, para todos los RR). Si es 0 quiere decir que no tiene que ser almacendo en caché.
+*Clase: Define la arquitectura. IN para TCP/IP.
+*Tipo: Para indicar tipo de registro. Son diferentes en función del campo clase. Para el campo IN existen muchos (A, CNAME, NS, MX,...)
+*~Tipo-Dato: Informción asociada al nombre de dominio. Varía en función del tipo de registro. (IP para Tipo A)
+!Tipos de registros
+[[Fuente|http://www.iana.org/assignments/dns-parameters/dns-parameters.xml]]
+
+*''Registro SOA'' (//Start Of Authority//): Es el primer registro de una zona y define una serie de opciones generales de la misma. 
+
+
+```
+asix.cat. IN SOA   ns1.asix.cat. admin.asix.cat. (
+                           1                                          ;Número de serie
+                            43200                                  ;Tiempo de refresco
+                            36800                                 ;Tiempo de reintento
+                            2419200                              ;Tiempo de expiración
+                            604800   )                            ;TTL Negativo
+```
+
+
+**MNAME: Nombre FQDN del servidor de nombres maestro del dominio. En el ejemplo: ns1.asix.cat.
+**Contacto (//Contact//): Correo de la persona responsable del dominio. La arroba se reemplaza por un punto. En el ejemplo: admin.asix.cat
+**Número de serie (//Serial//): Indica la versión del archivo de zona. Debe ser incrementado cada vez que el archivo se modifique. Es usado por los servidores secundarios para saber si deben realizar una transferencia de zona o no. Una práctica común es utilizar la fecha y dos dígitos más para modificaciones del mismo día.
+**Actualización (//refresh//): Tiempo que esperan los servidores esclavos para preguntar al servidor maestro si hay cambios en la zona. La RFC 1912 recomienda  entre 1200 (20 min) y 43200 (12 horas). Dependerá de la frecuencia de los cambios en los archivos de la zona. Si se usan notificaciones //NOTIFY// se puede usar un valor más alto (1 día o más).
+**Reintentos (//retry//): Si la transferencia de zona ha fallado, indica el tiempo que espera el servidor secundario hasta volver a intentarlo. Valores inferiores a los de refresco, normalmente.
+**Caducidad (//expire//): Determina el tiempo que el servidor esclavo puede estar intentando contactar con el maestro para ver si hay cambios en la zona. Si el tiempo expira el servidor esclavo considera que algo ha pasado y se declara como no autorizado para la zona, y por lo tanto, no responde a preguntas sobre esa zona. La RFC 1912 recomienda valores entre 2 y 4 semanas.
+**TTL negativo (//Time To Live//): Tiempo mínimo que almacenan las respuestas negativas sobre esa zona. Diferente a los TTL de los RR.
+*''Registro NS''(//Name Server//): Permite establecer quién o quiénes son los servidores de una zona. También se utiliza en el caso de querer delegar la autoridad  de un subdominio a otro servidor.
+
+```
+asix.cat.         IN    NS      ns1.asix.cat                 ;Servidor maestro
+asix.cat.         IN    NS      ns2.asix.cat                 ;Servidor DNS esclavo.
+
+ns1.asix.cat.  IN   A   193.100.200.100
+ns2.asix.cat.   IN   A   193.100.200.100
+
+;Delegación
+xarxes.asix.cat     IN        NS         ns1.xarxes.asix.cat.
+sistemes.asix.cat        IN       NS       dns.asix.org.
+
+ns1.xarxes.asix.cat    IN  A   193.100.40.100      ;  GLUE Record
+```
+
+**Cada zona debe de contener, como mínimo, un registro NS. 
+**Cada zona debe contener, al menos, un registro NS por cada subdominio que haya delegado.
+*''Registro A'' (//Address//): Establece una correspondencia entre un nombre de dominio completamente cualificado (FQDN) y una dirección IP versión 4.
+*''Registro AAAA'': Establece una correspondencia entre un nombre de dominio completamente cualificado (FQDN) y una dirección IP versión 6.
+```
+asterix.asix.cat.    IN    AAAA   2001:DB8::64
+```
+
+*''Registro CNAME'' (//Canonical Name//): permite crear alias para nombres de dominio especificados en registros A y AAAA. 
+```
+www.obelix.asix.cat       IN     A        193.100.200.111
+www.asix.cat.        IN     CNAME     www.obelix.asix.cat 
+
+;CNAME puede apuntar a un nombre de otro dominio
+www.asix.cat.    IN    CNAME     www.obelix.cat.
+
+;CNAME no se debe usar en la parte derecha de los registros MX o NS
+asix.cat.                    IN                  dns.asix.cat.                    ;INCORRECTO dns es un CNAME
+
+ns1.asix.cat.         IN     A           193.100.200.112
+dns.asix.cat.        IN      CNAME        ns1.asix.cat.
+```
+*''Registro MX'' (//Mail Exchange//): permite definir equipos encargados de la entrega de correo en el dominio. Son consultados por los agentes de transporte de correo SMTP, los MTA. Como se pueden indicar varios servidores de correo , en cada registro MX se puede especificar la preferencia de unos sobre otros. Un número más pequeño indica mayor preferencia.
+```
+asix.cat.          IN          MX        10       mail1.asix.cat.         ; servidor de mayor preferencia.
+asix.cat.          IN          MX         20       mail2.asix.cat.
+
+mail1.asix.cat.     IN         A                   193.100.200.221
+mail2.asix.cat.      IN         A                     193.100.200.222
+```
+*''Registro  SRV'' (//Service Record//): permite definir equipos que soportan un servicio en particular. [[RFC 2782|http://tools.ietf.org/html/rfc2782]]
+```
+_http._tcp.asix.cat.   IN  SVR    0  5  80  www.asix.cat.
+_ldap._tcp.asix.cat.    IN       SVR          0  0  389    ldap.asix.cat.
+```
+*''Registro PTR'' (//Pointer Record//) establece una correspondencia entre nombres de direcciones ~IPv4 e ~IPv6 y nombres de dominios. Se utiliza en las zonas de resolución inversa.
+```
+100.200.100.193.in-addr.arpa.  IN  PTR  ns1.asix.cat.
+200.200.100.193.in-addr.arpa   IN  PTR ns2.asix.cat.
+```
+</pre>
+</div>
+<div created="20141020011310818" modified="20141020011328938" title="Resolución recursiva">
+<pre>*La resolución de direcciones funciona igual que la resolución de nombres de dominio. Las direcciones IP se tratan como nombres donde cada //byte// es un dominio que cuelga de los dominios &quot;in-addr.arpa&quot; para ~IPv4 e &quot;ip6.arpa&quot; para ~IPv6.  Es decir cuando cuando preguntamos por el nombre de dominio que corresponde a 192.168.200.100, realmente estamos preguntando por el nombre de dominio &quot;100.200.168.192.in-addr.arpa&quot;
+*Los servidores tienen que almacenar zonas de resolución inversa con registros de recursos que asocien nombres de dominio con direcciones IP. Pueden existir zonas de resolución inversa maestra o primaria, y zonas de resolución inversa esclavas o secundarias. 
+*La coherencia entre ambas zona directa e inversa es responsabilidad del administrador. No es obligatorio que un organismo o empresa que administra una zona directa tenga que administrar las zonas inversas asociadas. (De hecho,si contratamos un dominio normalmente no incluirán en la zona de resolución inversa. Hay que solicitarlo)
+[img[Resolución inversa|http://es.tldp.org/LinuxFocus/pub/mirror/LinuxFocus/Castellano/May1998/img45/arpa-e.gif]]
+
+*El proceso de resolución  inversa es similar al de resolución directa. Existen consultas recursivas, iterativas, caché, TTL, etc.</pre>
+</div>
+<div created="20141020010218108" modified="20141020010359679" title="Servidores de nombres">
+<pre>*Son programas que guardan la información sobre nombres de dominio y responden las preguntas de los clientes DNS y otros servidores de nombres. Almacenan, por tanto, una parte de la base de datos DNS.
+*Escuchan peticiones en los puertos 53/TCP y 53/UDP.
+*Cada servidor de nombres mantiene información de una parte del espacio de nombres de dominio que se conoce como ''zona''. Cuando un servidor contiene una zona se dice que es ''autorizado'' (//autoritative//) para esa zona.
+*Las zonas se almacenan en ficheros de texto o en bases de datos (relacionales, LDAP, etc). (Formato definido en RFC 1035)
+*Veamos un fichero de zona (imagen) del dominio  &quot;asix.cat&quot;. En concreto veamos el fichero de resolución directa del dominio &quot;asix.cat&quot; que se almacena en un servidor DNS que está en el equipo con IP 192.168.1.1 y cuyo nombre es ns1.asix.cat:
+
+```
+...
+asix.cat              IN      NS      ns1.asix.cat
+ns1.asix.cat        IN     A         192.168.1.1
+obelix.asix.cat     IN     A         192.168.1.2
+asterix.asix.cat    IN    A          192.168.1.3
+www.asix.cat      IN    CNAME    obelix.asix.cat
+ftp.asix.cat          IN    CNAME    asterix.asix.cat
+...
+```
+*Cada línea del fichero se denomina ''registro de recursos'' (//RR Resource Records//).
+*El administrador del servidor puede decidir si delega o no alguno de sus subdominios:
+
+```
+...
+asix.cat              IN      NS      ns1.asix.cat
+ns1.asix.cat        IN     A         192.168.1.1
+obelix.asix.cat     IN     A         192.168.1.2
+asterix.asix.cat    IN    A          192.168.1.3
+www.asix.cat      IN    CNAME    obelix.asix.cat
+ftp.asix.cat          IN    CNAME    asterix.asix.cat
+
+;Subdominio xarxes.asix.cat delegado
+
+xarxes.asix.cat      IN       NS           ns2.xarxes.asix.cat
+ns2.xarxes.asix.cat     IN          A      192.168.1.20
+
+;Subdominio bbdd.asix.cat no es delegado
+
+www.bbdd.asix.cat       IN         A         192.168.1.4
+pc01.bbdd.asix.cat        IN        A          192.168.1.5
+pc02.bbdd.asix.cat        IN        A          192.168.1.6
+...
+```
+*Una zona no es lo mismo que dominio (como se observa en el ejemplo anterior donde hay dos dominios (asix.cat y bbdd.asix.cat) en una sola zona). Un dominio es un subárbol del espacio de nombres. Los datos asociados a los nombres de un dominio pueden estar almacenados en una o varias zonas.
+!!Tipos de servidores de nombres
+Según la función que realizan los servidores de nombres se pueden clasificar (Ojo. Hay que tener en cuenta que un mismo servidor puede combinar varias de estas funciones simultáneamente):
+
+*''Servidor maestro (o primario)'':
+**Define una o varias zonas para las que es autorizado. Sus archivos de zonas son los que el administrador ha de modificar para añadir/borrar/actualizar nombres de dominio.
+**Si un cliente le pregunta por un nombre de dominio para el que es autorizado, consulta sus ficheros de zona y responde.
+**Si un cliente (o servidor) le pregunta por un nombre para el que no es autorizado, habrá de buscar información en otros servidores DNS o responder que no conoce la respuesta.
+*''Servidor esclavo (o secundario)'':
+**Define una o varias zonas para las que es autorizado.
+**Obtiene los ficheros de zona de otro servidor autorizado para la zona (normalmente, el maestro) mediante un proceso que se denomina ''transferencia de zona''. 
+**Los ficheros de zona, por tanto, son sólo de lectura y el administrador no debe editar en ellos.
+**El funcionamiento ante las diferentes consultas de los clientes es similar al del maestro.
+**Un servidor DNS puede ser maestro para una o varias zonas y al mismo tiempo esclavo para otras.
+**Pueden existir varios servidores esclavos para una misma zona. Ventajas: reducir y repartir la carga, tolerancia a fallos, rapidez. Lo ideal es que los servidores DNS se encuentren en ubicaciones distintas de la red para evitar que un problema (fallo eléctrico, por ejemplo) les afecte simultáneamente.
+*''Servidor caché''
+**Para reducir la carga de los equipos, disminuir tráfico y, sobretodo, mejorar los tiempos de respuesta de las consultas, los servidores de nombres pueden actuar como servidores cache.
+**No tiene autoridad sobre ningún dominio.
+**Pregunta a otros servidores para resolver las peticiones de los clientes DNS.
+**Los servidores caché guardan durante un tiempo (''TTL //Time To Live//'') las respuestas a las últimas preguntas que ha realizado a otros servidores de nombres. Así, cuando recibe una petición de un cliente lo primero que hace es consultar su memoria caché.
+*''Servidor reenviador (//forwarder//)''
+**Es un servidor DNS que otros servidores DNS designan para reenviarle consultas.
+**Se utiliza para minimizar las consultas y el tráfico desde una red hacia Internet. Permite a los equipos locales compartir la caché del reenviador minimizando los tiempos de respuesta.
+*''Servidor solo autorizado''
+*Es autorizado para una o varias zonas como maestro y/o esclavo.
+*No responde a preguntas que no sean relativas a sus zonas, es decir, no pregunta a otros servidores de nombres. Esto implica que no tiene actividad la recursividad, no es reenviador y no actúa como caché.
+!!Ejemplos de servidores de nombres
+Los más utilizados son:
+
+*BIND (isc, libre)
+*Servidor DNS de Microsoft 
+*~PowerDNS (www.powerdns.com)
+*Simple DNS (www.simpledns.com)
+*Cisco Network Registrar
+*//dnsmasq//</pre>
+</div>
+<div created="20141018095939508" modified="20141018100144327" title="Temporización">
+<pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
+</div>
+<div created="20141018100202249" modified="20141020014040099" tags="Índice" title="UF1_temporización">
+<pre>__''22-09'' al ''13-10''__
+
+&lt;&lt;&lt;
+*Permiso por paternidad: me sustituye Radha
+*Se sigue el moodle (antiguo) de la asignatura
+*Se trabaja conceptos básicos de redes, necesarios para el desarrollo de la asignatura
+*Este periodo representan 10 horas de la UF1
+&lt;&lt;&lt;
+__''13-10''__
+
+&lt;&lt;&lt;
+*2h (12h)
+*Explico DHCP: [[Introducción DHCP]],  [[Definiciones]], [[Funcionamiento]]
+*Propongo actividad: [[01_Instalación DHCP]]
+&lt;&lt;&lt;
+__''16-10''__
+
+&lt;&lt;&lt;
+*2h (14h)
+*Seguimos con la actividad: [[01_Instalación DHCP]]
+*Explico cómo manejar máquinas virtuales vía clonación de .vdi o mediante Vagrant. Realizo un pequeño ejemplo de documentación y explico cómo lo &quot;subo&quot; al repositorio git: [[Vagrant: lo más sencillo]]
+&lt;&lt;&lt;</pre>
 </div>
 <div created="20141016153300883" modified="20141016163748717" tags="Cosillas" title="Vagrant: lo más sencillo">
 <pre>*Creo directorio en mi home `mkdir MáquinasVirtuales`
