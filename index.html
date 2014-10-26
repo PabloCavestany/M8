@@ -169,6 +169,10 @@ Error message and password prompt
 
 <li>Definiciones</li>
 
+<li>Delegación DNS</li>
+
+<li>DHCP con dos interfaces</li>
+
 <li>DNS Dinámico</li>
 
 <li>Draft of '$:/ControlPanel'</li>
@@ -181,15 +185,23 @@ Error message and password prompt
 
 <li>Índice</li>
 
+<li>Instalar Ipcop</li>
+
 <li>Introducción DHCP</li>
 
 <li>Introducción DNS</li>
+
+<li>IpCop</li>
+
+<li>IpCop DNS</li>
 
 <li>Registro de recursos</li>
 
 <li>Resolución recursiva</li>
 
 <li>Servidores de nombres</li>
+
+<li>Tcpdump</li>
 
 <li>Temporización</li>
 
@@ -4758,8 +4770,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20141020013851836" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20141026215849884" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4770,7 +4782,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="" title="$:/StoryList">
+<div list="Actividades Tcpdump [[Delegación DNS]] [[IpCop DNS]] IpCop [[Instalar Ipcop]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5095,8 +5107,38 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141012221844948" modified="20141012224858468" tags="Índice" title="Actividades">
-<pre>&lt;&lt;list-links &quot;[tag[Actividades]]&quot;&gt;&gt;</pre>
+<div created="20141012221844948" modified="20141026232016806" tags="Índice" title="Actividades">
+<pre>@@background-color:grey;
+DHCP
+@@
+''Proyectos básicos DHCP''
+
+&gt;[[01_Instalación DHCP]]
+
+''Proyectos no básicos DHCP''
+
+&gt;[[IpCop]]
+&gt;[[DHCP con dos interfaces]]
+&gt;[[Tcpdump]]
+
+@@background-color:grey;
+DNS
+@@
+''Proyectos básicos DNS''
+
+&lt;&lt;&lt;
+[[02_Comandos nslookup, host, dig]]
+
+[[03_Servidor Bind como caché y reenviador]]
+
+[[04_Instalación Servidor DNS]]
+&lt;&lt;&lt;
+''Proyectos no básicos DNS''
+
+&lt;&lt;&lt;
+[[IpCop DNS]]
+
+[[Delegación DNS]]</pre>
 </div>
 <div created="20141020005735103" modified="20141020005856610" title="Características y funcionamiento del servicio DNS">
 <pre>!!!Características fundamentales
@@ -5276,6 +5318,13 @@ El plazo del contrato o concesión es el tiempo en que un cliente DHCP  mantiene
 *Cada vez que el cliente arranca, cada cierto tiempo o bien cuando se alcanza el límite de concesión, el cliente tiene que solicitar su renovación. El servidor, puede extender el plazo de la concesión al cliente o asignar otra nueva.
 *Para determinar el tiempo de concesión es necesario analizar las características de la red. En una red con un gran número de direcciones IP disponibles y donde la configuración de los clientes raramente cambia, el administrador podría incrementar el tiempo de concesión para reducir el tráfico derivado de las solicitudes de renovación por parte de los clientes. Si, por el contrario, una red tiene un número limitado de direcciones IP y donde la configuración de clientes cambia frecuentemente, el administrador puede reducir el tiempo de concesión para que las direcciones IP que ya no estén siendo usadas puedan estar disponibles para nuevas asignaciones.</pre>
 </div>
+<div created="20141026231555545" modified="20141026231806247" title="Delegación DNS">
+<pre>Hay que conseguir tener dos servidores DNS. Uno controla el dominio &quot;asix.net&quot; y el otro &quot;oficinas.asix.net&quot;. Es decir, el primero delega la gestión del dominio &quot;oficinas&quot; al segundo.</pre>
+</div>
+<div created="20141026230015903" modified="20141026230213797" title="DHCP con dos interfaces">
+<pre>Configura un servidor DHCP conectado a dos redes y dando servicio a las dos.
+En la primera, el rango de IPs será de 192.168.1.100 a 192.168.1.200. En la segunda el rango será de 10.33.1.10 a 10.33.1.110.</pre>
+</div>
 <div created="20141020012237430" modified="20141020012247998" title="DNS Dinámico">
 <pre>Las actualizaciones de los archivos de zona se pueden realizar de forma manual o dinámica.
 
@@ -5398,6 +5447,31 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 <pre>&lt;&lt;list-links &quot;[tag[Índice]]&quot;&gt;&gt;
 </pre>
 </div>
+<div created="20141026225430645" modified="20141026225617714" title="Instalar Ipcop">
+<pre>Sigo el [[Manual|http://www.ipcop.org/2.0.0/en/install/html/introduction.html]]
+
+Requirimientos hardware: muy poquito. Apenas 512M de disco y 64M de RAM. Está pensado para ser instaldo en máquinas viejas. Arquitectura: x86
+!Decide on your configuration
+
+*¿Qué configuración queremos? Hay que leer [[Network interfaces|http://www.ipcop.org/2.0.0/en/install/html/preparation-network-interfaces.html]] Y, por tanto, ¿cuántas tarjetas de red necesitamos?
+*¿Cómo nos llega la conexión a internet? Es decir, ¿cómo configuramos la red RED? 
+*Decidimos rango de IPs para nuestra red GREEN
+
+!Instalamos sistema
+
+*Instalación típica: pide tipo teclado, franja horaria, si la instalación la queremos realizar en disco o en RAM. En un último diálogo nos pregunta que si queremos utilizar algún archivo de back up (por si estamos realizando una actualización del sistema (upgrade))
+*Una vez instalado, pasamos a la configuración. 
+**Pide nombre del  equipo
+**Pide nombre de dominio. Le doy a skip. No necesitaremos, en principio un nombre de dominio para alcanzar ipcop. Además es una mala práctica
+**Configuración de la red RED:
+***Hay que seleccionar cómo será la configuración de la interfaz: dhcp, estática, modem, etc. Yo elijo dhcp
+***Tendremos que seleccionar la tarjeta sobre la que queremos instalar la configuración RED. Nos guiaremos por la MAC de la tarjeta.
+***A continuación, seleccionamos la tarjeta para la interfaz GREEN. 
+***Ahora nos pide que seleccionemos la IP de nuestra máquina IpCop en la GREEN. Aceptaremos los valores por defecto.
+***En cuanto al nombre del host para el dhcp, le daremos a &quot;saltar&quot;.
+***Tampoco activaremos el servidor de DHCP
+***Pide contraseñas (yo utilizo qwert12345). Se crean los usuarios &quot;root&quot;, &quot;admin&quot; y &quot;backup&quot;</pre>
+</div>
 <div created="20141012221658797" modified="20141012221702014" title="Introducción DHCP">
 <pre>;Dinamic Host Configuration Protocol. Protocolo de configuración automática de hosts.
 :Es un protocolo de la capa de aplicación que implementa un servicio de configuración automática de red en redes TCP/IP. 
@@ -5416,6 +5490,19 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 **Inicialmente se utilizaba un sistema de nombres planos. La relación entre IP y nombres se almacenaba en un archivo host.txt localizado en un servidor central. Los equipos obtenían periódiamente por FTP el archivo y así podían usar los nombres que contenía.
 **Cuando la red aumentó aparecieron los problemas: sobrecarga del servidor como consecuencia del aumento del tamaño del fichero y del número de descargas, sobrecarga de la red, aumento de la probabilidad de duplicidad de nombres, dificultad de administrar el fichero y gestionar las múltiples peticiones de nuevos nombres, etc.
 **En 1983 se creó el nuevo sistema DNS. Se buscaba que ofreciera: escalabilidad, administración descentralizada, velocidad, etc.</pre>
+</div>
+<div created="20141026220017224" modified="20141026225859692" title="IpCop">
+<pre>IpCop es una distribución linux especializada. Pretende implementar un cortafuegos.
+En este proyecto se pide:
+
+#Instalar IpCop y crear una topología en la que tenemos dos redes. Una apunta a Internet y la otra es una intranet. A esta intranet la llamaremos red asix.net. Para instalar el sistema tienes una ayuda aquí: [[Instalar Ipcop]]
+#En la red interna montaremos un DHCP en una máquina independiente de Ipcop.
+#Con una tercera máquina probaremos que, con la configuración otorgada por el DHCP, se alcanza internet sin problemas.</pre>
+</div>
+<div created="20141026230938419" modified="20141026231413502" title="IpCop DNS">
+<pre>Añade a la estructura de oficina una red que haga de zona desmilitarizada (red ORANGE). En esta red (DMZ) añade un servidor DNS que sólo resuelva las consultas que le llegan y actúe de caché.
+
+Además, en la red asix.net, coloca un servidor DNS para nuestro dominio &quot;asix.net&quot;. Este será el servidor DNS por defecto. En el caso de no poder resolver una consulta, este servidor reenviará la pregunta al servidor situado en la DMZ.</pre>
 </div>
 <div created="20141020011434908" modified="20141020012155848" title="Registro de recursos">
 <pre>!Formato general
@@ -5594,6 +5681,9 @@ Los más utilizados son:
 *Simple DNS (www.simpledns.com)
 *Cisco Network Registrar
 *//dnsmasq//</pre>
+</div>
+<div created="20141026232023389" modified="20141026232138872" title="Tcpdump">
+<pre>Esnifa con la utilidad Tcpdump el contenido de una comunicación cliente-servidor en el típico caso de una concesión de parámetros de red. Interpreta cada uno de los paquetes interceptados.</pre>
 </div>
 <div created="20141018095939508" modified="20141018100144327" title="Temporización">
 <pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
