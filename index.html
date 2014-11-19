@@ -165,6 +165,8 @@ Error message and password prompt
 
 <li>Clientes DNS (resolver)</li>
 
+<li>Configuración básica en vsftp</li>
+
 <li>Contenido</li>
 
 <li>ContenidoUF1</li>
@@ -201,6 +203,8 @@ Error message and password prompt
 
 <li>IpCop DNS</li>
 
+<li>Posible uso de TFTP</li>
+
 <li>Registro de recursos</li>
 
 <li>Resolución recursiva</li>
@@ -217,6 +221,8 @@ Error message and password prompt
 
 <li>Temporización</li>
 
+<li>Temporización UF2</li>
+
 <li>UF1</li>
 
 <li>UF1_temporización</li>
@@ -224,6 +230,8 @@ Error message and password prompt
 <li>UF2</li>
 
 <li>Vagrant: lo más sencillo</li>
+
+<li>vsftp en modo pasivo</li>
 
 </ul>
 </p>
@@ -4786,8 +4794,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20141116225231463" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20141119005708033" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4798,7 +4806,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF1 ActividadesUF1 Actividades [[Instalación vsftp]] UF2 Contenido" title="$:/StoryList">
+<div list="Actividades [[Posible uso de TFTP]] [[vsftp en modo pasivo]] [[Configuración básica en vsftp]] UF2" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5123,14 +5131,25 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141116213710237" modified="20141116215821295" tags="UF2" title="Actividades">
+<div created="20141116213710237" modified="20141119010029025" tags="UF2" title="Actividades">
 <pre>@@background-color:grey;
 FTP
 @@
 ''Proyectos básicos''
 
 &lt;&lt;&lt;
-[[Instalación vsftp]]
+#[[Instalación vsftp]]
+#[[Configuración básica en vsftp]]
+&lt;&lt;&lt;
+@@background-color:grey;
+FTP
+@@
+''Proyectos no básicos''
+
+&lt;&lt;&lt;
+#[[vsftp en modo pasivo]]
+#[[Posible uso de TFTP]]
+
 &lt;&lt;&lt;</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
@@ -5291,6 +5310,13 @@ Cuando un servidor recibe una consulta iterativa:
 *El tiempo que guardan las respuestas en caché se denomina TTL (//Time To Live//) y se define en los archivos de zona de los servidores. Habrá un TTL para respuestas positivas y un TTL para respuestas negativas
 *La RFC 1912 recomienda un valor TTL positivo de 1día o mayor (2 o 3 semanas)
 *La RFC 2308 recomienda un valor TTL negativo de como máximo 3horas.</pre>
+</div>
+<div created="20141119005313519" modified="20141119005325521" title="Configuración básica en vsftp">
+<pre>Configura //vsftp// (comenta las líneas que añades a la configuración) para que:
+
+*Se permita la conexión a los usuarios locales.
+*Los usuarios locales podrán descargar y subir archivos.
+*Los usuarios locales estarán enjaulados en su directorio //home//.</pre>
 </div>
 <div created="20141116213738955" modified="20141116215452367" tags="UF2" title="Contenido">
 <pre>#[[Servicio FTP: definición y componentes]]
@@ -5600,6 +5626,33 @@ En este proyecto se pide:
 
 Además, en la red asix.net, coloca un servidor DNS para nuestro dominio &quot;asix.net&quot;. Este será el servidor DNS por defecto. En el caso de no poder resolver una consulta, este servidor reenviará la pregunta al servidor situado en la DMZ.</pre>
 </div>
+<div created="20141119005645561" modified="20141119010009438" title="Posible uso de TFTP">
+<pre>
+Una de las variantes del protocolo FTP es TFTP. 
+
+TFTP es un servicio ligero para la transferencia de archivos que no requiere autenticación de usuarios. Se trata de un servicio muy utilizado para transferir archivos de arranque a través de la red. 
+
+Una de las opciones de arranque de un ordenador es el arranque desde red. El computador, cuando optamos por esta forma de arranque, busca un dhcp que le otorgue una configuración de red, le indique la dirección del servid__Actividad_2__
+Una de las variantes del protocolo FTP es TFTP. 
+
+TFTP es un servicio ligero para la transferencia de archvos que no requiere autenticación de usuarios. Se trata de un servicio muy utilizado para transferir archivos de arranque a través de la red. 
+
+Una de las opciones de arranque de un ordenador es el arranque desde red. El computador, cuando optamos por esta forma de arranque, busca un dhcp que le otorgue una configuración de red, le indique la dirección del servidor TFTP y el archivo que debe solicitarle. Por tanto hay que configurar:
+
+*Un DHCP que traslade a los clientes la IP del servidor TFTP y el archivo de arranque que deben solicitarle 
+*Un servidor TFTP que atienda las peticiones y que albergue los diferentes archivos de arranque así como el entorno PXE.
+
+La receta para este guiso la tenéis:
+
+*[[Usando dnsmasq|http://sirlagz.net/?p=131]]
+*[[Usando dhcp3|http://www.debian-administration.org/articles/478]]
+
+Yo he utilizado para realizar la práctica un isc-dchpd-server como servidor DHCP (con el que ya estuvimos trabajando en la UF1) y el demonio atfpd como servidor TFTP. Aunque, obvíamente, podéis optar por cualquier otro (dnsmasq y tftpd-hpa, por ejemplo). Aconsejo ir montando, configurando y testeando cada servicio por separado y después, una vez comprobado que funcionan como deben, pasar a enlazarlos.
+
+El objetivo de la práctica es montar un servidor PXE que ofrezca a los clientes un abanico de posibilidades de arranque. En principio, con  ofrecer el memtest y algún núcleo más ([[uno interesante|http://clonezilla.org/livepxe.php]]) bastaría aunque os animo a añadir más. Sería conveniente, después de probar el montaje en local, testearlo con algún compañero de clase y reflexionar sobre qué problemas podrían aparecer si lo tuviésemos que montar en una red grande.
+
+Por último, documentar la práctica: enlaces interesantes, problemas que han surgido, soluciones, problemas sin solución (de momento), configuración del software, etc. No olvides leer todo lo que puedas sobre TFTP, el entorno PXE (pxelinux en este caso), opciones del dhcp, etc. </pre>
+</div>
 <div created="20141020011434908" modified="20141020012155848" title="Registro de recursos">
 <pre>!Formato general
 Los RR tienen dos representaciones: la textual y en binario. La representación en binario, definida en RFC 1035, es la utilizada en los mensajes del protocolo. Nosotros, lógicamente, veremos la representación textual.
@@ -5907,6 +5960,20 @@ Los más utilizados son:
 <div created="20141018095939508" modified="20141018100144327" title="Temporización">
 <pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
 </div>
+<div created="20141119000819003" modified="20141119001147796" tags="UF2" title="Temporización UF2">
+<pre>''17_lunes''
+
+&lt;&lt;&lt;
+*2h (2h)
+*Inicio de la UF2
+*Revisamos programación UF1 (cosas que se han quedado pendientes, cosas que sí se han visto,...)
+*Presento programación UF2. Explico cómo la voy a evaluar.
+*Explico FTP. En concreto: 
+**[[Servicio FTP: definición y componentes]]
+**[[Servicio FTP: tipos de acceso, conexiones y modos]]
+*Propongo actividad: [[Instalación vsftp]]
+&lt;&lt;&lt;</pre>
+</div>
 <div created="20141116213214919" modified="20141116213543825" tags="Índice" title="UF1">
 <pre>&lt;&lt;&lt;
 *[[ActividadesUF1]]
@@ -6008,6 +6075,9 @@ __''13-11''__
 ----
 !Manejo de la máquina
 *Para levantar la máquina `vagrant up`</pre>
+</div>
+<div created="20141119005349819" modified="20141119005521745" title="vsftp en modo pasivo">
+<pre>Configura //vsftp// para que trabaje en modo pasivo. ¿Cómo puedes demostrar que realmente está trabajando en modo pasivo?</pre>
 </div>
 
 </div>
