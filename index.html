@@ -203,6 +203,8 @@ Error message and password prompt
 
 <li>IpCop DNS</li>
 
+<li>IpCop+FTP</li>
+
 <li>Posible uso de TFTP</li>
 
 <li>Registro de recursos</li>
@@ -4794,8 +4796,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20141119005708033" title="$:/state/sidebar">
-<pre>no</pre>
+<div modified="20141123230107806" title="$:/state/sidebar">
+<pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4806,7 +4808,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Actividades [[Posible uso de TFTP]] [[vsftp en modo pasivo]] [[Configuración básica en vsftp]] UF2" title="$:/StoryList">
+<div list="Índice UF2 Actividades [[vsftp en modo pasivo]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5131,7 +5133,7 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141116213710237" modified="20141119010029025" tags="UF2" title="Actividades">
+<div created="20141116213710237" modified="20141123225912391" tags="UF2" title="Actividades">
 <pre>@@background-color:grey;
 FTP
 @@
@@ -5149,6 +5151,7 @@ FTP
 &lt;&lt;&lt;
 #[[vsftp en modo pasivo]]
 #[[Posible uso de TFTP]]
+#[[IpCop+FTP]]
 
 &lt;&lt;&lt;</pre>
 </div>
@@ -5626,9 +5629,15 @@ En este proyecto se pide:
 
 Además, en la red asix.net, coloca un servidor DNS para nuestro dominio &quot;asix.net&quot;. Este será el servidor DNS por defecto. En el caso de no poder resolver una consulta, este servidor reenviará la pregunta al servidor situado en la DMZ.</pre>
 </div>
+<div created="20141123225653878" modified="20141123231237258" title="IpCop+FTP">
+<pre>Esta actividad consiste en añadir a la red IpCop que ya teníamos montada en la unidad formativa anterior el servicio FTP. 
+
+__Ampliación__
+
+Una opción de estudio interesante (de cara a un proyecto de síntesis, por ejemplo) sería configurar el FTP para que trabaje en modo activo en la red interna y en modo pasivo cuando se acceda desde la red externa.</pre>
+</div>
 <div created="20141119005645561" modified="20141119010009438" title="Posible uso de TFTP">
-<pre>
-Una de las variantes del protocolo FTP es TFTP. 
+<pre>Una de las variantes del protocolo FTP es TFTP. 
 
 TFTP es un servicio ligero para la transferencia de archivos que no requiere autenticación de usuarios. Se trata de un servicio muy utilizado para transferir archivos de arranque a través de la red. 
 
@@ -5960,7 +5969,7 @@ Los más utilizados son:
 <div created="20141018095939508" modified="20141018100144327" title="Temporización">
 <pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
 </div>
-<div created="20141119000819003" modified="20141119001147796" tags="UF2" title="Temporización UF2">
+<div created="20141119000819003" modified="20141123224330914" tags="UF2" title="Temporización UF2">
 <pre>''17_lunes''
 
 &lt;&lt;&lt;
@@ -5972,6 +5981,17 @@ Los más utilizados son:
 **[[Servicio FTP: definición y componentes]]
 **[[Servicio FTP: tipos de acceso, conexiones y modos]]
 *Propongo actividad: [[Instalación vsftp]]
+&lt;&lt;&lt;
+''20_Jueves''
+
+&lt;&lt;&lt;
+*2h (4h)
+*Repasamos lo visto el día anterior
+*Explico [[Servicio FTP: Seguridad, FTPS, FXP, TFTP, SFTP/SCP]]
+*Propongo las actividades:
+**[[Configuración básica en vsftp]]
+**[[vsftp en modo pasivo]]
+**[[Posible uso de TFTP]]
 &lt;&lt;&lt;</pre>
 </div>
 <div created="20141116213214919" modified="20141116213543825" tags="Índice" title="UF1">
