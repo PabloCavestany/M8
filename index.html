@@ -191,6 +191,8 @@ Error message and password prompt
 
 <li>Índice</li>
 
+<li>Instalación Apache</li>
+
 <li>Instalación vsftp</li>
 
 <li>Instalar Ipcop</li>
@@ -216,6 +218,14 @@ Error message and password prompt
 <li>Servicio FTP: Seguridad, FTPS, FXP, TFTP, SFTP/SCP</li>
 
 <li>Servicio FTP: tipos de acceso, conexiones y modos</li>
+
+<li>Servicio Web: Alojamiento virtual de sitios web</li>
+
+<li>Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc</li>
+
+<li>Servicio Web: definición y componentes</li>
+
+<li>Servicio Web: protocolo HTTP</li>
 
 <li>Servidores de nombres</li>
 
@@ -4796,8 +4806,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20141123230107806" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20141130235047282" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4808,7 +4818,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF2 Actividades [[vsftp en modo pasivo]]" title="$:/StoryList">
+<div list="Índice UF2 Actividades [[Instalación Apache]] Contenido [[Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc]] [[Servicio Web: Alojamiento virtual de sitios web]] [[Servicio Web: protocolo HTTP]] [[Servicio Web: definición y componentes]] [[Temporización UF2]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5133,7 +5143,7 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141116213710237" modified="20141123225912391" tags="UF2" title="Actividades">
+<div created="20141116213710237" modified="20141201002737021" tags="UF2" title="Actividades">
 <pre>@@background-color:grey;
 FTP
 @@
@@ -5143,15 +5153,22 @@ FTP
 #[[Instalación vsftp]]
 #[[Configuración básica en vsftp]]
 &lt;&lt;&lt;
-@@background-color:grey;
-FTP
-@@
 ''Proyectos no básicos''
 
 &lt;&lt;&lt;
 #[[vsftp en modo pasivo]]
 #[[Posible uso de TFTP]]
 #[[IpCop+FTP]]
+
+&lt;&lt;&lt;
+
+@@background-color:grey;
+HTTP
+@@
+''Proyectos básicos''
+
+&lt;&lt;&lt;
+#[[Instalación Apache]]
 
 &lt;&lt;&lt;</pre>
 </div>
@@ -5321,10 +5338,19 @@ Cuando un servidor recibe una consulta iterativa:
 *Los usuarios locales podrán descargar y subir archivos.
 *Los usuarios locales estarán enjaulados en su directorio //home//.</pre>
 </div>
-<div created="20141116213738955" modified="20141116215452367" tags="UF2" title="Contenido">
-<pre>#[[Servicio FTP: definición y componentes]]
+<div created="20141116213738955" modified="20141130235017943" tags="UF2" title="Contenido">
+<pre>__Servicio FTP__
+
+#[[Servicio FTP: definición y componentes]]
 #[[Servicio FTP: tipos de acceso, conexiones y modos]]
-#[[Servicio FTP: Seguridad, FTPS, FXP, TFTP, SFTP/SCP]]</pre>
+#[[Servicio FTP: Seguridad, FTPS, FXP, TFTP, SFTP/SCP]]
+__Servicio Web__
+
+#[[Servicio Web: definición y componentes]]
+#[[Servicio Web: protocolo HTTP]]
+#[[Servicio Web: Alojamiento virtual de sitios web]]
+#[[Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc]]
+</pre>
 </div>
 <div created="20141012221525617" modified="20141116213448126" title="ContenidoUF1">
 <pre>''Servicios de configuración automática de red''
@@ -5507,6 +5533,57 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 <pre>&lt;&lt;list-links &quot;[tag[Índice]]&quot;&gt;&gt;
 
 </pre>
+</div>
+<div created="20141201001640952" modified="20141201002721094" title="Instalación Apache">
+<pre>//Apache// es una fundación que desarrolla una gran cantidad de proyectos software. Uno de sus principales proyectos es un servidor web o HTTP &quot;open source&quot;.
+
+*Iniciamos sesión en una máquina debian o similar con privilegios de administración.
+*`sudo apt-get update` seguido de `sudo apt-get install apache2`
+*Observa que al finalizar la instalación aparece un mensaje de advertencia &quot;Could not determine the servers fully qualified domain name...&quot;. Significa que //apache2// no es capaz de determinar cuál es el nombre completo del equipo.
+*Al instalar el servidor se crean:
+**Los archivos de configuración.
+**El usuario //www-data// que se incluye en el grupo //www-data//. Son el usuario y el grupo con los que se ejecutan los procesos hijos de Apache.
+**El directorio /var/www:
+***Su propietario es el usuario //root// y su grupo es //root//.
+***Es el directorio raíz del servidro virtual por defecto.
+*Comprobamos `cat /etc/passwd`, `cat /etc/group` y `ls -l /var`
+*Archivos de configuración:
+**`/etc/apache2/apache2.conf`
+***El archivo contiene un conjunto de directivas que determinan el comportamiento del servidor.
+***Los comentarios son a nivel de línea y se utiliza el símbolo almohadilla #
+***Las directivas no especificadas utilizan su valor por defecto.
+***Se utiliza un fichero denominado `httpd.conf` en el que se almacenan todas las directivas de configuración (en Debian apache2.conf)
+***Desde este fichero se incluyen (usando la directiva //include//) otros ficheros de configuración.
+**`/etc/apache2/ports.conf`
+***En él se definen las IPs y puertos en los que escucha el servidor.
+**`/etc/apache2/mods-avaible/`:
+***Directorio de configuración de módulos disponibles.
+***Contiene ficheros .load y .conf. El primero contiene todo lo necesario para cargar un módulo concreto, los segundos contienen la configuración básica para inicializar el módulo.
+**`/etc/apache2/mods-enabled`:
+***Directorio de configuración de módulos habilitados. Los carga Apache al iniciarse.
+***Son enlaces simbólicos a los ficheros de mods-available.
+**`/etc/apache2/sites-available`
+***Directorio de configuración de sitios virtuales disponibles.
+***Por defecto está creado el fichero //defaul// con la configuración del denominado servidor virtual por defecto.
+**`/etc/apache2/sites-enabled`#Cambia el mensaje de bienvenida de la página por defecto del Apache. Sustituye el //It works!// por la primera tonteria que se te ocurra. 
+#Crea un enlace simbólico a una carpeta de tu escritorio desde el directorio del Apache. Elimina el archivo index.html de dicho directorio, ¿qué sucede? 
+#Busca información: ¿que es apche2ctl? ¿Para qué sirve? Documéntalo para usos futuros... seguro que lo necesitarás.
+#Cambia el puerto donde está escuchando apache al 2099. ¿Cómo podemos comprobar que está funcionado el servidor?
+***Directorio de configuración de sitios virtuales configurados.
+***Contiene enlaces simbólicos a sites-available
+***Por defecto contiene //000-default// que es un enlace al fichero //default// de sites availables.
+**`/etc/apache2/conf.d/`
+***Directorio de configuraciones locales
+***Los ficheros incluidos en este directorio se incluyen en el fichero apache.conf
+***Algunas aplicaciones web incluyen su configuración en este directorio.
+**`/etc/apache2/envars`: variables de entorno que utiliza el comando //apache2ctl//.
+
+----
+!Realiza
+#Cambia el mensaje de bienvenida de la página por defecto del Apache. Sustituye el //It works!// por la primera tonteria que se te ocurra. 
+#Crea un enlace simbólico a una carpeta de tu escritorio desde el directorio del Apache. Elimina el archivo index.html de dicho directorio, ¿qué sucede? 
+#Busca información: ¿que es apche2ctl? ¿Para qué sirve? Documéntalo para usos futuros... seguro que lo necesitarás.
+#Cambia el puerto donde está escuchando apache al 2099. ¿Cómo podemos comprobar que está funcionado el servidor?</pre>
 </div>
 <div created="20141116215843331" modified="20141116220614616" title="Instalación vsftp">
 <pre>__Instalación__
@@ -5886,6 +5963,208 @@ __NOTA__
 ***Cortafuegos actuales permiten realizar un seguimiento: comprueban que el cliente que solicita la conexión al puerto especificado por el servidor se corresponde con el cliente al que se le indicó ese puerto.
 ***Si el servidor está detrás de un NATP, hay que configurar un rango de puertos para las conexiones de datos y redirigirlos al servidor.</pre>
 </div>
+<div created="20141201001116710" modified="20141201001143817" title="Servicio Web: Alojamiento virtual de sitios web">
+<pre>El alojamiento virtual de sitios web (//web virtual hosting//) consiste en simular que existen varias máquinas con sus respectivos sitios web sobre un solo servidor web. También se usan los términos hosts virtuales, servidores virtuales o sitios virtuales. 
+Se pueden diferenciar tres tipos de alojamiento virtual:
+
+__Basado en IPs__
+
+*El servidor tendrá diferentes direcciones IP por cada servidor web virtual. Cada servidor atenderá peticiones en una dirección IP diferente.
+*Para realizar esta configuración el servidor debe tener varias tarjetas de red o asignar varias direcciones IP a una misma tarjeta.
+*Supone un derroche de direcciones IP en comparación con el alojamiento virtual basado en nombres.
+__Basado en nombres__
+
+*El servidor dispone de varios nombres de dominio. Cada servidor virtual atiende las peticiones de un nombre de dominio.
+*Hay que configurar un servidor DNS que asocie los nombres de dominio con la misma dirección IP.
+*Este tipo de alojamiento se definió a partir de HTTP /1.1. El servidor es capaz de diferenciar el nombre de dominio por el que pregunta el cliente porque en el mensaje de petición HTTP se envía la cabecera //Host// con el nombre de dominio.
+*Es la forma más habitual. Es simple y optimiza los recursos. En una misma IP se pueden alojar cientos de dominios.
+__Basado en puertos__
+
+*Cada servidor virtual atiende peticiones en una dirección IP y/o dominio:puerto diferentes. 
+*Normalmente se combina el alojamiento basado en IP y/o en nombres con el uso de varios puertos a la escucha.</pre>
+</div>
+<div created="20141201001212570" modified="20141201001443582" title="Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc">
+<pre>!!Almacenamiento en cache
+Tanto proxies como navegadores soportan almacenamiento caché (//caching//). Se definen las cabeceras (//Cache-control//, //Last-Modified//, //Expire//, //Age//, //Etag//, //If-Match//, //If-Modified-Since//) que permiten controlar qué se almacena en caché, cuánto tiempo y qué no se almacena. También sirven para indicar si la información se puede //cachear// en un proxy o no, si hay que actualizar algo en cache porque se ha modificado, etc.
+
+!!Redirecciones
+HTTP permite a servidores y a proxies redirigir las peticiones a otras localizaciones. El servidor indica la redirección mediante un código 3XX.
+
+&lt;&lt;&lt;
+Ejemplo
+
+*302 &quot;Not Found&quot;: El recurso solicitado ha sido movido temporalmente a otra localización. El navegador debería buscarlo en la localización indicada en la cabecera //Location// de la respuesta.
+*304 &quot;Not Modified&quot;: El recurso solicitado no se ha modificado y el navegador debería leerlo de su caché local.
+&lt;&lt;&lt;
+!!Comprensión
+Es posible que los servidores compriman (usando //gpiz//, por ejemplo) los recursos antes de enviárselos  a los clientes para reducir el tráfico de la red. Los clientes usan cabeceras en los mensajes de petición (//Accept-Encoding//) para indicar que soportan compresión y los servidores para hacerle saber al cliente (//Content-Encoding//) que envían datos comprimidos.
+
+!!Cookies
+Una //cookie// es un fragmento de información que envía el servidor web en una respuesta HTTP y es almacenada, si su configuración lo permite, por el navegador para su uso futuro. El navegador puede enviar la cookie en solicitudes posteriores al mismo servidor.
+
+*Los servidores envían las cookies usando cabeceras (//Cookies// y //Set-Cookie//) y pueden incluir los siguientes detalles:
+**Nombre de la cookie (//name//)
+**Valor de la cookie (//Value//)
+**Fecha de expiración (//Expires//): fecha y hora en la que la cookie deberá ser descartada por el navegador.
+**Ruta (//Path//): lugar donde la cookie será guardada por el navegador.
+**Dominio (//Domain//): nombre de dominio de donde &quot;viene&quot; la cookie.
+*Cuando un navegador realiza una solicitud a un servidor HTTP consulta las cookies que tiene almacenadas. Si existen cookies no caducadas cuya ruta y dominio coincidan con los de la petición, se las envía al servidor usando las cabeceras (//Cookies// y //Set-Cookie//)
+Las cookies son utilizadas por los servidores web para diferenciar usuarios y conexiones y actuar en consecuencia.
+
+!!Autenticación
+HTTP soporta el uso de mecanismos de autenticación para controlar el acceso a los recursos que ofrece el servidor. Estos mecanimos están basados en el uso del código de estado 401 y en las cabeceras //WWW-Authenticate// y //Authoritation//. Los mecanismos básicos son:
+
+*Basic: el cliente envía un usuario y una clave codificados con el algoritmo //base64//. Método no seguro, es muy fácil capturar y obtener la clave enviada.
+*Digest: el cliente envía un usuario y una función //hash// de la clave al servidor (algoritmo ~MD5). Es más seguro que el anterior sistema pero también presenta vulnerabilidades.
+La autentificación que ofrece HTTP no es segura y por ello se suele trasladar a las aplicaciones web.
+
+!!Conexiones persistentes
+El uso de conexiones persistentes en HTTP consiste en que varias peticiones y respuestas sean transferidas usando la misma conexión TCP. Su uso reduce el número de conexiones TCP, lo que repercute en un menor gasto de CPU/memoria y una reducción de los tiempos de respuesta.
+
+*En HTTP/1.0 el comportamiento por defecto es crear una conexión TCP por cada interacción de petición-respuesta. Existe la posibilidad de utilizar conexiones persistentes mediante la cabecera //Connection: Keep-Alive//.
+*En HTTP/1.1 se introducen la conexiones persistentes por defecto. Se definen varias cabeceras (//Connection, Content-Length...//) y temporizadores en servidores y clientes para controlar cuándo hay que cerrar las conexiones TCP.
+</pre>
+</div>
+<div created="20141130235045501" modified="20141130235546733" title="Servicio Web: definición y componentes">
+<pre>__Servicio Web__
+
+;Def HTTP
+:HTTP (//Hiper Text Transfer Protocol//) es un protocolo de la capa de aplicación que facilita a los usuarios, de una forma sencilla e intuitiva, el acceso a la información hipermedia remota de sistemas conectados a una red TCP/IP. El modelo cliente/servidor y el protocolo HTTP son la base de WWW.
+;Def WWW
+:WWW (//World Wide Web//) es un servicio de distribución de información que permite acceder a millones de recursos distribuidos en servidores y localizados por direcciones (URIs o URLs). 
+:La WWW fue desarrollada por el CERN en 1989 y actualmente su desarrollo está controlado por el W3C (//World Wide Web Consortium//), comunidad internacional que desarrolla estándares web (XHTML, CSS, XML)
+!!!Componentes y funcionamiento:
+*__Recursos__:
+**Documentos, vídeos, imágenes, audio, aplicaciones, buzones de correo, etc., accesibles a través de servidores web y conectados por hiperenlaces.
+*__Nombres y direcciones__: 
+**Sistema de nombres basado en cadenas de caracteres que identifican y localizan inequívocamente a los recursos en la Web. 
+**Estas cadenas se denominan identificadores uniformes de recursos (//URI Uniform Resource Identifier//) y permiten acceder a los recursos disponibles usando una gran variedad de sistemas de denominación y métodos de acceso, llamados esquemas, como HTTP, FTP, etc. Los localizadores universales de recursos (//URL Universal Resource Locator//) son tipos de URIs.
+&lt;&lt;&lt;
+Ejemplos:
+
+`http://192.168.1.12/M8.html` --&gt; http es el esquema. A continuación, IP y ruta al recurso.
+
+`http://aula.asix.cat:8080/datos/data.txt` --&gt; Se indica esquema, el nombre DNS para obtener la IP, el puerto en el que está escuchando el servidor y la ruta al recurso.
+
+`http://aula.asix.cat/buscar.php?id=2&amp;tema=Historia`--&gt; Esquema+Nombre DNS+(/buscar.php) ruta del recurso+(?id=2&amp;tema=Historia) parámetros enviados al servidor.
+&lt;&lt;&lt;
+*__Servidores Web__:
+**Programas que atienden las peticiones de los clientes y procesan e interpretan código escrito en diferentes lenguajes y envían a los clientes los recursos solicitados. 
+**El servidor puede enviar contenido estático o dinámico. 
+**Por defecto escucha en 80/TCP.
+**Los más utilizados son: Apache HTTP server, IIS (//Internet Information Server//) de Microsoft, Nginx, Servidor Web de Google, Lighttpd.
+*__Clientes Web__:
+**Programas con los que interactúa el usuario y que le permiten acceder a los recursos de la red. Son capaces por tanto, de solicitar recursos, recibirlos, procesarlos y mostrárselos al usuario si es necesario.
+**Los más conocidos son: //Internet Explorer//, //Mozilla Firefox//, //Google Chrome//, //Chromiun//, //Safari//, //Opera//
+**También están los clientes en modo texto: //Lynx//, //Links//
+*__Proxies Web__
+**El término //proxy// hace referencia a un programa que actúa como intermediario entre otros. Un //proxy Web// o //proxy HTTP// hace de intermediaro entre un cliente web y un servidor web. Se pueden clasificar:
+***//Proxy// directo (//forward proxy//): Recibe la petición iniciada por un cliente web y se la traslada al servidor web. La solicitud del cliente es hacia el servidor web y no hacia el //proxy//, éste solo hace de intermediario. Usados habitualmente para optimizar y controlar el acceso a redes externas, como Internet, de los clientes de una organización o empresa. El proxy escucha en el puerto 3128.
+***//Proxy// inverso (//reverse proxy//): Reciben la petición del cliente web y la reenvían a uno o varios servidores web. En este caso, la solicitud del cliente es hacia el //proxy//. Usados habitualmente para ofrecer acceso a servidores web que están detrás de un cortafuegos y no son accesibles directamente, para balancear la carga entre diferentes servidores web, para aumentar los acceso ofreciendo almacenamiento caché, etc.
+[img[proxy|http://1.bp.blogspot.com/_KcaDSFcliq8/S9cMGQ3OjyI/AAAAAAAAAz4/1f9frdjF7m8/s1600/fwdrevproxy.png]]
+</pre>
+</div>
+<div created="20141201000156710" modified="20141201001045208" title="Servicio Web: protocolo HTTP">
+<pre>;Def
+:Protocolo de comunicación en la Web. Define las reglas que utilizan los componentes software (clientes, servidores y //proxies//) para comunicarse. Ha pasado por varias versiones HTTP /0.9 (obsoleta), HTTP /1.0 y HTTP /1.1 (versión actual), HTTP /1.2 (experimental)
+;Funcionamiento
+#El usuario introduce una URI (o URL) en la barra de direcciones del navegador.
+#El cliente web analiza la URL y establece una conexión TCP con el servidor web. (Si se ha utilizado un nombre DNS previamente invoca al resolver para que resuelva el nombre)(si no se indica el número de puerto se conectará al puerto 80 del servidor).
+#Cuando se ha establecido la conexión TCP, el navegador envía un mensaje HTTP de petición que depende de la URL.
+#El servidor envía un mensaje de respuesta que depende de la petición enviada y del estado del servidor.
+#Se cierra la conexión TCP.
+!!!Mensajes HTTP
+Se componen de líneas de texto plano (ASCII) que contienen las órdenes y parámetros con la sintaxis definida por el protocolo. Pueden ser de dos tipos:
+
+__Mensajes de petición__
+
+Tienen tres partes:
+
+*Línea inicial de petición. Incluye: 
+**Método utilizado (GET, POST, ...).
+**La parte relativa al servidor de la URL o la URL completa si la conexión se establece con un servidor proxy.
+**Versión del protocolo utilizada (opcional).
+*Líneas de cabecera
+**Conjunto de pares nombre/valor denominados cabeceras que determinan cómo será procesada la petición por parte del servidor.
+&lt;&lt;&lt;
+Ejemplo: La cabecera //Accept: text/html// indica que el navegador es capaz de procesar código HTML.
+&lt;&lt;&lt;
+**Si no hay cabeceras se envía un 0.
+**Cada cabecera se muestra en una línea, es decir, las cabeceras se terminan con CR-LF.
+**Detrás de la última cabecera se envía una línea en blanco.
+*Cuerpo del mensaje (opcional): contiene parámetros o ficheros enviados al servidor.
+__Mensaje de respuesta__
+
+Tienen también tres partes:
+
+*Línea inicial de respuesta (línea de estado)
+**Versión HTTP utilizada.
+**Código de estado o código de error que informa al cliente de cómo ha sido procesada la petición. Por ejemplo, el código 200 indica que la petición se ha procesado correctamente.
+*Línea/s de cabecera:
+**Conjunto de pares nombre/valor denominados cabeceras que describen los datos y la forma en que son enviados al cliente.
+&lt;&lt;&lt;
+Ejemplo: la cabecera //Contet-Type:text/html// indica que se envía código HTML que deberá interpretar el navegador.
+&lt;&lt;&lt;
+**Si no hay cabeceras se envía un 0.
+**Cada cabecera se muestra en una línea, es decir, acaban con CR-LF.
+**Detrás de la última cabecera se envía una línea en blanco.
+*Cuerpo del mensaje (opcional). Queda determinado por el tipo de recursos solicitados.
+!!!Métodos de petición
+Los métodos de petición especifican la operación que quiere realizar el cliente en el servidor. La versión HTTP 1.1 contempla siete métodos de petición:
+
+__Método GET__
+
+*Es el método más utilizado para obtener cualquier tipo de información del servidor.
+*Se invoca cuando se introduce una URL en el navegador, se pincha en un hiperenlace o cuando se envía un formulario GET.
+*Permite enviar parámetros al servidor en la URI (//Query String//). Para codificar los parámetros como parte de la URI:
+**Se añaden a la URI detrás del nombre del recurso, separados de éste por un caráter ?.
+**Los diferentes parámetros se separan entre sí por el carácter &amp;.
+**Los espacios se sustituyen por +.
+**Ejemplo: www.asix.cat/datos.php?nombre=Juan&amp;edad=28
+*Los parámetros se incluyen en la línea inicial de la petición.
+*Las peticiones GET no envían cuerpo del mensaje.
+*No se puede usar para subir archivos o realizar otras operaciones que requieran enviar una gran cantidad de datos al servidor.
+__Método POST__
+
+*Se emplea para solicitar al servidor que acepte información que se envía adjunta en una petición.
+*Las peticiones POST envían el cuerpo de mensaje y en él se incluyen los parámetros y los datos que se consideren. Los parámetros no son visibles por lo tanto en la URL.
+*Se invoca normalmente como consecuencia de enviar un formulario HTML POST.
+*No hay límite en la cantidad  de datos que se pueden enviar. Se utiliza, por tanto, para enviar ficheros al servidor.
+__Método OPTIONS__
+
+*Para solicitar al servidor información sobre las opciones de comunicación disponibles de un recurso determinado.
+__Método HEAD__
+
+*Para recuperar las cabeceras de una página web.
+__Método PUT__
+
+*Para enviar recursos al servidor. Por seguridad no es habitual que los servidores permitan este método.
+__Método DELETE__
+
+*Para eliminar recursos del servidor. Por seguridad no se suele habilitar.
+__Método TRACE__
+
+*Para trazar la ruta de una petición a través de proxies y cortafuegos. Para depurar.
+!!!Cabeceras
+*Las cabeceras son pares de nombre/valor que se pueden incluir en los mensajes de petición y de repuesta HTTP. Definen información (metadatos) sobre los datos que se intercambian los clientes y servidores, sobre los propios clientes y servidores, y sobre la propia transferencia de información. 
+*Tienen el mismo formato que las cabeceras de los protocolos usados en los servicios de correo electrónico y noticias.
+*Existe un gran número de cabeceras posibles en HTTP y se pueden clasificar:
+**''Generales'': definen información que puede ser utilizada tanto por clientes como por servidores, ya que se aplican a una sesión completa de comunicación. Ejemplos: Control de cache (Cache-Control), Fechas (Date), Codificación de la transferencia (Transfer-Encoding)...
+**''De petición'': empleadas por los clientes para enviar información al servidor. Proporcionan información sobre: el propio navegador (User-Agent), nombre y puerto del servidor al que se dirige la petición (Host), tipos MIME, compresión, mapas de caracteres, idiomas que está dispuesto a aceptar el navegador (Accept), Cookies (Cookies), etc.
+**''De respuesta'': empleadas por el servidor para enviar información añadida al cliente. Proporcionan información sobre: la edad de la respuesta (Age), si un recurso no está disponible, fecha en la que se espera que lo estará (Retry-After), el tipo de servidor (Server), si el servidor necesita autorización para acceder al recurso pedido (WWW-Authenticate), etc.
+**''De identidad'': Información relacionada directamente con el recurso que se le va a proporcionar al cliente. Ejemplo: Codificación (Content-Encoding), Idioma ~Content-Language), Longitud (Content-Length), Tipo MIME de los recursos (Content-Type), etc.
+*La cabecera //Host// es obligatoria en HTTP1.1
+*Las aplicaciones web pueden definir sus propias cabeceras para añadir información adicional en los mensajes HTTP. Por convenio, utilizan el prefijo X-.
+!!!Códigos de estado y error.
+*Códigos que envían los servidores en las respuestas HTTP y que informan al cliente de cómo ha sido procesada la petición. Se acompañan de texto explicativo.
+*Son números de tres cifras que se clasifican en 5 grupos en función del primer dígito:
+**100-199: Informativo //Informational//. Indica que el servidor ha recibido la información pero no ha finalizado de procesarla.
+**200-299: Éxito //Sucessful//. Usados cuando la petición ha sido procesada satisfactoriamente.
+**300-399: Redirección //Redirection//: La petición ha sido procesada y redirigida a otra localización.
+**400-499: Errores del cliente //Client Error//: el servidor indica que hay algún error en la petición o que no se puede conceder.
+**500-599: Errores en el servidor, Server Error: el servidor no puede atender una petición porque ha existido algún problema.
+</pre>
+</div>
 <div created="20141020010218108" modified="20141020010359679" title="Servidores de nombres">
 <pre>*Son programas que guardan la información sobre nombres de dominio y responden las preguntas de los clientes DNS y otros servidores de nombres. Almacenan, por tanto, una parte de la base de datos DNS.
 *Escuchan peticiones en los puertos 53/TCP y 53/UDP.
@@ -5969,7 +6248,7 @@ Los más utilizados son:
 <div created="20141018095939508" modified="20141018100144327" title="Temporización">
 <pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
 </div>
-<div created="20141119000819003" modified="20141123224330914" tags="UF2" title="Temporización UF2">
+<div created="20141119000819003" modified="20141130234724736" tags="UF2" title="Temporización UF2">
 <pre>''17_lunes''
 
 &lt;&lt;&lt;
@@ -5992,6 +6271,19 @@ Los más utilizados son:
 **[[Configuración básica en vsftp]]
 **[[vsftp en modo pasivo]]
 **[[Posible uso de TFTP]]
+&lt;&lt;&lt;
+''24_Lunes''
+
+&lt;&lt;&lt;
+*2h (6h)
+*Tiempo de proyectos
+*Añado actividad [[IpCop+FTP]]
+&lt;&lt;&lt;
+''27_Jueves''
+
+&lt;&lt;&lt;
+*2h (8h)
+*Tiempo de proyectos
 &lt;&lt;&lt;</pre>
 </div>
 <div created="20141116213214919" modified="20141116213543825" tags="Índice" title="UF1">
