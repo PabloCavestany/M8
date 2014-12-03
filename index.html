@@ -161,6 +161,8 @@ Error message and password prompt
 
 <li>ActividadesUF1</li>
 
+<li>Cabeceras HTTP</li>
+
 <li>Características y funcionamiento del servicio DNS</li>
 
 <li>Clientes DNS (resolver)</li>
@@ -182,6 +184,8 @@ Error message and password prompt
 <li>DNS Dinámico</li>
 
 <li>Draft of '$:/ControlPanel'</li>
+
+<li>Draft of 'Actividades'</li>
 
 <li>Draft of 'New Tiddler'</li>
 
@@ -208,6 +212,8 @@ Error message and password prompt
 <li>IpCop+FTP</li>
 
 <li>Posible uso de TFTP</li>
+
+<li>Primeras directivas y configuración de virtualhost</li>
 
 <li>Registro de recursos</li>
 
@@ -4806,8 +4812,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20141130235047282" title="$:/state/sidebar">
-<pre>no</pre>
+<div modified="20141203111836546" title="$:/state/sidebar">
+<pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4818,7 +4824,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF2 Actividades [[Instalación Apache]] Contenido [[Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc]] [[Servicio Web: Alojamiento virtual de sitios web]] [[Servicio Web: protocolo HTTP]] [[Servicio Web: definición y componentes]] [[Temporización UF2]]" title="$:/StoryList">
+<div list="[[Primeras directivas y configuración de virtualhost]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5143,7 +5149,7 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141116213710237" modified="20141201002737021" tags="UF2" title="Actividades">
+<div created="20141116213710237" modified="20141203110028971" tags="UF2" title="Actividades">
 <pre>@@background-color:grey;
 FTP
 @@
@@ -5170,7 +5176,11 @@ HTTP
 &lt;&lt;&lt;
 #[[Instalación Apache]]
 
-&lt;&lt;&lt;</pre>
+&lt;&lt;&lt;
+''Proyectos no básicos''
+
+&lt;&lt;&lt;
+#[[Cabeceras HTTP]]</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
 <pre>@@background-color:grey;
@@ -5204,6 +5214,12 @@ DNS
 [[IpCop DNS]]
 
 [[Delegación DNS]]</pre>
+</div>
+<div created="20141203105905968" modified="20141203105958265" title="Cabeceras HTTP">
+<pre>#Realizar una captura  con Tcpdump de una comunicación HTTP. Identificar método, cabeceras, versión de HTTP, mensaje de respuesta.
+#Instalar complemento de Firefox &quot;Live HTTP Headers&quot;. Accede a varias webs y captura las diferentes cabeceras.
+#Accede a &quot;Herramientas para desarrolladores&quot; en //Google Chrome// e investiga la herramienta. ¿Para qué sive? Accede a varias webs y observa las peticiones HTTP: métodos, respuestas, tipos de recursos enviados por el servidor, código html, etc.
+#Encuentra una buena página para consultar el significado de las cabeceras HTTP. </pre>
 </div>
 <div created="20141020005735103" modified="20141020005856610" title="Características y funcionamiento del servicio DNS">
 <pre>!!!Características fundamentales
@@ -5428,6 +5444,40 @@ En la primera, el rango de IPs será de 192.168.1.100 a 192.168.1.200. En la seg
 &lt;/div&gt;
 </pre>
 </div>
+<div created="20141116213710237" draft.of="Actividades" draft.title="Actividades" modified="20141203110127668" tags="UF2" title="Draft of 'Actividades'">
+<pre>@@background-color:grey;
+FTP
+@@
+''Proyectos básicos''
+
+&lt;&lt;&lt;
+#[[Instalación vsftp]]
+#[[Configuración básica en vsftp]]
+&lt;&lt;&lt;
+''Proyectos no básicos''
+
+&lt;&lt;&lt;
+#[[vsftp en modo pasivo]]
+#[[Posible uso de TFTP]]
+#[[IpCop+FTP]]
+
+&lt;&lt;&lt;
+
+@@background-color:grey;
+HTTP
+@@
+''Proyectos básicos''
+
+&lt;&lt;&lt;
+#[[Instalación Apache]]
+#[[Primeras directivas y configuración de virtualhost]]
+
+&lt;&lt;&lt;
+''Proyectos no básicos''
+
+&lt;&lt;&lt;
+#[[Cabeceras HTTP]]</pre>
+</div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
 <pre></pre>
 </div>
@@ -5534,7 +5584,7 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 
 </pre>
 </div>
-<div created="20141201001640952" modified="20141201002721094" title="Instalación Apache">
+<div created="20141201001640952" modified="20141203105413682" title="Instalación Apache">
 <pre>//Apache// es una fundación que desarrolla una gran cantidad de proyectos software. Uno de sus principales proyectos es un servidor web o HTTP &quot;open source&quot;.
 
 *Iniciamos sesión en una máquina debian o similar con privilegios de administración.
@@ -5565,10 +5615,7 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 **`/etc/apache2/sites-available`
 ***Directorio de configuración de sitios virtuales disponibles.
 ***Por defecto está creado el fichero //defaul// con la configuración del denominado servidor virtual por defecto.
-**`/etc/apache2/sites-enabled`#Cambia el mensaje de bienvenida de la página por defecto del Apache. Sustituye el //It works!// por la primera tonteria que se te ocurra. 
-#Crea un enlace simbólico a una carpeta de tu escritorio desde el directorio del Apache. Elimina el archivo index.html de dicho directorio, ¿qué sucede? 
-#Busca información: ¿que es apche2ctl? ¿Para qué sirve? Documéntalo para usos futuros... seguro que lo necesitarás.
-#Cambia el puerto donde está escuchando apache al 2099. ¿Cómo podemos comprobar que está funcionado el servidor?
+**`/etc/apache2/sites-enabled`
 ***Directorio de configuración de sitios virtuales configurados.
 ***Contiene enlaces simbólicos a sites-available
 ***Por defecto contiene //000-default// que es un enlace al fichero //default// de sites availables.
@@ -5738,6 +5785,16 @@ Yo he utilizado para realizar la práctica un isc-dchpd-server como servidor DHC
 El objetivo de la práctica es montar un servidor PXE que ofrezca a los clientes un abanico de posibilidades de arranque. En principio, con  ofrecer el memtest y algún núcleo más ([[uno interesante|http://clonezilla.org/livepxe.php]]) bastaría aunque os animo a añadir más. Sería conveniente, después de probar el montaje en local, testearlo con algún compañero de clase y reflexionar sobre qué problemas podrían aparecer si lo tuviésemos que montar en una red grande.
 
 Por último, documentar la práctica: enlaces interesantes, problemas que han surgido, soluciones, problemas sin solución (de momento), configuración del software, etc. No olvides leer todo lo que puedas sobre TFTP, el entorno PXE (pxelinux en este caso), opciones del dhcp, etc. </pre>
+</div>
+<div created="20141203110136359" modified="20141203111804530" title="Primeras directivas y configuración de virtualhost">
+<pre>#Documenta (o aprende su significado) las siguientes directivas: ~DirectoryIndex, Options Indexes, ~DocumentRoot, ~ServerName, Listen y, muy importante, Namevirtualhost. Es conveniente que leas también un poco sobre los contenedores de directivas. Para esta actividad necesitas mirar el contenedor ~VirtualHost. Una buena referencia para mirar todo esto es [[ésta|http://httpd.apache.org/docs/2.2/en/mod/quickreference.html]]
+#Configura dos vhosts basados en IP. ¿Cómo quedaría la configuración del DNS? 
+#Configura dos vhosts basados en nombres. ¿Cómo quedaría la configuración del DNS? 
+#Configura dos vhosts basados en puertos. ¿Cómo quedaría la configuración del DNS?
+
+----
+!!Ayuda
+*La mejor opción para aprender a configurar los virtualhost es, lógicamente, leer el [[manual|http://httpd.apache.org/docs/2.2/en/vhosts/]]. En concreto, en el apartado &quot;examples for common setups&quot; tenéis las configuraciones que necesitáis para realizar la actividad</pre>
 </div>
 <div created="20141020011434908" modified="20141020012155848" title="Registro de recursos">
 <pre>!Formato general
