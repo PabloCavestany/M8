@@ -161,6 +161,8 @@ Error message and password prompt
 
 <li>ActividadesUF1</li>
 
+<li>Autenticación en Apache</li>
+
 <li>Cabeceras HTTP</li>
 
 <li>Características y funcionamiento del servicio DNS</li>
@@ -184,8 +186,6 @@ Error message and password prompt
 <li>DNS Dinámico</li>
 
 <li>Draft of '$:/ControlPanel'</li>
-
-<li>Draft of 'Actividades'</li>
 
 <li>Draft of 'New Tiddler'</li>
 
@@ -214,6 +214,8 @@ Error message and password prompt
 <li>Posible uso de TFTP</li>
 
 <li>Primeras directivas y configuración de virtualhost</li>
+
+<li>Proxy reverse con Apache</li>
 
 <li>Registro de recursos</li>
 
@@ -4812,8 +4814,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20141203111836546" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20141214215522005" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4824,7 +4826,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="[[Primeras directivas y configuración de virtualhost]]" title="$:/StoryList">
+<div list="UF2 Actividades [[Proxy reverse con Apache]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5149,7 +5151,7 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141116213710237" modified="20141203110028971" tags="UF2" title="Actividades">
+<div created="20141116213710237" modified="20141214215525081" tags="UF2" title="Actividades">
 <pre>@@background-color:grey;
 FTP
 @@
@@ -5175,12 +5177,15 @@ HTTP
 
 &lt;&lt;&lt;
 #[[Instalación Apache]]
+#[[Primeras directivas y configuración de virtualhost]]
+#[[Autenticación en Apache]]
 
 &lt;&lt;&lt;
 ''Proyectos no básicos''
 
 &lt;&lt;&lt;
-#[[Cabeceras HTTP]]</pre>
+#[[Cabeceras HTTP]]
+#[[Proxy reverse con Apache]]</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
 <pre>@@background-color:grey;
@@ -5214,6 +5219,75 @@ DNS
 [[IpCop DNS]]
 
 [[Delegación DNS]]</pre>
+</div>
+<div created="20141214211454954" modified="20141214215306879" title="Autenticación en Apache">
+<pre>!!1_ Control de acceso por IP y nombre de dominio
+Para definir qué direcciones IP o nombres de dominio pueden acceder a un recurso del servidor podemos utilizar las directivas //Order, Allow y Deny// dentro de los diferentes contenedores. Para ver cómo hacemos:
+
+*Primero lee la documentación: [[Manual|http://httpd.apache.org/docs/2.2/en/howto/auth.html]]
+*Crea el directorio `/var/www/privado`. Dentro del directorio crea un fichero privado.html que contenga el texto &quot;página privada&quot;.
+*En la configuración de uno de tus sitios virtuales edita:
+```
+&lt;Directory /var/www/privado&gt;
+     Order allow, deny
+     Allow from 127.0.0.1 localhost
+&lt;/Directory&gt;
+```
+*Reinicia y comprueba que sólo puedes acceder localmente y no desde cualquier otra máquina. 
+*Ejercicio: lee sobre la directiva //allow, deny// en el manual y haz alguna prueba más hasta entender como funciona.
+!!2_Autenticación HTTP //Basic//
+Vamos a implementar la autenticación basada en HTTP más sencilla. Para ello:
+
+*Consulta la documentación sobre las directivas: //~AuthName, ~AuthType, ~AutUserFile y Require//.
+*Comprueba en el directorio //mods-enabled// que el módulo //auth_basic// está habilitado.
+*Para usar la autenticación básica hay que crear un fichero accesible por //Apache// en el que se guardarán los usuarios y sus contraseñas. Para crear este fichero disponemos de la herramienta //htpaswd// (mirar documentación):
+**`sudo htpaswd -c /etc/apache2/passwd usuarioUno` (-c para crear el fichero).
+**`sudo htpaswd  /etc/apache2/passwd usuarioDos`
+*En el fichero de configuración del sitio virtual que decidas:
+```
+&lt;Directory /var/www/privado&gt;
+     Order allow, deny
+     Allow from 127.0.0.1 localhost
+     AuthName &quot;Acceso privado&quot;
+     AuthType Basic
+     AuthUserFile /etc/apache2/passwd
+     Require user usuarioUno usuarioDos
+&lt;/Directory&gt;
+```
+*Faltará reiniciar y comprobar.
+*Realiza alguna prueba más si lo consideras necesario para familiarizarte con las directivas.
+!!3_ Archivos .htaccess
+*Apache2 permite la descentralización de la configuración. Para ello utiliza unos archivos especiales que son los ''.htaccess'' que se colocan en el propio directorio de trabajo del servidor.
+*Las directivas colocadas en estos archivos sólo afectan al directorio de trabajo (y subdirectorios) en que están colocados y, como se leen en cada petición, los cambios surten efecto de forma inmediata. Por lo mismo, se desaconseja su uso si se tiene acceso al archivo de configuración principal.
+*Para averiguar qué directivas se pueden colocar hay que mirar el &quot;Context&quot; de la directiva. El administrador puede controlar qué directivas se pueden modificar en estos archivos mediante la directiva ~AllowOverRide.
+&lt;&lt;&lt;
+Ejemplo:
+
+En el .htaccess:
+
+```
+AuthType Basic
+AuthName &quot;Acceso privado&quot;
+AuthUserFile /etc/apache2/passwd
+Require user usuarioUno usuarioDos 
+```
+
+Y en el archivo de configuración:
+
+```
+AllowOverride AuthConfig
+```
+&lt;&lt;&lt;
+*Faltará reiniciar y comprobar. 
+*Te aconsejo que hagas alguna prueba más que se te ocurra a ti para asimilar bien el concepto de &quot;configuración descentralizada&quot;
+
+
+----
+__Problemas a resolver__
+
+1-El administrador quiere ser el único que tenga acceso a ciertos archivos 'sensibles' del servidor web. Se le ocurre para ello crear un servidor virtual que escuche en el puerto 55 y sólo permite acceso desde la máquina local. Además, dicho servidor virtual habrá de tener acceso al directorio donde están ubicados los archivos de configuración o 'sensibles'. ¿Cómo puede conseguirlo? Razona brevemente tu respuesta.
+
+2- Un administrador tiene a su cargo dos administradores web que gestionan sendos sitios web. Ambos sitios web requieren autenticación básica para acceder a sus contenidos. El problema es que cada equis tiempo el conjunto de usuarios que deben poder acceder a dichos contenidos va variando. ¿Cómo hacer que los administradores web puedan gestionar los permisos de sus sitios pero no tengan acceso a los archivos de configuración del apache? Ilustra tu respuesta con el código de configuración que consideres necesario.</pre>
 </div>
 <div created="20141203105905968" modified="20141203105958265" title="Cabeceras HTTP">
 <pre>#Realizar una captura  con Tcpdump de una comunicación HTTP. Identificar método, cabeceras, versión de HTTP, mensaje de respuesta.
@@ -5443,40 +5517,6 @@ En la primera, el rango de IPs será de 192.168.1.100 a 192.168.1.200. En la seg
 &lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/ControlPanel]!has[draft.of]]&quot; &quot;$:/core/ui/ControlPanel/Info&quot;&gt;&gt;
 &lt;/div&gt;
 </pre>
-</div>
-<div created="20141116213710237" draft.of="Actividades" draft.title="Actividades" modified="20141203110127668" tags="UF2" title="Draft of 'Actividades'">
-<pre>@@background-color:grey;
-FTP
-@@
-''Proyectos básicos''
-
-&lt;&lt;&lt;
-#[[Instalación vsftp]]
-#[[Configuración básica en vsftp]]
-&lt;&lt;&lt;
-''Proyectos no básicos''
-
-&lt;&lt;&lt;
-#[[vsftp en modo pasivo]]
-#[[Posible uso de TFTP]]
-#[[IpCop+FTP]]
-
-&lt;&lt;&lt;
-
-@@background-color:grey;
-HTTP
-@@
-''Proyectos básicos''
-
-&lt;&lt;&lt;
-#[[Instalación Apache]]
-#[[Primeras directivas y configuración de virtualhost]]
-
-&lt;&lt;&lt;
-''Proyectos no básicos''
-
-&lt;&lt;&lt;
-#[[Cabeceras HTTP]]</pre>
 </div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
 <pre></pre>
@@ -5795,6 +5835,9 @@ Por último, documentar la práctica: enlaces interesantes, problemas que han su
 ----
 !!Ayuda
 *La mejor opción para aprender a configurar los virtualhost es, lógicamente, leer el [[manual|http://httpd.apache.org/docs/2.2/en/vhosts/]]. En concreto, en el apartado &quot;examples for common setups&quot; tenéis las configuraciones que necesitáis para realizar la actividad</pre>
+</div>
+<div created="20141214215409201" modified="20141214215515447" title="Proxy reverse con Apache">
+<pre>Lee [[esto | http://httpd.apache.org/docs/2.2/mod/mod_proxy.html]] y siguiendo las indicaciones del ejemplo que muestran (en el enlace) trata de montar un proxy reverse.</pre>
 </div>
 <div created="20141020011434908" modified="20141020012155848" title="Registro de recursos">
 <pre>!Formato general
@@ -6305,7 +6348,7 @@ Los más utilizados son:
 <div created="20141018095939508" modified="20141018100144327" title="Temporización">
 <pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
 </div>
-<div created="20141119000819003" modified="20141130234724736" tags="UF2" title="Temporización UF2">
+<div created="20141119000819003" modified="20141214210425815" tags="UF2" title="Temporización UF2">
 <pre>''17_lunes''
 
 &lt;&lt;&lt;
@@ -6341,6 +6384,29 @@ Los más utilizados son:
 &lt;&lt;&lt;
 *2h (8h)
 *Tiempo de proyectos
+&lt;&lt;&lt;
+''01_Lunes''
+
+&lt;&lt;&lt;
+*2h (10h)
+*Iniciamos segunda parte: HTTP
+*Explico: [[Servicio Web: definición y componentes]] y también [[Servicio Web: protocolo HTTP]]
+*Propongo actividad: [[Instalación Apache]]
+&lt;&lt;&lt;
+''04_Jueves''
+
+&lt;&lt;&lt;
+*2h (12h)
+*Repaso a lo visto el último día
+*Tiempo de proyectos
+*Propongo: [[Cabeceras HTTP]]
+&lt;&lt;&lt;
+''11_Jueves'' (Lunes no hubo clase por fiesta)
+
+&lt;&lt;&lt;
+*2h (14h)
+*Tiempo de proyectos
+*Propongo: [[Primeras directivas y configuración de virtualhost]]
 &lt;&lt;&lt;</pre>
 </div>
 <div created="20141116213214919" modified="20141116213543825" tags="Índice" title="UF1">
