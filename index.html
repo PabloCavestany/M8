@@ -161,6 +161,8 @@ Error message and password prompt
 
 <li>ActividadesUF1</li>
 
+<li>Auditorias en Apache</li>
+
 <li>Autenticación en Apache</li>
 
 <li>Cabeceras HTTP</li>
@@ -210,6 +212,8 @@ Error message and password prompt
 <li>IpCop DNS</li>
 
 <li>IpCop+FTP</li>
+
+<li>Módulos en Apache</li>
 
 <li>Posible uso de TFTP</li>
 
@@ -4826,7 +4830,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF2 Actividades [[Temporización UF2]]" title="$:/StoryList">
+<div list="Índice UF2 Actividades [[Módulos en Apache]] [[Auditorias en Apache]] [[Temporización UF2]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5151,7 +5155,7 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141116213710237" modified="20141214215525081" tags="UF2" title="Actividades">
+<div created="20141116213710237" modified="20150112110931599" tags="UF2" title="Actividades">
 <pre>@@background-color:grey;
 FTP
 @@
@@ -5185,7 +5189,9 @@ HTTP
 
 &lt;&lt;&lt;
 #[[Cabeceras HTTP]]
-#[[Proxy reverse con Apache]]</pre>
+#[[Proxy reverse con Apache]]
+#[[Auditorias en Apache]]
+#[[Módulos en Apache]]</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
 <pre>@@background-color:grey;
@@ -5219,6 +5225,19 @@ DNS
 [[IpCop DNS]]
 
 [[Delegación DNS]]</pre>
+</div>
+<div created="20150112104122264" modified="20150112110046756" title="Auditorias en Apache">
+<pre>El primer paso para realizar auditorias en Apache es la configuración de los ficheros de error. En apache hay dos fundamentales:
+
+*~ErrorLog: nos informa de errores en el servidor
+*~AccessLog: nos informa de los accesos a los diferentes sitios web
+Ambas informaciones son configurables, es decir, podemos pedirle al que nos vuelque los registros de error en un determinado formato. Para ello, utilizamos la directiva ~CustomLog.
+
+Esta actividad consiste en:
+
+*Leer la explicación de los logs que nos aporta el manual ([[aquí|http://httpd.apache.org/docs/2.2/en/logs.html]]).
+*Revisar la actual configuración de Apache (mirando archivos de configuración) y averiguar qué información y en qué formato se están guardando actualmente los errores. Comprobar los archivos de log: ¿qué contienen?
+*Investigar cómo se puede obtener información de los accesos a cada uno de los ~VirtualHost que tenemos configurado</pre>
 </div>
 <div created="20141214211454954" modified="20141214215306879" title="Autenticación en Apache">
 <pre>!!1_ Control de acceso por IP y nombre de dominio
@@ -5800,6 +5819,11 @@ __Ampliación__
 
 Una opción de estudio interesante (de cara a un proyecto de síntesis, por ejemplo) sería configurar el FTP para que trabaje en modo activo en la red interna y en modo pasivo cuando se acceda desde la red externa.</pre>
 </div>
+<div created="20150112110114598" modified="20150112110923627" title="Módulos en Apache">
+<pre>Uno de los puntos fuertes de Apache es su &quot;modularidad&quot;: su capacidad para adquirir funcionalidades nuevas y potentes añadiéndole un pequeño &quot;módulo&quot; de código.
+
+Esta actividad consiste en investigar y evaluar un módulo muy concreto: [[mod_status|http://httpd.apache.org/docs/2.2/en/mod/mod_status.html]]. Simplemente se pide la instalación del módulo y cómo funciona.</pre>
+</div>
 <div created="20141119005645561" modified="20141119010009438" title="Posible uso de TFTP">
 <pre>Una de las variantes del protocolo FTP es TFTP. 
 
@@ -6348,7 +6372,7 @@ Los más utilizados son:
 <div created="20141018095939508" modified="20141018100144327" title="Temporización">
 <pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
 </div>
-<div created="20141119000819003" modified="20150108145331691" tags="UF2" title="Temporización UF2">
+<div created="20141119000819003" modified="20150112104014632" tags="UF2" title="Temporización UF2">
 <pre>''17_lunes''
 
 &lt;&lt;&lt;
@@ -6430,6 +6454,13 @@ Los más utilizados son:
 *2h (20h)
 *Tiempo de proyectos
 *Último día para entrega de actividades FTP
+&lt;&lt;&lt;
+''08_Jueves''
+
+&lt;&lt;&lt;
+*2h (22h)
+*Tiempo de proyectos.
+*Retomando clases después de navidades (no vienen muchos alumnos)
 &lt;&lt;&lt;</pre>
 </div>
 <div created="20141116213214919" modified="20141116213543825" tags="Índice" title="UF1">
