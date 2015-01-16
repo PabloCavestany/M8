@@ -159,6 +159,8 @@ Error message and password prompt
 
 <li>Actividades</li>
 
+<li>Actividades_UF3</li>
+
 <li>ActividadesUF1</li>
 
 <li>Auditorias en Apache</li>
@@ -167,13 +169,19 @@ Error message and password prompt
 
 <li>Cabeceras HTTP</li>
 
+<li>Características Correo Electrónico</li>
+
 <li>Características y funcionamiento del servicio DNS</li>
 
 <li>Clientes DNS (resolver)</li>
 
 <li>Configuración básica en vsftp</li>
 
+<li>Configuración Postfix</li>
+
 <li>Contenido</li>
+
+<li>Contenido_UF3</li>
 
 <li>ContenidoUF1</li>
 
@@ -185,11 +193,11 @@ Error message and password prompt
 
 <li>DHCP con dos interfaces</li>
 
+<li>Direcciones y cuentas de correo</li>
+
 <li>DNS Dinámico</li>
 
 <li>Draft of '$:/ControlPanel'</li>
-
-<li>Draft of 'Actividades'</li>
 
 <li>Draft of 'New Tiddler'</li>
 
@@ -197,9 +205,13 @@ Error message and password prompt
 
 <li>Funcionamiento</li>
 
+<li>Funcionamiento Correo Electrónico</li>
+
 <li>Índice</li>
 
 <li>Instalación Apache</li>
+
+<li>Instalación postfix</li>
 
 <li>Instalación vsftp</li>
 
@@ -256,6 +268,8 @@ Error message and password prompt
 <li>UF1_temporización</li>
 
 <li>UF2</li>
+
+<li>UF3</li>
 
 <li>Vagrant: lo más sencillo</li>
 
@@ -4822,7 +4836,7 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150112110937861" title="$:/state/sidebar">
+<div modified="20150116173221426" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
@@ -4834,7 +4848,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF2 [[Draft of 'Actividades']] IpCop+Apache" title="$:/StoryList">
+<div list="Actividades_UF3 [[Configuración Postfix]] [[Instalación postfix]] Índice UF2 Actividades" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -4851,7 +4865,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20141012221534022" modified="20141116213731047" title="$:/temp/NewTagName">
+<div created="20141012221534022" modified="20150116170516799" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.2">
@@ -5159,7 +5173,7 @@ $TTL 1D
 **Reiniciamos el servidor y comprobamos con nslookup.
 </pre>
 </div>
-<div created="20141116213710237" modified="20150112110931599" tags="UF2" title="Actividades">
+<div created="20141116213710237" modified="20150116165942311" tags="UF2" title="Actividades">
 <pre>@@background-color:grey;
 FTP
 @@
@@ -5195,7 +5209,26 @@ HTTP
 #[[Cabeceras HTTP]]
 #[[Proxy reverse con Apache]]
 #[[Auditorias en Apache]]
-#[[Módulos en Apache]]</pre>
+#[[Módulos en Apache]]
+#[[IpCop+Apache]]</pre>
+</div>
+<div created="20150116172127405" modified="20150116173208065" tags="UF3" title="Actividades_UF3">
+<pre>@@background-color:grey;
+Servicio Correo
+@@
+''Proyectos básicos''
+
+&lt;&lt;&lt;
+#[[Instalación postfix]]
+#[[Configuración Postfix]]
+&lt;&lt;&lt;
+''Proyectos no básicos''
+
+&lt;&lt;&lt;
+
+
+&lt;&lt;&lt;
+</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
 <pre>@@background-color:grey;
@@ -5317,6 +5350,39 @@ __Problemas a resolver__
 #Instalar complemento de Firefox &quot;Live HTTP Headers&quot;. Accede a varias webs y captura las diferentes cabeceras.
 #Accede a &quot;Herramientas para desarrolladores&quot; en //Google Chrome// e investiga la herramienta. ¿Para qué sive? Accede a varias webs y observa las peticiones HTTP: métodos, respuestas, tipos de recursos enviados por el servidor, código html, etc.
 #Encuentra una buena página para consultar el significado de las cabeceras HTTP. </pre>
+</div>
+<div created="20150116171239674" modified="20150116171445733" title="Características Correo Electrónico">
+<pre>__Definición__
+
+:El servicio de correo electrónico ofrece a los usuarios la posibilidad de enviarse mensajes a través de una red TCP/IP. 
+
+__Características__
+
+*Es fácil de utilizar.
+*Permite el intercambio de mensajes entre usuarios sin necesidad de que el emisor y el receptor establezcan una conexión previa. La comunicación es asíncrona.
+*Los mensajes intercambiados son mensajes de texto que pueden contener otros recursos adjuntos (documentos, imágenes, programas, archivos de vídeo, etc.)
+*Permite el intercambio de mensaje de forma rápida y económica.
+*Un mismo mensaje se puede enviar simultáneamente a múltiples usuarios.
+
+__Componentes__
+
+*''Mensajes de correo'': mensajes de texto que pueden incluir documentos adjuntos.
+*''Direcciones y cuentas de correo'': Los usuarios disponen de direcciones de correo asociadas a una cuenta de correo. Esta dirección identifica los mensajes que envía un usuario y la cuenta asociada permite almacenar los mensajes enviados y recibidos.
+*''Servidores de correo'': conjunto de componentes que permiten el reenvío de mensajes de correo electrónico:
+**''Buzones de correo'' (//mailbox//). Las cuentas de correo tienen asociadas buzones de correo en los cuales se depositan y almacenan los mensajes.
+**''Agentes de transferencia de correos'' (MTA, //Mail Transfer Agent// o //Message Transfer Agent// o //mail relay//): Procesos que se encargan de recibir el correo o de reenviarlo a otros agentes de transporte. Pueden actuar como cliente y servidor del ''protocolo SMTP'' que es el protocolo utilizado en la transferencia de mensajes de correo. Es el componente principal y por ello, es habitual usar los términos ''servidor de correo'' y MTA como sinónimos.
+**''Agentes de entrega de correos'' (MDA, //Mail Delivery Agent// o //Message Delivery Agent//): Procesos que se encargan de recibir y depositar el correo en los buzones destinatarios. Son invocados por los ~MTAs y pueden realizar  funciones adicionales de distribución, filtrado y clasificación.
+**''Servidores POP/IMAP''. Procesos que permiten a los clientes de correo acceder a los buzones para obtener, consultar, borrar o modificar los mensajes almacenados. La comunicación entre ellos y los clientes se realiza según las normas de los protocolos POP y/o IMAP.
+**''Componentes adicionales''. Añaden funcionalidades y se integran con el MTA y el MDA. Algunos ejemplos son filtros //antispam//, filtros //antivirus//, sistemas de autenticación, listas de distribución...
+*''Clientes de correo o agentes de usuario de correo'' (MUA, //Mail User Agent//). Programas que permiten a los usuarios escribir, enviar y consultar  o manipular los correos almacenados en sus buzones. Actúan como clientes SMTP para enviar correos y pueden actuar como clientes POP/IMAP para acceder a los buzones.
+*''Protocolos''. La comunicación entre los diferentes componentes del servicio se basa en los siguientes protocolos:
+**''Protocolos de transferencia de correo'':
+***''SMTP y SMTP extendido (ESMTP)''.
+***Comunicación entre clientes (MUAs) y MTAs, y comunicación entre MTAs.
+**''Protocolos de entrega de correo''
+***''POP e IMAP''.
+***Comunicación entre clientes (MUAs) y servidores POP/IMAP.
+[img[MTA;MDA;MUA|http://www.unlocktheinbox.com/images/mua-mta-mda-diagram.png]]</pre>
 </div>
 <div created="20141020005735103" modified="20141020005856610" title="Características y funcionamiento del servicio DNS">
 <pre>!!!Características fundamentales
@@ -5451,6 +5517,50 @@ Cuando un servidor recibe una consulta iterativa:
 *Los usuarios locales podrán descargar y subir archivos.
 *Los usuarios locales estarán enjaulados en su directorio //home//.</pre>
 </div>
+<div created="20150116173059281" modified="20150116173203774" title="Configuración Postfix">
+<pre>Configura Postfix para que sea el servidor de correo de la red virtual:
+
+*Saludará a los clientes con el mensaje &quot;debian.asix.net ESMTP Postifix&quot;.
+*Gestionará el dominio asix.net como local.
+*Solo permitirá el reenvío de correos enviados desde la red 10.33.X.0/24 y desde el equipo local.
+*Los buzones de los usuarios se almacenan en formato //maildir// en el directorio //Maildir// dentro del home de cada usuario y su tamaño máximo será de 1 GB.
+*El tamaño máximo de los mensajes de correo será de 5MB.
+*Permitirá conexiones SMTP y conexiones SMTPS en el puerto 25 usando STARTTLS (usará un certificado digital autofirmado).
+*No se configurará ningún tipo de autenticación SMTP.
+*Enviará correos directamente a los destinatarios.
+----
+__Reenvío de correos desde la red virtual__
+
+*`postconf -n`: para mostrar los parámetros definidos explícitamente en el fichero //main.cf// que no tienen su valor por defecto.
+*`postconf -d`: mostrar todos los parámetros con sus valores por defecto.
+*Parámetros básicos:
+**''smtpd-banner'': mensaje que muestra a los clientes.
+**''myhostname'': nombre de la máquina.
+**''mydomain'': dominio de la máquina.
+**''myorigin'': nombre de dominio que aparece en los correos que son enviados desde el equipo.
+**''mydestination'': dominios para los que se considera el MTA como destino final y por tanto, no se reenvían los correos. Se pueden especificar varios.
+**''mynetworks'': redes desde las que el servidor puede recibir correos de los clientes y reenviarlos. (Si se permiten todas y no hay autenticación, se considerará //Open relay//.
+**''relay-domains'': dominios para los que está permitido el reenvío de correo.
+**''relayhost'': especifica el host hacia el que se envía el correo (//smart host//). Si no se especifica el correo se envía directamente a los destinatarios.
+**''mailbox_size_limit'': tamaño máximo que tendrán los buzones de correo.
+**''message_size_limit'': tamaño máximo de los mensajes de correo.
+**''inet_interfaces'': interfaces en las que se escucharán peticiones.
+**''home_mailbox'': formato de los buzones de correo (//mbox// o //maildir//).
+*Realizamos los cambios según el enunciado de la práctica:
+```
+mynetworks = 10.33.1.0/24 127.0.0.0/8
+mailbox_size_limit = 1073741824
+message_size_limit = 10485760
+home_mailbox = Maildir/
+
+smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+```
+*Recargamos los ficheros de configuración `service postfix reload`</pre>
+</div>
 <div created="20141116213738955" modified="20141130235017943" tags="UF2" title="Contenido">
 <pre>__Servicio FTP__
 
@@ -5463,6 +5573,12 @@ __Servicio Web__
 #[[Servicio Web: protocolo HTTP]]
 #[[Servicio Web: Alojamiento virtual de sitios web]]
 #[[Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc]]
+</pre>
+</div>
+<div created="20150116170459172" modified="20150116172111117" tags="UF3" title="Contenido_UF3">
+<pre>#[[Características Correo Electrónico]]
+#[[Funcionamiento Correo Electrónico]]
+#[[Direcciones y cuentas de correo]]
 </pre>
 </div>
 <div created="20141012221525617" modified="20141116213448126" title="ContenidoUF1">
@@ -5524,6 +5640,21 @@ El plazo del contrato o concesión es el tiempo en que un cliente DHCP  mantiene
 <pre>Configura un servidor DHCP conectado a dos redes y dando servicio a las dos.
 En la primera, el rango de IPs será de 192.168.1.100 a 192.168.1.200. En la segunda el rango será de 10.33.1.10 a 10.33.1.110.</pre>
 </div>
+<div created="20150116171932850" modified="20150116172023798" title="Direcciones y cuentas de correo">
+<pre>Una dirección de correo es una cadena de caracteres formada por dos partes (se permiten letras, números, guiones bajos y un solo punto) separadas por el carácter @.
+
+Lo habitual es cada dirección tenga asociada una cuenta (un buzón) con contraseña en un servidor de correo electrónico donde se depositan y almacenan los mensajes. La segunda parte de la dirección indica el dominio al que pertenece.
+Así en ''~NombreUsuario@dominio.org'', ~NombreUsuario es el nombre del usuario y dominio.org es el nombre del dominio. 
+
+!!Cuentas de correo redirigidas y alias
+*Una cuenta de correo redirigida es una cuenta aparentemente normal pero internamente no tiene asociado un buzón (no puede almacenar mensajes). Los mensajes enviados a esa cuenta se redirigen a otra cuenta.
+*Un alias es similar a una cuenta de correo redirigida, la diferencia es que las cuentas redirigidas &quot;apuntan&quot; a cuentas de otro dominio y los alias &quot;apuntan&quot; a cuentas de mismo dominio.
+Utilidades de las cuentas redirigidas y los alias:
+
+*Crearnos varias &quot;identidades&quot; con diferentes cuentas de correo pero con el mismo buzón. Los clientes de correo podrán clasificar los correos en función de la cuenta a la que van dirigidos.
+*Usar un alias para suscribirse a un foro y, cuando ya no estemos interesados en el foro, dar de baja el alias (no hay que tocar la cuenta principal y dejamos de recibir mensajes que no nos interesan)
+*Enviarte mensajes a ti mismo, crear varias cuentas en las diferentes redes, etc.</pre>
+</div>
 <div created="20141020012237430" modified="20141020012247998" title="DNS Dinámico">
 <pre>Las actualizaciones de los archivos de zona se pueden realizar de forma manual o dinámica.
 
@@ -5540,45 +5671,6 @@ En la primera, el rango de IPs será de 192.168.1.100 a 192.168.1.200. En la seg
 &lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/ControlPanel]!has[draft.of]]&quot; &quot;$:/core/ui/ControlPanel/Info&quot;&gt;&gt;
 &lt;/div&gt;
 </pre>
-</div>
-<div created="20141116213710237" draft.of="Actividades" draft.title="Actividades" modified="20150112111248436" tags="UF2" title="Draft of 'Actividades'">
-<pre>@@background-color:grey;
-FTP
-@@
-''Proyectos básicos''
-
-&lt;&lt;&lt;
-#[[Instalación vsftp]]
-#[[Configuración básica en vsftp]]
-&lt;&lt;&lt;
-''Proyectos no básicos''
-
-&lt;&lt;&lt;
-#[[vsftp en modo pasivo]]
-#[[Posible uso de TFTP]]
-#[[IpCop+FTP]]
-
-&lt;&lt;&lt;
-
-@@background-color:grey;
-HTTP
-@@
-''Proyectos básicos''
-
-&lt;&lt;&lt;
-#[[Instalación Apache]]
-#[[Primeras directivas y configuración de virtualhost]]
-#[[Autenticación en Apache]]
-
-&lt;&lt;&lt;
-''Proyectos no básicos''
-
-&lt;&lt;&lt;
-#[[Cabeceras HTTP]]
-#[[Proxy reverse con Apache]]
-#[[Auditorias en Apache]]
-#[[Módulos en Apache]]
-#[[IpCop+Apache]]</pre>
 </div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
 <pre></pre>
@@ -5681,6 +5773,54 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 
 </pre>
 </div>
+<div created="20150116171524228" modified="20150116171817334" title="Funcionamiento Correo Electrónico">
+<pre>Hay una gran cantidad de situaciones y arquitecturas posibles para implantar los servicios de correo en una organización.
+
+De momento, tenemos:
+
+*El servicio de correo está basado en el modelo cliente-servidor.
+*Los usuarios disponen de cuentas de correo.
+*Cada cuenta de correo dispone de buzones en un servidor de correo.
+*Los usuarios utilizan clientes de correo (MUA) para escribir mensajes que envían a los servidores de correo (MTAs). Se utiliza el protocolo SMTP para la comunicación entre el MUA y MTA.
+*Los  MTAs de los servidores de correo se encargan de reenviar los mensajes a otros MTAs si el destinatario del mensaje no tiene cuenta en ellos. Si el destinatario sí tiene cuenta en el servidor se almacena el mensaje en el buzón (lo puede hacer el MDA).
+*Los usuarios utilizan los clientes de correo (MUA) para acceder a los servidores de POP o IMAP y obterner y consultar los mensajes de sus buzones de correo. 
+__Proceso general de envío/reenvío de correos__
+
+#Un usuario escribe un mensaje de correo electrónico usando un cliente de correo (MUA). Normalmente, el mensaje contiene:
+##Dirección de correo origen (profesor@asi.cat).
+##Dirección/es de correo destino (alumno@asix.cat).
+##Cuerpo del mensaje (texto, archivos, imágenes...).
+#El cliente de correo (MUA) envía el correo usando el protocolo SMTP. Existen varias posibilidades:
+##A un servidor de correo local (MTA local), si en la misma máquina donde está el cliente hay un MTA.
+##A un servidor de correo remoto (MTA):
+###Al servidor de correo del usuario destinatario (el del dominio asix.cat). No es habitual porque el servidor de correo debería estar configurado para no admitir correos de cualquier origen.
+###Al servidor de correo del usuario que envía el mensaje (el del dominio asi.cat). Es lo habitual porque los MTAs deben estar configurados para recibir y/o reenviar correo solo de usuarios, dominios, equipos o redes autorizados.
+###A otro servidor de correo (que se suele llamar //relay o smart host//). Debe estar configurado para admitir correos del usuario, dominio, equipo o red desde donde se envía.
+#El servidor de correo (el MTA) recibe el mensaje usando el protocolo SMTP.
+##Si el correo está dirigido a un usuario cuyo buzón está en el servidor local, el correo se almacena en el buzón del usuario.(Recepción de correo)
+##Si el correo está dirigido a un usuario que no tiene cuenta en el servidor, existen dos posibilidades (Retransmisión o reenvío de correo):
+###Envía el correo al servidor de correo destinatario del mensaje (asix.cat)
+###Envía el correo a otro servidor de correo (//relay o smart host//) que vuelve a realizar el mismo proceso. Debe estar configurado para admitir correos del usuario, dominio, equipo o red desde donde se envía. Este paso se puede repetir bastantes veces, es posible por tanto, que el mensaje pase por varios MTA antes de llegar al destino.
+__Envío de correos y DNS__
+
+Los MTAs determinan cuál es el siguiente MTA al que tienen que enviar un mensaje en función de la dirección de correo de destino (y, por supuesto, de su configuración). Para averiguar la dirección IP del servidor de correo de dominio consultan el DNS. Hay que recordar que los servidores DNS almacenan registros de recursos de tipo MX que especifican cuál o cuáles son los equipos que actúan como servidores de correo de un dominio.
+
+__Proceso general de recepción o entrega de correos__
+
+*Iniciar sesión en el servidor de correo (no es lo habitual). Acceder al buzón directamente o usar un cliente de correo local que le permita consultar el buzón.
+*Usar  un cliente de correo que se comunique con el servidor para descargar los mensajes usando un protocolo de entrega como POP o IMAP.
+__Ejemplo típico del proceso de entrega y recepción del correo__
+
+Situación: usuario usuario1@origen.org quiere escribir a usuario2@destino.com.
+
+#El MUA de usuario1 envía el mensaje al MTA. Puede despositarlo directamente en la cola de mensajes del MTA o se lo envía usando SMTP. El MTA puede estar en la máquina origen, puede estar en el dominio local o puede ser cualquier otro configurado adecuadamente para reenviar correos de usuario1@origen.org.
+#MTA al DNS: ¿Cuál es el servidor de correo del dominio destino.com? Obtiene la IP del servidor de correo del dominio destino.com.
+#MTA envía el mensaje de correo al MTA destinatario.
+#MTA destinatario recibe el mensaje y lo deposita en el buzón del usuario2 (MDA)
+#El usuario2 utilizará un MUA para acceder a su buzón de correo utilizando POP3 o IMAP o SMTP.
+
+</pre>
+</div>
 <div created="20141006093955487" modified="20141116213616329" title="Índice">
 <pre>&lt;&lt;list-links &quot;[tag[Índice]]&quot;&gt;&gt;
 
@@ -5733,6 +5873,60 @@ __Cuando se reinicia un equipo__ que ha obtenido una concesión activa, mandará
 #Crea un enlace simbólico a una carpeta de tu escritorio desde el directorio del Apache. Elimina el archivo index.html de dicho directorio, ¿qué sucede? 
 #Busca información: ¿que es apche2ctl? ¿Para qué sirve? Documéntalo para usos futuros... seguro que lo necesitarás.
 #Cambia el puerto donde está escuchando apache al 2099. ¿Cómo podemos comprobar que está funcionado el servidor?</pre>
+</div>
+<div created="20150116172453049" modified="20150116173004021" title="Instalación postfix">
+<pre>''Postfix'' es un MTA para sistemas //Unix/Linux//. Es rápido, modular y fácil de administrar (en relación a otros).
+
+Vamos a instalar el MTA //Postfix// para que reciba correo del dominio asix.net y reenvíe mensajes directamente a los servidores de correo destinatarios.
+
+__Instalación__
+
+*Mirar que en /etc/hosts y /etc/hostname el nombre del equipo sea debian.asix.net.
+*`sudo apt-get install postfix`
+*Selecciona //Sitio de internet//, introduce el nombre de dominio que gestionará Postfix (asix.net.)
+*Tras la instalación se han creado: Archivos de configuración, usuario //postfix// y grupo del mismo nombre, certificados digitales autofirmados para conexiones SMTPS.
+__Configuración__
+
+Postfix se configura editando parámetros en ficheros de configuración. Los archivos están en `/etc/postfix`
+
+*`/etc/postfix/main.cf`: archivo de configuración principal. 
+**Cada parámetro se especifica en una línea con el formato parámetro=valor.
+**Si una línea comienza con un espacio es que continúa el parámetro anterior.
+**Se puede utilizar $parámetro para asignar el valor de un parámetro a otro.
+**Los comentarios son a nivel de línea y se utiliza el símbolo almohadilla.
+**Los parámetros que no se especifiquen en el fichero de configuración, utilizan su valor por defecto.
+*`/etc/postfix/master.cf`: Archivo de configuración del demonio maestro de Postfix. Especifica como //Postfix// interactúa con diferentes procesos para lograr la entrega de correo.
+*`/etc/aliases`: archivo para definir alias de cuentas de correo.
+__Comprobación__
+
+*Que está rodando. `ps -ef|grep postfix`
+*Que escucha `netstat -ltn`
+*&quot;Saludar al servidor&quot;: `telnet localhost 25`
+__Logs__
+
+*`/var/log/mail.log`: Fichero principal. Se registra todo lo relacionado con el envío de correo
+*`/var/log/mail.info`: Registro de las acciones del servidor.
+*`/var/log/mail.warn`: Registro de avisos.
+*`/var/log/mail.err`: Registro de errores.
+__Usuarios y preparación para probar el servidor__
+
+*Postfix puede gestionar cuentas de correo de usuarios locales con cuenta en el sistema y usuarios virtuales (bbdd, servicios de directorio, etc.)
+*Creamos los usuarios `sudo adduser mortadelo` y `sudo adduser filemon`
+*Instalamos el paquete //mailutils// que contiene el cliente de correo ''mail''. `sudo apt-get install mailutils`
+__Configuración por defecto__
+
+*Gestiona cuentas de usuarios locales con el nombre de dominio asix.net.
+*Solo permite el reenvío de correos enviados desde el propio equipo.
+*Permite conexiones SMTP y conexiones SMTPS en el puerto 25 usando STARTTLS  (usando certificado digital autofirmado).
+*No tiene configurada ningún tipo de autenticación SMTP.
+*Permite el reenvío de correos destinados a cualquier dominio y envía los correos directamente a los destinatarios.
+*Los buzones de los usuarios se almacenan en formato //mailbox// en el directorio /var/mail
+__Correo entre usuarios locales__
+
+*Inicial sesión como mortadelo
+*Utiliza el comando //mail// para enviarle un correo a filemon (por defecto el comando mail envía los correo creados al MTA local) (NOTA: para enviar el correo usa Ctrl+D)
+*Accede como filemon y consulta su buzón de correo /var/mail/filemon.
+*Echa un vistazo a los logs (como administrador) para ver cómo a registrado el envío el correo.</pre>
 </div>
 <div created="20141116215843331" modified="20141116220614616" title="Instalación vsftp">
 <pre>__Instalación__
@@ -6418,7 +6612,7 @@ Los más utilizados son:
 <div created="20141018095939508" modified="20141018100144327" title="Temporización">
 <pre>&lt;&lt;list-links &quot;[tag[Temporización]]&quot;&gt;&gt;</pre>
 </div>
-<div created="20141119000819003" modified="20150112104014632" tags="UF2" title="Temporización UF2">
+<div created="20141119000819003" modified="20150116170324215" tags="UF2" title="Temporización UF2">
 <pre>''17_lunes''
 
 &lt;&lt;&lt;
@@ -6507,7 +6701,22 @@ Los más utilizados son:
 *2h (22h)
 *Tiempo de proyectos.
 *Retomando clases después de navidades (no vienen muchos alumnos)
-&lt;&lt;&lt;</pre>
+&lt;&lt;&lt;
+''12_Lunes''
+
+&lt;&lt;&lt;
+*2h (24h)
+*Tiempo de proyectos
+&lt;&lt;&lt;
+''15_Jueves''
+
+&lt;&lt;&lt;
+*2h (26h)
+*Tiempo de proyectos
+*Último día de la UF2
+&lt;&lt;&lt;
+
+La recuperación será el 30 de enero pero sólo para unos pocos y de forma especial. Imposible hacerlo de otra manera.</pre>
 </div>
 <div created="20141116213214919" modified="20141116213543825" tags="Índice" title="UF1">
 <pre>&lt;&lt;&lt;
@@ -6600,6 +6809,9 @@ __''13-11''__
 </div>
 <div created="20141116213629391" modified="20141116215620074" tags="Índice" title="UF2">
 <pre>&lt;&lt;list-links &quot;[tag[UF2]]&quot;&gt;&gt;</pre>
+</div>
+<div created="20150116170344041" modified="20150116170441950" tags="Índice" title="UF3">
+<pre>&lt;&lt;list-links &quot;[tag[UF3]]&quot;&gt;&gt;</pre>
 </div>
 <div created="20141016153300883" modified="20141016163748717" tags="Cosillas" title="Vagrant: lo más sencillo">
 <pre>*Creo directorio en mi home `mkdir MáquinasVirtuales`
