@@ -173,6 +173,8 @@ Error message and password prompt
 
 <li>Características y funcionamiento del servicio DNS</li>
 
+<li>Clientes de correo</li>
+
 <li>Clientes DNS (resolver)</li>
 
 <li>Configuración básica en vsftp</li>
@@ -233,6 +235,8 @@ Error message and password prompt
 
 <li>Posible uso de TFTP</li>
 
+<li>Primer correo</li>
+
 <li>Primeras directivas y configuración de virtualhost</li>
 
 <li>Proxy reverse con Apache</li>
@@ -254,6 +258,8 @@ Error message and password prompt
 <li>Servicio Web: definición y componentes</li>
 
 <li>Servicio Web: protocolo HTTP</li>
+
+<li>Servidores de correo</li>
 
 <li>Servidores de nombres</li>
 
@@ -4836,8 +4842,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150116173221426" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20150121232933097" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4848,7 +4854,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Actividades_UF3 [[Configuración Postfix]] [[Instalación postfix]] Índice UF2 Actividades" title="$:/StoryList">
+<div list="Índice UF3 Contenido_UF3 [[Servidores de correo]] [[Funcionamiento Correo Electrónico]] [[Direcciones y cuentas de correo]] Actividades_UF3 [[Primer correo]] [[Clientes de correo]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5212,7 +5218,7 @@ HTTP
 #[[Módulos en Apache]]
 #[[IpCop+Apache]]</pre>
 </div>
-<div created="20150116172127405" modified="20150116173208065" tags="UF3" title="Actividades_UF3">
+<div created="20150116172127405" modified="20150121233441159" tags="UF3" title="Actividades_UF3">
 <pre>@@background-color:grey;
 Servicio Correo
 @@
@@ -5221,6 +5227,8 @@ Servicio Correo
 &lt;&lt;&lt;
 #[[Instalación postfix]]
 #[[Configuración Postfix]]
+#[[Clientes de correo]]
+#[[Primer correo]]
 &lt;&lt;&lt;
 ''Proyectos no básicos''
 
@@ -5407,6 +5415,18 @@ __Componentes__
 **Realizar preguntas a otros servidores de nombres cuando no tienen la información que les piden.
 **Pueden intercambiar información sobre sus zonas (''tranferencias de zonas'')</pre>
 </div>
+<div created="20150121232555907" modified="20150121232616057" title="Clientes de correo">
+<pre>*Cliente (MUA) de correo en //Windows//:
+**Crea una cuenta en //gmail//. Configúralo para que permita la descarga de correo POP y acceso IMAP.
+**Instala el //Mozilla Thunderbird// en w7XX con las opciones por defecto. Inicia el programa y completa la información que solicita el asistente.
+**Mozilla dispone de una base de datos con los nombres DNS de los servidores de correo (MTA y servidores POP/IMAP) de los principales proveedores de Internet y por eso detecta automáticamente los nombres, puertos y métodos de autenticación/seguridad que hay que configurar para //Gmail//. Pero nosotros lo vamos a hacer de forma manual (//Configuración Manual de Thunderbird//) y consultando la ayuda de //Gmail//.
+**Pincha en &quot;crear cuenta&quot; para continuar. Se sincronizará el buzón de correo.
+**Repite los pasos con una cuenta de //Hotmail// (Archivo - Nuevo - Cuenta de correo)
+*Cliente (MUA) de correo en //Linux//:
+**Inicia sesión en ubuntuXX.
+**Accede al menú Aplicaciones{{{--&gt;}}} Oficina {{{--&gt;}}} correo y calendario Evolution.
+**Sigue los pasos del asistente para crear una cuenta asociada a la cuenta de //Gmail//</pre>
+</div>
 <div created="20141020010433486" modified="20141020011233613" title="Clientes DNS (resolver)">
 <pre>;Resolver
 :cualquier software capaz de preguntar a un servidor DNS e interpretar sus respuestas.
@@ -5575,10 +5595,11 @@ __Servicio Web__
 #[[Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc]]
 </pre>
 </div>
-<div created="20150116170459172" modified="20150116172111117" tags="UF3" title="Contenido_UF3">
+<div created="20150116170459172" modified="20150121233203822" tags="UF3" title="Contenido_UF3">
 <pre>#[[Características Correo Electrónico]]
 #[[Funcionamiento Correo Electrónico]]
 #[[Direcciones y cuentas de correo]]
+#[[Servidores de correo]]
 </pre>
 </div>
 <div created="20141012221525617" modified="20141116213448126" title="ContenidoUF1">
@@ -6090,6 +6111,12 @@ El objetivo de la práctica es montar un servidor PXE que ofrezca a los clientes
 
 Por último, documentar la práctica: enlaces interesantes, problemas que han surgido, soluciones, problemas sin solución (de momento), configuración del software, etc. No olvides leer todo lo que puedas sobre TFTP, el entorno PXE (pxelinux en este caso), opciones del dhcp, etc. </pre>
 </div>
+<div created="20150121233339584" modified="20150121233435094" title="Primer correo">
+<pre>*Configura el servidor de correo para que pueda reenviar correos de cualquier máquina de la red 192.168.1.0/24 (o la que tengas configurada). Comprueba que funciona. Para ello, levanta otra máquina virtual y trata de enviar desde esta nueva máquina algún correo a filemon@asix.net.
+ __Ayuda__: Necesitarás un MUA más potente que &quot;mail&quot;. Un posibilidad excelente: Alpine. 
+
+*Trata de conseguir la misma comprobación utilizando un MUA con interfaz gráfica.</pre>
+</div>
 <div created="20141203110136359" modified="20141203111804530" title="Primeras directivas y configuración de virtualhost">
 <pre>#Documenta (o aprende su significado) las siguientes directivas: ~DirectoryIndex, Options Indexes, ~DocumentRoot, ~ServerName, Listen y, muy importante, Namevirtualhost. Es conveniente que leas también un poco sobre los contenedores de directivas. Para esta actividad necesitas mirar el contenedor ~VirtualHost. Una buena referencia para mirar todo esto es [[ésta|http://httpd.apache.org/docs/2.2/en/mod/quickreference.html]]
 #Configura dos vhosts basados en IP. ¿Cómo quedaría la configuración del DNS? 
@@ -6528,6 +6555,42 @@ __Método TRACE__
 **400-499: Errores del cliente //Client Error//: el servidor indica que hay algún error en la petición o que no se puede conceder.
 **500-599: Errores en el servidor, Server Error: el servidor no puede atender una petición porque ha existido algún problema.
 </pre>
+</div>
+<div created="20150121232930097" modified="20150121233156932" title="Servidores de correo">
+<pre>;Definición
+:Un servidor de correo es un conjunto de aplicaciones y procesos que permiten el almacenamiento y reenvío de mensajes de correo electrónico. El componente principal de un servidor de correo es el MTA pero también puede integrar una serie de componentes adicionales para ampliar y mejorar su funcionalidad.
+__Agentes de transferencia de correos (MTA)__
+
+;Definición
+:Procesos encargados de la transferencia de los mensajes de correo entre equipos de una red mediante el protocolo SMTP. Son los responsables del encaminamiento del correo entre los diferentes sistemas.
+Actúan como:
+
+*Cliente SMTP para enviar correos a otros MTAs.
+*Servidor SMTP para recibir correo de otros MTAs o de MUAs. Por defecto escuchan en el puerto 25.
+Por tanto, un MTA se puede emplear para:
+
+*''Recepción de correo'': Recibir correos destinados a usuarios con cuenta en él.
+*''Retransmisión o reenvío'': Reenviar (//relay//) correos - es decir, actuar de pasarela:
+**Destinados a usuarios que no tienen cuenta en él y originados por usuarios con cuenta en él o no.
+**En la actualidad es muy importante que la retransmisión de correo (//relay//) por parte de un MTA esté controlada y restringida porque si no, podría ser utilizada por usuarios desconocidos para reenviar correo a otros sistemas y usuarios (//spam//). Para controlar el reenvío de correo los MTAs ofrecen múltiples opciones de configuración que se basan en:
+***Autenticación previa en el MTA para reenviar correos.
+***Restringir el reenvío de correos que provengan de determinadas IPs, segmentos de red, dominio, etc.
+__Servidores //open relay//__
+
+Término para referirse a un servidor MTA que permite el reenvío de correo desde cualquier lugar sin controlar ni verificar de dónde viene y de quién proviene.
+Para controlar el //spam// y los correos maliciosos se han creado listas en las que se incluyen rangos de IP, dominios, etc. que son susceptibles de contener MTAs que actúan como //open relay//. Son listas que pueden ser consultadas por otros MTAs para rechazar o aceptar correo procedente de esas fuentes.
+
+__Servidores //smart host//__
+
+Término para referirse a ~MTAs que reciben correos de otros MTAs y que van dirigidos a destinatarios que no tienen cuenta en él. Su función es reenviarlos.
+A diferencia  del //open relay//, el //smart host// debe estar configurado para permitir solo el reenvío de correos de determinados usuarios, IPs, dominios, etc. (si no sería un //open relay//).
+__Buzones de correo__
+
+Los MTAs almacenan los mensajes destinados a cuentas del servidor en sus buzones de correo. Pueden estar localizados en el mismo equipo o en otro. Cada MTA define el formato en el que se almacenan los mensajes de los buzones. Existen múltiples formatos (por ejemplo, mbox y maildir).
+
+__Ejemplos de MTAs__
+
+//Postfix, Sendmail, Microsoft Exchange, Qmail, Exim, Imail, hMailServer//</pre>
 </div>
 <div created="20141020010218108" modified="20141020010359679" title="Servidores de nombres">
 <pre>*Son programas que guardan la información sobre nombres de dominio y responden las preguntas de los clientes DNS y otros servidores de nombres. Almacenan, por tanto, una parte de la base de datos DNS.
