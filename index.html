@@ -159,7 +159,7 @@ Error message and password prompt
 
 <li>Actividades</li>
 
-<li>Actividades_UF3</li>
+<li>Actividades UF3</li>
 
 <li>ActividadesUF1</li>
 
@@ -183,7 +183,7 @@ Error message and password prompt
 
 <li>Contenido</li>
 
-<li>Contenido_UF3</li>
+<li>Contenido UF3</li>
 
 <li>ContenidoUF1</li>
 
@@ -237,6 +237,8 @@ Error message and password prompt
 
 <li>Primer correo</li>
 
+<li>Primer correo desde un dominio a otro</li>
+
 <li>Primeras directivas y configuración de virtualhost</li>
 
 <li>Proxy reverse con Apache</li>
@@ -268,6 +270,8 @@ Error message and password prompt
 <li>Temporización</li>
 
 <li>Temporización UF2</li>
+
+<li>Temporización UF3</li>
 
 <li>UF1</li>
 
@@ -4842,8 +4846,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150121232933097" title="$:/state/sidebar">
-<pre>no</pre>
+<div modified="20150128224624105" title="$:/state/sidebar">
+<pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4854,7 +4858,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF3 Contenido_UF3 [[Servidores de correo]] [[Funcionamiento Correo Electrónico]] [[Direcciones y cuentas de correo]] Actividades_UF3 [[Primer correo]] [[Clientes de correo]]" title="$:/StoryList">
+<div list="" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5218,7 +5222,7 @@ HTTP
 #[[Módulos en Apache]]
 #[[IpCop+Apache]]</pre>
 </div>
-<div created="20150116172127405" modified="20150121233441159" tags="UF3" title="Actividades_UF3">
+<div created="20150116172127405" modified="20150128224731397" tags="UF3" title="Actividades UF3">
 <pre>@@background-color:grey;
 Servicio Correo
 @@
@@ -5229,6 +5233,7 @@ Servicio Correo
 #[[Configuración Postfix]]
 #[[Clientes de correo]]
 #[[Primer correo]]
+#[[Primer correo desde un dominio a otro]]
 &lt;&lt;&lt;
 ''Proyectos no básicos''
 
@@ -5595,7 +5600,7 @@ __Servicio Web__
 #[[Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc]]
 </pre>
 </div>
-<div created="20150116170459172" modified="20150121233203822" tags="UF3" title="Contenido_UF3">
+<div created="20150116170459172" modified="20150128224745282" tags="UF3" title="Contenido UF3">
 <pre>#[[Características Correo Electrónico]]
 #[[Funcionamiento Correo Electrónico]]
 #[[Direcciones y cuentas de correo]]
@@ -6116,6 +6121,24 @@ Por último, documentar la práctica: enlaces interesantes, problemas que han su
  __Ayuda__: Necesitarás un MUA más potente que &quot;mail&quot;. Un posibilidad excelente: Alpine. 
 
 *Trata de conseguir la misma comprobación utilizando un MUA con interfaz gráfica.</pre>
+</div>
+<div created="20150128224305743" modified="20150128224605361" title="Primer correo desde un dominio a otro">
+<pre>__Primera Parte__
+
+*Monta en una misma red dos MTAs (dos postfix). El primero tendrá las siguientes características:
+**Tendrá la IP 192.168.1.2 (por ejemplo) y por nombre smtpserver1@asix.net (por ejemplo)
+**Dará servicio al dominio asix.net. 
+**Gestionará todos los correos que lleguen para usuarios del dominio asix.net
+**Reenviará los correos de todos aquellos que se encuentren en la subred 192.168.1.0/28
+*El segundo MTA tendrá las siguientes características:
+**Tendrá la IP 192.168.1.17 y por nombre smtpserver2@aula.net (por ejemplo)
+**Dará servicio al dominio aula.net. 
+**Gestionará todos los correos que lleguen para usuarios del dominio aula.net
+**Reenviará los correos de todos aquellos que se encuentren en la subred 192.168.1.16/28
+__Segunda Parte__
+
+*Cuando tengas todo el tinglado montado -incluyendo DNS -, envía un mensaje desde una máquina distinta (llamémosla maquinaFilemon) desde filemon@asix.net a estudiante@aula.net. Comprueba que todo ha ido correctamente.
+*Ahora cambía el parámetro //networks// de tal forma que excluya a la máquinaFilemon y comprueba que, efectivamente, filemon ya no puede enviar correos.</pre>
 </div>
 <div created="20141203110136359" modified="20141203111804530" title="Primeras directivas y configuración de virtualhost">
 <pre>#Documenta (o aprende su significado) las siguientes directivas: ~DirectoryIndex, Options Indexes, ~DocumentRoot, ~ServerName, Listen y, muy importante, Namevirtualhost. Es conveniente que leas también un poco sobre los contenedores de directivas. Para esta actividad necesitas mirar el contenedor ~VirtualHost. Una buena referencia para mirar todo esto es [[ésta|http://httpd.apache.org/docs/2.2/en/mod/quickreference.html]]
@@ -6780,6 +6803,36 @@ Los más utilizados son:
 &lt;&lt;&lt;
 
 La recuperación será el 30 de enero pero sólo para unos pocos y de forma especial. Imposible hacerlo de otra manera.</pre>
+</div>
+<div created="20150128224625981" modified="20150128225413800" tags="UF3" title="Temporización UF3">
+<pre>''19_Lunes''
+
+&lt;&lt;&lt;
+*2h (2h)
+*Inicio UF3
+*Presentación de la unidad formativa y valoración de lo visto en la UF2
+*Explico: [[Características Correo Electrónico]]
+*Propongo:
+*# [[Instalación postfix]]
+*#[[Configuración Postfix]]
+&lt;&lt;&lt;
+''22_Jueves''
+
+&lt;&lt;&lt;
+*2h (4h)
+*Tiempo de proyectos
+&lt;&lt;&lt;
+''26_Lunes''
+
+&lt;&lt;&lt;
+*2h (6h)
+*Explico:
+*#[[Funcionamiento Correo Electrónico]]
+*#[[Direcciones y cuentas de correo]]
+*#[[Servidores de correo]]
+*Propongo actividades: [[Clientes de correo]] y [[Primer correo]]
+&lt;&lt;&lt;
+</pre>
 </div>
 <div created="20141116213214919" modified="20141116213543825" tags="Índice" title="UF1">
 <pre>&lt;&lt;&lt;
