@@ -201,6 +201,8 @@ Error message and password prompt
 
 <li>Draft of '$:/ControlPanel'</li>
 
+<li>Draft of 'Contenido UF3'</li>
+
 <li>Draft of 'New Tiddler'</li>
 
 <li>Espacio de nombres de dominio</li>
@@ -212,6 +214,8 @@ Error message and password prompt
 <li>Índice</li>
 
 <li>Instalación Apache</li>
+
+<li>Instalación Dovecot</li>
 
 <li>Instalación postfix</li>
 
@@ -231,6 +235,8 @@ Error message and password prompt
 
 <li>IpCop+FTP</li>
 
+<li>Mensajes</li>
+
 <li>Módulos en Apache</li>
 
 <li>Posible uso de TFTP</li>
@@ -240,6 +246,10 @@ Error message and password prompt
 <li>Primer correo desde un dominio a otro</li>
 
 <li>Primeras directivas y configuración de virtualhost</li>
+
+<li>Protocolo SMTP</li>
+
+<li>Protocolos</li>
 
 <li>Proxy reverse con Apache</li>
 
@@ -4846,7 +4856,7 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150128224624105" title="$:/state/sidebar">
+<div modified="20150205000820269" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
@@ -4858,7 +4868,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="" title="$:/StoryList">
+<div list="Índice UF3 [[Draft of 'Contenido UF3']] Protocolos Mensajes [[Actividades UF3]] [[Instalación Dovecot]] [[Protocolo SMTP]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5222,7 +5232,7 @@ HTTP
 #[[Módulos en Apache]]
 #[[IpCop+Apache]]</pre>
 </div>
-<div created="20150116172127405" modified="20150128224731397" tags="UF3" title="Actividades UF3">
+<div created="20150116172127405" modified="20150204235421970" tags="UF3" title="Actividades UF3">
 <pre>@@background-color:grey;
 Servicio Correo
 @@
@@ -5234,12 +5244,12 @@ Servicio Correo
 #[[Clientes de correo]]
 #[[Primer correo]]
 #[[Primer correo desde un dominio a otro]]
+#[[Instalación Dovecot]]
 &lt;&lt;&lt;
 ''Proyectos no básicos''
 
 &lt;&lt;&lt;
-
-
+#[[Protocolo SMTP]]
 &lt;&lt;&lt;
 </pre>
 </div>
@@ -5698,6 +5708,15 @@ Utilidades de las cuentas redirigidas y los alias:
 &lt;/div&gt;
 </pre>
 </div>
+<div created="20150116170459172" draft.of="Contenido UF3" draft.title="Contenido UF3" modified="20150204235226500" tags="UF3" title="Draft of 'Contenido UF3'">
+<pre>#[[Características Correo Electrónico]]
+#[[Funcionamiento Correo Electrónico]]
+#[[Direcciones y cuentas de correo]]
+#[[Servidores de correo]]
+#[[Mensajes]]
+#[[Protocolos]]
+</pre>
+</div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
 <pre></pre>
 </div>
@@ -5900,6 +5919,48 @@ Situación: usuario usuario1@origen.org quiere escribir a usuario2@destino.com.
 #Busca información: ¿que es apche2ctl? ¿Para qué sirve? Documéntalo para usos futuros... seguro que lo necesitarás.
 #Cambia el puerto donde está escuchando apache al 2099. ¿Cómo podemos comprobar que está funcionado el servidor?</pre>
 </div>
+<div created="20150204234705430" modified="20150205000811073" title="Instalación Dovecot">
+<pre>Configura el servidor //Dovecot POP/IMAP//:
+
+*Permitirá a los usuarios de la red virtual acceder a sus buzones de correo.
+*Solo se permitirán conexiones seguras POP3S e IMAP4S.
+*Los métodos de autenticación permitidos serán PLAIN y LOGIN.
+--------------------------------------
+!!!Ayuda
+__Instalación y configuración__
+
+*Busca documentación oficial de Dovecot y échale una [[ojeada|http://wiki2.dovecot.org/]].
+*Instalación `apt-get install dovecot-imapd dovecot-pop3d`. Se crearán archivos de configuración y certificados digitales autofirmados.
+*Comprueba que el servidor funciona y mira si está escuchando en los puertos: TCP (110(POP), 143(IMAP), 995 (POPS), 993 (IMAPS).
+*Haz `doveconf -n` para ver qué opciones están configuradas. Debes de tener entre otras muchas directivas (que en principio no hay que tocar) algo así:
+```
+protocols = pop3 imap
+mail_location = maildir: ~/Maildir
+```
+*Para cambiar algún parametro debes mirar `/etc/dovecot/dovecot.conf` y también  `/etc/dovecot/conf.d/`. Por ejemplo, es probable que tengas que cambiar el parámetro //mail_location//. Observa que en el archivo de configuración (10-mail.conf) ya te indican cómo. Solo hay que descomentar la línea.
+*Realiza los cambios que necesites y, después, vuelve a cargar la configuración `service dovecot reload`
+*Comprueba que ahora sí el servidor está a la escucha en los puertos correspondientes.
+__Configuración del servidor DNS__
+
+*Crea el alias (registro CNAME) pop.asix.net de debian.asix.net.
+*Y otro para imap.asix.net de debian.asix.net.
+NOTA: para probar las cosas mejor intentarlas primero sin hacer uso del DNS, es decir, utilizar las IPs directamente.
+
+__Comprobar__
+
+*Primera comprobación: en local. Para ello, utilizaremos telnet. [[Aquí|http://systemadmin.es/2009/05/conectar-a-un-servidor-imap-mediante-telnet]] tenéis los pasos.
+*Segunda comprobación: desde otra máquina.
+**Inicia sesión en w7 (o en Ubuntu con Evolution)
+**Crea una cuenta en //Thunderbird// para el usuario  filemon:
+***Como servidor imap usa imap.asix.net:143 (primero prueba con la IP)
+***Nombre usuario: filemon@asix.net
+***Usa contraseña normal como método de identificación.
+**Como servidor SMTP (correo saliente) usa smtp.asix.net: 25
+***No hay que configurar ningún método de autenticación de SMTP.
+*Recupera el correo del buzón de filemon. (Nos pedirá que validemos un certificado desconocido)
+*Envía un mensaje (también nos pedirá que validemos el certificado del MTA) de filemon a mortadelo y observa en la máquina debian (o en la que tengas tu MTA) cuáles son y cómo son las cabeceras del mensaje. 
+*Configura la cuenta mortadelo para que recupere el correo de su buzón usando POPS.</pre>
+</div>
 <div created="20150116172453049" modified="20150116173004021" title="Instalación postfix">
 <pre>''Postfix'' es un MTA para sistemas //Unix/Linux//. Es rápido, modular y fácil de administrar (en relación a otros).
 
@@ -6085,6 +6146,27 @@ __Ampliación__
 
 Una opción de estudio interesante (de cara a un proyecto de síntesis, por ejemplo) sería configurar el FTP para que trabaje en modo activo en la red interna y en modo pasivo cuando se acceda desde la red externa.</pre>
 </div>
+<div created="20150204235106380" modified="20150204235149611" title="Mensajes">
+<pre>Los mensajes del correo electrónico son mensajes de texto que siguen el formato IMF (//Internet Mail Format//).
+Están formados por tres partes:
+
+*__Cabecera__: compuesta por líneas de texto ASCII con el formato nombre:valor/es y con información que es usada en la transferencia, análisis y clasificación del mensaje. Son incluidas y consultadas por los componentes que intervienen en la transferencia. Las cabeceras más usadas son:
+**''To'': dirección/es de los destinatarios.
+**''From'': dirección del remitente.
+**''CC'': destinatarios secundarios.
+**''BCC'': destinatarios ocultos.
+**''Subject'' asunto del mensaje.
+**''Replay-To'': dirección a la que responder. La añade el MUA emisor. Puede ser diferente a la que aparece en el //From//.
+**''Received'': agregada por los ~MTAs por los que pasa el mensaje. Se incluyen la identidad del MTA, la fecha, la hora de recepción y otra información. Se utiliza para hacer un seguimiento y resolver problemas.
+**''Delivered-To'': dirección real a la que es entregado el mensaje (sin alias).
+**''Date'': fecha y hora del envío del mensaje.
+**''Message-Id'': identificador del mensaje.
+**''In-Replay-To'': identificador del mensaje al que se corresponde la respuesta.
+**''Return-Path'': generada por el MTA final indicando cuál es el emisor real del mensaje.
+**Los MUAs y MTAs pueden definir sus propias cabeceras para añadir información adicional en los correos. Como convenio se ha establecido que se utilice el prefijo X- para indicar que es una cabecera no estándar. (~X-Originating-IP)
+*__Cuerpo__: contiene el mensaje en sí. Inicialmente solo se podían enviar mensajes de texto en formato ASCII pero actualmente, gracias a las extensiones MIME, se puede enviar todo tipo de contenidos.
+*__MIME__: Las extensiones MIME definen cabeceras que se pueden usar en el cuerpo del mensaje y permiten incluir: caracteres especiales (ñ, tildes), alfabetos no latinos (árabe, hebreo,..) y ficheros de audio, vídeo, imágenes....</pre>
+</div>
 <div created="20150112110114598" modified="20150112110923627" title="Módulos en Apache">
 <pre>Uno de los puntos fuertes de Apache es su &quot;modularidad&quot;: su capacidad para adquirir funcionalidades nuevas y potentes añadiéndole un pequeño &quot;módulo&quot; de código.
 
@@ -6149,6 +6231,59 @@ __Segunda Parte__
 ----
 !!Ayuda
 *La mejor opción para aprender a configurar los virtualhost es, lógicamente, leer el [[manual|http://httpd.apache.org/docs/2.2/en/vhosts/]]. En concreto, en el apartado &quot;examples for common setups&quot; tenéis las configuraciones que necesitáis para realizar la actividad</pre>
+</div>
+<div created="20150204234558095" modified="20150204234613544" title="Protocolo SMTP">
+<pre>Envía un correo en local de filemon@asix.net a mortadelo@asix.net utilizando una conexión telnet. Busca los comandos. [[Una posibilidad|http://www.concepto.com.uy/PETROCSHARP/hwnver03.aspx?1,N,0,0,217]]</pre>
+</div>
+<div created="20150204235231942" modified="20150204235341745" title="Protocolos">
+<pre>!!!Protocolos de transferencia de correo. SMTP/ESMTP
+__''SMTP''__
+
+*//Simple Mail Transfer Protocol//
+*Lo utilizan los MTAs para intercambiar correos y los MUAs para enviar correos a los MTAs.
+*Utiliza TCP como protocolo de transporte.
+*Su funcionamiento se basa en el intercambio de mensajes (comandos y respuestas) en formato ASCII entre cliente y servidor.
+*Funcionamiento básico:
+**Cliente establece conexión TCP con el servidor.
+**Servidor responde con una respuesta (ejemplo 220)
+**Cliente saluda al servidor con el comando HELO.
+**Servidor acepta y envía otra respuesta (250).
+**Se envían comandos y respuestas para enviar correos electrónicos.
+**Se finaliza la conexión (QUIT).
+*''Comandos SMTP'': utilizados por los clientes: HELO, DATA, MAIL FROM.... Admiten parámetros y acaban con &lt;CR&gt;&lt;LF&gt;
+
+*''Codigos de estado'': respuestas de los servidores. Son números de tres dígitos seguidos de un mensaje descriptivo.
+__''ESMTP''__
+
+*//Extended Simple Mail Transfer//
+*Define un conjunto de extensiones del protocolo SMTP que solucionan problemas y añaden funcionalidades: MIME, AUTH, STARTTLS...
+*Los clientes que quieran utilizar ESMTP deben saludar con EHLO
+
+!!!Protocolos de entrega de correo
+__''Protocolo POP''__
+
+*//Post Office Protocol//
+*Versión actual ~POP3
+*Permite:
+**Conectarse al servidor
+**Descargarse los mensajes de correo (eliminándolos o manteniendo una copia en el buzón).
+**Cerrar la conexión.
+*Utiliza TCP y se basa en el intercambio de mensajes ASCII.
+*Ofrece diversos mecanismos  de autenticación (USER/PASS, APOP,SALS...)
+*El usuario debe autenticarse para acceder a su buzón.
+__''Protocolo IMAP''__
+
+*//Internet Message Access Protocol//
+*Versión ~IMAP4
+*Utiliza TCP y se basa en el intercambio de mensajes ASCII
+*Ofrece autenticación (AUTHENTICATE, LOGIN, SASL....)
+*El usuario tiene que autenticarse.
+*Permite:
+**Operar en modo desconectado y establecer conexiones para descargar el correo (igual que POP)
+**Operar en modo conectado permitiendo la manipulación  de los buzones como si fueran locales.
+**Soporte para acceder a partes de los mensajes y obtenerlos parcialmente.
+**Acceso simultáneo al mismo buzón por múltiples usuarios.
+**Crear, borrar y manipular buzones.</pre>
 </div>
 <div created="20141214215409201" modified="20141214215515447" title="Proxy reverse con Apache">
 <pre>Lee [[esto | http://httpd.apache.org/docs/2.2/mod/mod_proxy.html]] y siguiendo las indicaciones del ejemplo que muestran (en el enlace) trata de montar un proxy reverse.</pre>
