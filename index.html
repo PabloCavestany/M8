@@ -165,6 +165,8 @@ Error message and password prompt
 
 <li>Auditorias en Apache</li>
 
+<li>Autenticación con SASL</li>
+
 <li>Autenticación en Apache</li>
 
 <li>Cabeceras HTTP</li>
@@ -200,6 +202,8 @@ Error message and password prompt
 <li>DNS Dinámico</li>
 
 <li>Draft of '$:/ControlPanel'</li>
+
+<li>Draft of 'Contenido UF3'</li>
 
 <li>Draft of 'New Tiddler'</li>
 
@@ -254,6 +258,8 @@ Error message and password prompt
 <li>Registro de recursos</li>
 
 <li>Resolución recursiva</li>
+
+<li>Seguridad correo</li>
 
 <li>Servicio FTP: definición y componentes</li>
 
@@ -4854,8 +4860,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150205000820269" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20150212134458633" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4866,7 +4872,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF3 [[Contenido UF3]] Protocolos Mensajes [[Actividades UF3]] [[Instalación Dovecot]] [[Protocolo SMTP]]" title="$:/StoryList">
+<div list="Índice UF3 [[Draft of 'Contenido UF3']] [[Seguridad correo]] [[Actividades UF3]] [[Autenticación con SASL]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5230,7 +5236,7 @@ HTTP
 #[[Módulos en Apache]]
 #[[IpCop+Apache]]</pre>
 </div>
-<div created="20150116172127405" modified="20150204235421970" tags="UF3" title="Actividades UF3">
+<div created="20150116172127405" modified="20150212134845747" tags="UF3" title="Actividades UF3">
 <pre>@@background-color:grey;
 Servicio Correo
 @@
@@ -5248,6 +5254,7 @@ Servicio Correo
 
 &lt;&lt;&lt;
 #[[Protocolo SMTP]]
+#[[Autenticación con SASL]]
 &lt;&lt;&lt;
 </pre>
 </div>
@@ -5296,6 +5303,64 @@ Esta actividad consiste en:
 *Leer la explicación de los logs que nos aporta el manual ([[aquí|http://httpd.apache.org/docs/2.2/en/logs.html]]).
 *Revisar la actual configuración de Apache (mirando archivos de configuración) y averiguar qué información y en qué formato se están guardando actualmente los errores. Comprobar los archivos de log: ¿qué contienen?
 *Investigar cómo se puede obtener información de los accesos a cada uno de los ~VirtualHost que tenemos configurado</pre>
+</div>
+<div created="20150212134446951" modified="20150212134826047" title="Autenticación con SASL">
+<pre>[[Fuente|http://www.postfix.org/SASL_README.html]]
+
+!Postfix SASL HowTo
+!!!Cómo utiliza Postfix SASL
+*Postfix no implementa SASL. Necesita de software adicional
+*SASL autenticación no está implementada por postfix. Por eso su configuración requiere de dos pasos:
+**Configuración de SASL: mecanismos disponibles, backend que verifiquen autenticaciones (bbdd)
+**Configurar postfix para habilitar autenticacion SASL
+¿Qué implementaciones de SASL soporta postfix? Dos: Cyrus - SASL y Dovecot - SASL (desde la versión 2.3 de postfix). Para averiguar qué implementaciones soporta nuestro postfix: `postconf -a`. Nosotros utilizaremos Dovecot - SASL
+
+''Configurando Dovecot SASL''
+
+*Para configurar comunicación entre postfix y dovecot: establecemos un listener (socket UNIX), el usuario permitido es postfix y los permisos:
+```
+#En conf.d/10-master.conf:
+     service auth {
+        ...
+        unix_listener /var/spool/postfix/private/auth {
+          mode = 0660
+          # Assuming the default Postfix user and group
+          user = postfix
+          group = postfix        
+        }
+       ...
+     }
+ 
+#En conf.d/10-auth.conf
+     auth_mechanisms = plain login
+```
+''Habilitando SASL en postfix''
+
+*Por defecto, postfix utiliza la implementación de Cyrus SASL. Para utilizar la de dovecot, hay que indicárselo en el main.cf: `smtpd_sasl_type = dovecot`
+*Ahora hay que indicarle a postfix donde está el listener de dovecot (le daremos ruta relativa): `smtpd_sasl_path = private/auth`
+*A continuación hay que habilitar SASL:`smtpd_sasl_auth_enable = yes`
+
+*Ahora (después de hacer un reload postfix) podemos ver, si hacemos una conexión telnet y saludamos con EHLO, que el servidor ofrece servicios de autenticación.
+*Sin embargo, no todos los clientes entienden las opciones de autenticación ya que esperan un &quot;=&quot; después del &quot;AUTH&quot;. Para ellos, postfix les reenvía la línea del AUTH si colocamos: `broken_sasl_auth_clients = yes`. Si volvemos a conectarnos vía telnet veremos como envía la línea del AUTH dos veces.
+!!!Políticas de seguridad
+*Podemos indicar qué políticas deben aplicarse en la autenticación de clientes:
+**noanonymous: no usar mecanismos de autenticación que permitan autenticaciones anónimas
+**noplaintext: no usar mecanismos que envíen contraseñas y usuarios en texto plano.
+**nodictionary: no usar mecanismos vulnerables a ataques de &quot;dicionario&quot;
+**foward_secrecy: requerir autenticaciones entre dos sesiones seguidas
+**mutual_auth: usar el mismo mecanismo para autenticar cliente y servidor
+*Por defecto (para ver opciones por defecto: {{{postfix -d|grep ^smtpd_sasl }}}), postfix permite cualquier mecanismo excepto aquellos que permiten accesos anónimos:
+`smtpd_sasl_security_options = noanonymous`
+
+!!!Autorizaciones a clientes
+La política de reenvios cambia, ya no se controla únicamente con el parámetro mynetworks. ¿Cómo le decimos a postfix que los clientes que se autentican vía SMTP AUTH tienen o no permisos para reenviar los mensajes?
+
+*En el main.cf por ejemplo: `smtpd_relay_restrictions =permit_mynetworks permit_sasl_authenticated  reject_unauth_destination `. Con estas opciones estamos permitiendo el reenvío a clientes de nuestra red (de lo que definamos en mynetworks), de los clientes autenticados vía sasl y rechazamos destinos que no válidos.
+!!!¿Como comprobamos que funciona la autenticación SASL?
+*En mynetworks solo permitimos la red local (localhost)
+*Realizamos una conexión con telnet. Hay que buscar un blog o similar que nos indique cómo nos autenticamos vía telnet utilizando SASL. Entre otras cosas debemos averiguar como codificar nuestro usuario y contraseña.
+*Prueba con algún cliente gráfico a ver qué pasa.
+*¿Es segura la comunicación ahora? Es decir, con solo autenticar los usuarios, ¿podemos asegurar que la comunicación es segura?</pre>
 </div>
 <div created="20141214211454954" modified="20141214215306879" title="Autenticación en Apache">
 <pre>!!1_ Control de acceso por IP y nombre de dominio
@@ -5706,6 +5771,16 @@ Utilidades de las cuentas redirigidas y los alias:
 <pre>&lt;div class=&quot;tc-control-panel&quot;&gt;
 &lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/ControlPanel]!has[draft.of]]&quot; &quot;$:/core/ui/ControlPanel/Info&quot;&gt;&gt;
 &lt;/div&gt;
+</pre>
+</div>
+<div created="20150116170459172" draft.of="Contenido UF3" draft.title="Contenido UF3" modified="20150212134911195" tags="UF3" title="Draft of 'Contenido UF3'">
+<pre>#[[Características Correo Electrónico]]
+#[[Funcionamiento Correo Electrónico]]
+#[[Direcciones y cuentas de correo]]
+#[[Servidores de correo]]
+#[[Mensajes]]
+#[[Protocolos]]
+#[[Seguridad correo]]
 </pre>
 </div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
@@ -6379,6 +6454,69 @@ _ldap._tcp.asix.cat.    IN       SVR          0  0  389    ldap.asix.cat.
 [img[Resolución inversa|http://es.tldp.org/LinuxFocus/pub/mirror/LinuxFocus/Castellano/May1998/img45/arpa-e.gif]]
 
 *El proceso de resolución  inversa es similar al de resolución directa. Existen consultas recursivas, iterativas, caché, TTL, etc.</pre>
+</div>
+<div created="20150212134938328" modified="20150212135112035" title="Seguridad correo">
+<pre>Los principales problemas de seguridad:
+
+*Tanto clientes como servidores son sistemas complejos con múltiples funcionalidades. Fácilmente pueden tener vulnerabilidades aprovechables por sus atacantes.
+*El protocolo SMTP:
+**En sus especificaciones originales no contempla mecanismos de autenticación.
+**El intercambio de información se realiza en texto plano.
+**No hay mecanismos para garantizar que los clientes y los servidores son quien dicen ser.
+*Los mensajes de correo:
+**Pueden contener información falsa, publicidad, código malicioso...
+**Por defecto no se cifran ni se firman (suplantación, modificación...)
+*Recepción de correo:
+**Protocolos IMAP y POP incluyen mecanismos de autenticación.
+**El intercambio de información se realiza en texto plano y no proporcionan mecanismos para garantizar que los clientes y los servidores son quienes dicen ser.
+!!!Algunas soluciones utilizando extensiones
+__''SASL''__
+
+*//Simple Authentication and Security Layer//
+*Es un //framework// de autenticación para protocolos orientados a conexión (SMTP, POP, IMAP, LDAP...)
+*Permite distintos tipos de autenticación (ANONYMOUS, ~CRAM-MD5, GSSAPI, PLAIN, NTLM....)
+*Algunos de estos mecanismos (PLAIN) no cifran, por eso se suele integrar con SSL/TLS.
+__''SPA''__
+
+*Mecanismo de autenticación implementado por servidores y clientes de //Microsoft// para protocolos SMTP, IMAP y POP.
+__''Autenticación SMTP''__
+
+Extensiones del protocolo, permiten:
+
+*Autenticar a los usuarios antes de utilizar un MTA.
+*Autenticar a los ~MTAs que envían correo a otros ~MTAs (//smart host//)
+El estándar más utilizado es SMTP AUTH:
+
+*Es una extensión de SASL para SMTP. Forma parte del conjunto de extensiones que forman ESMTP.
+*Se implementan a través del comando AUTH.
+*Se suele integrar con SSL/TLS para aumentar seguridad.
+
+!!!Protocolos seguros
+__''SMTPS''__
+
+*Conjunto de especificaciones que determinan cómo encapsular SMTP en SSL/TLS.
+*Los servidores SMTPS utilizan 465/TCP o 587/TCP.
+*Se garantiza confidencialidad e integridad de los mensajes transmitidos. También se garantiza la autenticidad de los servidores.
+__''POPS e IMAPS''__
+
+*Conjunto de especificaciones que determinan cómo encapsular ~POP3 e ~IMAP4 en SSL/TLS.
+*POPS en 995/TCP
+*IMAPS en 993/TCP
+*Se garantiza la confidencialidad e integridad de los mensajes descargados de los servidores y la autenticidad de estos últimos.
+__''STARTTLS''__
+
+*Es un mecanismo para negociar en conexiones SSL/TLS sobre protocolos de texto plano.
+*Existen extensiones STARTTLS para SMTP, POP e IMAP.
+*La extensión para SMTP, por ejemplo, permite negociar una conexión SSL/TLS usando el puerto estándar (25) con el comando ESMTP STARTTLS.
+*Es habitual configurar ~MTAs con SMTP AUTH (SASL) y STARTTLS escuchando en el puerto 25 peticiones SMTPS.
+!!!Firmado y cifrado de mensajes
+Todos estos protocolos garantizan comunicación &quot;segura&quot; entre cliente y servidor o entre servidores pero, ¿qué pasa si el mensaje es interceptado? O, ¿Y si llega a algún servidor que no tiene definidas comunicaciones seguras? O si accede el administrador (o &quot;alguien&quot;) a los buzones. Además, ¿cómo comprobar que el usuario que nos envía el mensaje es quien dice ser?
+
+Para prevenir estas situaciones se pueden firmar y cifrar los correos haciendo uso de algoritmos criptográficos. Los dos principales mecanismos para cifrar y firmar mensaje son:
+
+*''S/MIME y certificados X.509'': Conjunto de algoritmos, protocolos y infraestructura de clave pública (certificados digitales, autoridades de certificación...) para firmar y cifrar los mensajes.
+*''PGP //Pretty Good Privacy//'': Software criptográfico para firmar, cifrar y comprimir datos e intercambiarlos de forma segura. Se basa en &quot;anillos de confianza&quot; entre usuarios, no hay autoridades certificadoras.
+</pre>
 </div>
 <div created="20141116213923102" modified="20141116214439936" title="Servicio FTP: definición y componentes">
 <pre>;Def
