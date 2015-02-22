@@ -179,6 +179,8 @@ Error message and password prompt
 
 <li>Clientes DNS (resolver)</li>
 
+<li>Comunicación Encriptada con SSL/TLS</li>
+
 <li>Configuración básica en vsftp</li>
 
 <li>Configuración Postfix</li>
@@ -203,8 +205,6 @@ Error message and password prompt
 
 <li>Draft of '$:/ControlPanel'</li>
 
-<li>Draft of 'Contenido UF3'</li>
-
 <li>Draft of 'New Tiddler'</li>
 
 <li>Espacio de nombres de dominio</li>
@@ -212,6 +212,8 @@ Error message and password prompt
 <li>Funcionamiento</li>
 
 <li>Funcionamiento Correo Electrónico</li>
+
+<li>Funcionamiento según wikipedia</li>
 
 <li>Índice</li>
 
@@ -242,6 +244,8 @@ Error message and password prompt
 <li>Módulos en Apache</li>
 
 <li>Posible uso de TFTP</li>
+
+<li>Postfix con MySql</li>
 
 <li>Primer correo</li>
 
@@ -4872,7 +4876,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF3 [[Draft of 'Contenido UF3']] [[Seguridad correo]] [[Actividades UF3]] [[Autenticación con SASL]]" title="$:/StoryList">
+<div list="Índice UF3 [[Actividades UF3]] [[Postfix con MySql]] [[Comunicación Encriptada con SSL/TLS]] [[Contenido UF3]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5236,7 +5240,7 @@ HTTP
 #[[Módulos en Apache]]
 #[[IpCop+Apache]]</pre>
 </div>
-<div created="20150116172127405" modified="20150212134845747" tags="UF3" title="Actividades UF3">
+<div created="20150116172127405" modified="20150222231501756" tags="UF3" title="Actividades UF3">
 <pre>@@background-color:grey;
 Servicio Correo
 @@
@@ -5255,6 +5259,8 @@ Servicio Correo
 &lt;&lt;&lt;
 #[[Protocolo SMTP]]
 #[[Autenticación con SASL]]
+#[[Comunicación Encriptada con SSL/TLS]]
+#[[Postfix con MySql]]
 &lt;&lt;&lt;
 </pre>
 </div>
@@ -5608,6 +5614,41 @@ Cuando un servidor recibe una consulta iterativa:
 *La RFC 1912 recomienda un valor TTL positivo de 1día o mayor (2 o 3 semanas)
 *La RFC 2308 recomienda un valor TTL negativo de como máximo 3horas.</pre>
 </div>
+<div created="20150222230107658" modified="20150222230729120" title="Comunicación Encriptada con SSL/TLS">
+<pre>[[Fuente|http://www.postfix.org/TLS_README.html]](quick and dirty)
+
+!Cómo configurar postfix con SSL/TLS
+*Transport Layer Security (TLS) provee servicios de autenticación basada en certificados y encriptación de la comunicación.
+*[[Funcionamiento según wikipedia]]
+*[[Funcionamiento según intypedia|http://www.intypedia.com/]]
+*Hay tres maneras de obtener una comunicación encriptada utilizando TLS:
+**Generar certificados autofirmados (lo que vamos a hacer aquí)
+**Crear nuestra entidad certificadora (CA) y expedir nuestras propias firmas o certificados
+**Contratar a un tercero (de confianza) para que nos sirva de entidad certificadora.
+*Las ventajas/inconvenientes de cada una de las maneras se pueden leer [[aquí|https://workaround.org/ispmail/squeeze/ssl-certificates]]
+*__Para generar un certificado auto-firmado__: estamos generando nuestro propio certificado autofirmado.
+**Creamos nuestra clave privada `openssl genrsa -out server.key 2048`
+**Esta clave de 2048bits debe quedar con permisos de lectura y escritura únicamente para root: `chmod 600 server.key`
+**Creamos nuestra clave pública `openssl req -new -key server.key -x509 -days 365 -out server.crt`
+**Nos pedirá un montón de datos: país, nombre, organización, mail, etc.
+*Ahora simplemente hay que habilitar tls en el archivo de configuración de postfix:
+(NOTA: hay que copiar la clave y el certificado a /etc/ssl/certs y a /etc/ssl/private respectivamente)
+
+```
+smtpd_tls_cert_file=/etc/ssl/certs/server.crt
+smtpd_tls_key_file=/etc/ssl/private/server.key
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+```
+*Reiniciamos el servicio de Postfix
+*Para testear la conexión TLS:`openssl s_client -connect &lt;nuestroSevidorSMTP&gt;:25 -starttls smtp` --&gt; Construimos el tunel SSL/TLS y, a partir de aquí, seguimos con una conexión telnet normal: ` EHLO server ....`
+!¿Qué hay que hacer en esta actividad?
+*Conseguir establecer la comunicación con postfix utilizando TLS. 
+*Verificar la combinación de TLS con SASL 
+*Buscar cómo conseguir lo mismo con Dovecot y hacerlo (muy sencillo)
+*Comprobar con algún cliente gráfico que la comunicación con el servidor IMAP está encriptada.</pre>
+</div>
 <div created="20141119005313519" modified="20141119005325521" title="Configuración básica en vsftp">
 <pre>Configura //vsftp// (comenta las líneas que añades a la configuración) para que:
 
@@ -5673,13 +5714,14 @@ __Servicio Web__
 #[[Servicio Web: Caché, Autenticación, Cookies, Conexiones persistentes, etc]]
 </pre>
 </div>
-<div created="20150116170459172" modified="20150205001000538" tags="UF3" title="Contenido UF3">
+<div created="20150116170459172" modified="20150222225951709" tags="UF3" title="Contenido UF3">
 <pre>#[[Características Correo Electrónico]]
 #[[Funcionamiento Correo Electrónico]]
 #[[Direcciones y cuentas de correo]]
 #[[Servidores de correo]]
 #[[Mensajes]]
 #[[Protocolos]]
+#[[Seguridad correo]]
 </pre>
 </div>
 <div created="20141012221525617" modified="20141116213448126" title="ContenidoUF1">
@@ -5771,16 +5813,6 @@ Utilidades de las cuentas redirigidas y los alias:
 <pre>&lt;div class=&quot;tc-control-panel&quot;&gt;
 &lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/ControlPanel]!has[draft.of]]&quot; &quot;$:/core/ui/ControlPanel/Info&quot;&gt;&gt;
 &lt;/div&gt;
-</pre>
-</div>
-<div created="20150116170459172" draft.of="Contenido UF3" draft.title="Contenido UF3" modified="20150212134911195" tags="UF3" title="Draft of 'Contenido UF3'">
-<pre>#[[Características Correo Electrónico]]
-#[[Funcionamiento Correo Electrónico]]
-#[[Direcciones y cuentas de correo]]
-#[[Servidores de correo]]
-#[[Mensajes]]
-#[[Protocolos]]
-#[[Seguridad correo]]
 </pre>
 </div>
 <div created="20141015232020206" draft.of="New Tiddler" draft.title="New Tiddler" modified="20141015232020206" title="Draft of 'New Tiddler'">
@@ -5931,6 +5963,24 @@ Situación: usuario usuario1@origen.org quiere escribir a usuario2@destino.com.
 #El usuario2 utilizará un MUA para acceder a su buzón de correo utilizando POP3 o IMAP o SMTP.
 
 </pre>
+</div>
+<div created="20150222230213133" modified="20150222230330023" title="Funcionamiento según wikipedia">
+<pre>El protocolo SSL intercambia registros; opcionalmente, cada registro puede ser comprimido, cifrado y empaquetado con un código de autenticación del mensaje (MAC). Cada registro tiene un campo de content_type que especifica el protocolo de nivel superior que se está usando.
+
+Cuando se inicia la conexión, el nivel de registro encapsula otro protocolo, el protocolo handshake (o protocolo de acuerdo), que tiene el content_type 22.
+El cliente envía y recibe varias estructuras handshake:
+
+*Envía un mensaje ~ClientHello especificando una lista de conjunto de cifrados, métodos de compresión y la versión del protocolo SSL más alta permitida. Éste también envía bytes aleatorios que serán usados más tarde (llamados Challenge de Cliente o Reto). Además puede incluir el identificador de la sesión.
+*Después, recibe un registro ~ServerHello, en el que el servidor elige los parámetros de conexión a partir de las opciones ofertadas con anterioridad por el cliente.
+*Cuando los parámetros de la conexión son conocidos, cliente y servidor intercambian certificados (dependiendo de las claves públicas de cifrado seleccionadas). Estos certificados son actualmente X.509, pero hay también un borrador especificando el uso de certificados basados en ~OpenPGP.5
+*Cliente y servidor negocian una clave secreta (simétrica) común llamada master secret, posiblemente usando el resultado de un intercambio Diffie-Hellman, o simplemente cifrando una clave secreta con una clave pública que es descifrada con la clave privada de cada uno. Todos los datos de claves restantes son derivados a partir de este master secret (y los valores aleatorios generados en el cliente y el servidor), que son pasados a través una función pseudoaleatoria cuidadosamente elegida.
+TLS/SSL poseen una variedad de medidas de seguridad:
+
+*Numerando todos los registros y usando el número de secuencia en el MAC.
+*Usando un resumen de mensaje mejorado con una clave (de forma que solo con dicha clave se pueda comprobar el MAC). Esto se especifica en el RFC 2104.
+*Protección contra varios ataques conocidos (incluyendo ataques man-in-the-middle), como los que implican un degradado del protocolo a versiones previas (por tanto, menos seguras), o conjuntos de cifrados más débiles.
+*El mensaje que finaliza el protocolo handshake (Finished) envía un hash de todos los datos intercambiados y vistos por ambas partes.
+*La función pseudo aleatoria divide los datos de entrada en 2 mitades y las procesa con algoritmos hash diferentes (MD5 y SHA), después realiza sobre ellos una operación XOR. De esta forma se protege a sí mismo de la eventualidad de que alguno de estos algoritmos se revelen vulnerables en el futuro.</pre>
 </div>
 <div created="20141006093955487" modified="20141116213616329" title="Índice">
 <pre>&lt;&lt;list-links &quot;[tag[Índice]]&quot;&gt;&gt;
@@ -6263,6 +6313,123 @@ Yo he utilizado para realizar la práctica un isc-dchpd-server como servidor DHC
 El objetivo de la práctica es montar un servidor PXE que ofrezca a los clientes un abanico de posibilidades de arranque. En principio, con  ofrecer el memtest y algún núcleo más ([[uno interesante|http://clonezilla.org/livepxe.php]]) bastaría aunque os animo a añadir más. Sería conveniente, después de probar el montaje en local, testearlo con algún compañero de clase y reflexionar sobre qué problemas podrían aparecer si lo tuviésemos que montar en una red grande.
 
 Por último, documentar la práctica: enlaces interesantes, problemas que han surgido, soluciones, problemas sin solución (de momento), configuración del software, etc. No olvides leer todo lo que puedas sobre TFTP, el entorno PXE (pxelinux en este caso), opciones del dhcp, etc. </pre>
+</div>
+<div created="20150222230837973" modified="20150222231446943" title="Postfix con MySql">
+<pre>!Intro
+*Postfix utiliza las tablas de búsqueda para: control de acceso, redireccionamiento (address rewriting) e, incluso, para filtrado de correos.
+*Los tipos de tablas de búsqueda que soporta postfix se puede obtener realizando: `postconf -m`
+*Cualquier tabla de búsqueda de postfix -sea del tipo que sea- alberga parejas de valores (key, value). Se les suele llamar &quot;mapas&quot; o &quot;hash table&quot;
+!Para Debian squeeze (6.0)
+[[Fuente|https://workaround.org/ispmail/squeeze]]
+
+*En debian no es necesario recompilar postfix para poder &quot;engancharlo&quot; a Mysql. Solo es necesario instalar el paquete: //postfix-mysql//
+!!!Dominios virtuales
+*Postfix distingue tres tipos de dominios:
+**''Local domains'':&amp;nbsp;
+***Definido por el parámetro //mydestinations//
+***Formado por local users (/etc/passwd). Es decir, si en //mydestinations// tenemos aula.net y asix.net y el SO tiene un usuario llamado filemon, el sistema recogerá todos los correos que vayan tanto a filemon@asix.net como a filemon@aula.net. De hecho, no hay forma de tener diferentes usuarios en cada dominio local.
+***En principio, postfix guardará los correos de cada usuario en /var/mail/username
+**''Virtual ~MailBox Domains''
+***Domino para el que también se recogerán los correos. Es decir, igual que //mydestinations// pero en este caso los usuarios no son los del sistema.&amp;nbsp;
+***Se utiliza el parámetro //virtual_mailbox_domains// para definirlos.
+***Para este tipo de dominios el administrador define explícitamente quiénes son los usuarios.
+&lt;&lt;&lt;
+Por ejemplo, supongamos que tenemos los dominios virtuales siguientes: `virtual_mailbox_domains=aula.net asix.net`
+Para definir los usuarios de cada dominio e indicar dónde se deben almacenar los correos de cada uno de ellos, podemos utilizar un archivo de texto que contenga:
+
+```
+filemon@aula.net &amp;nbsp; /var/mail/aula/filemon/Maildir
+filemon@asix.net &amp;nbsp; /var/mail/asix/filemon/Maildir
+etc...
+```
+
+&lt;&lt;&lt;
+NOTA: A este tipo de mapas (clave, valor) o tablas de dos columnas se les llama ''mapping'' o ''hash table''
+
+***Si tuviésemos muchos dominios virtuales podría ser problemático indicarlos todos mediante el parámetro //virtual_mailbox_domains// en el archivo de configuración. Una alternativa disponible es utilizar también un &quot;mapping&quot; o &quot;hash table&quot;
+
+&lt;&lt;&lt;
+Siguiendo con el ejemplo anterior, vamos a crear un archivo de texto -un mapa- que contenga los dominios virtuales:
+
+```
+asix.net &amp;nbsp;OK
+aula.net &amp;nbsp;OK
+....
+```
+El OK es formal. Postfix trabaja siempre con pares de valores pero en este caso le da igual lo que haya en la segunda columna (podría ser cualquier cosa en vez de &quot;OK&quot;)
+Ahora los parámetros de configuración quedan así:
+
+virtual_mailbox_domains=hash:/etc/postfix/virtual_mailbox_domains &amp;nbsp;#( ruta al documento que hemos creado con los dominios virtuales)
+virtual_mailbox_maps=hash:/etc/postfix/virtual_mailbox_users #(ruta al documento con los usuarios virtuales)
+&lt;&lt;&lt;
+NOTA: Después de cada modificación en los archivos o mapas de usuarios y dominios virtuales se debe ejecutar `postmap /etc/postfix/virtual_mailbox_users/domains`. Este comando creará los archivos .db que son los que utilizará postfix realmente.
+
+*** Obviamente existen muchas alternativas a esta forma de mapear los usuarios y dominios del sistema de correo. Otra forma es utilizar una base de datos.
+&lt;&lt;&lt;
+Ejemplo: dominios virtuales con mysql
+*Primero creamos el archivo que &quot;define&quot; los usuarios virtuales. Lo llamaremos &quot;virtual_mailbox_maps.cf&quot; y contendrá información para acceder a mysql:
+
+```
+user = someone
+password = some_password
+hosts = 127.0.0.1
+# A continuación, el nombre de la base de datos
+dbname = mailserver
+# La consulta SQL
+query = SELECT mailbox_path FROM virtual_users WHERE email_address='%s'
+#El parámetro %s (la clave del mapa) lo pondría postfix en cada consulta
+```
+*En main.cf pondríamos: `virtual_mailbox_maps=mysql:virtual_mailbox_maps.cf`
+*Para testear la bbdd (emular las consultas que hará postfix): `postmap -q filemon@asix.net mysql:virtual_mailbox_maps.cf`
+
+&lt;&lt;&lt;
+**Virtual Alias Domains
+***El tercer tipo de dominio en discordia
+***Se utiliza para redirigir/reenviar correo entrante a otras direcciones.
+***Se puede definir todo un alias de un dominio que redirija el correo a otro.&amp;nbsp;
+***También se implementa con mapas pero en este caso pueden haber más de un valor (clave, valor1, valor2, ...)
+!Qué hacer en esta actividad
+Vamos a montar un conjunto de dominios y usuarios virtuales para postfix. Para ello:
+
+*Preparamos la base de datos:
+**Levantamos otra máquina con mysql
+**Creamos la base de datos &quot;mailserver&quot;
+**Creamos las tablas siguientes:  
+***VIRTUAL_DOMAINS (ID INT PRIMARY KEY ~AUTO_INCREMENT, NAME VARCHAR(50)) (Acuérdate de utilizar charset=utf8)
+***VIRTUAL_USERS(ID INT PRIMARY KEY AUTO_INCREMENT, ID_DOMAIN INT, PASSWORD VARCHAR(32), EMAIL VARCHAR(100), PATH VARCHAR(200)) DONDE ID_DOMAIN REFERENCIA VIRTUAL_DOMAINS (ID) (Acuérdate de utilizar charset=utf8)
+**Realiza algunas inserciones para poder testear.
+**Creamos el usuario mailserver. Le damos los permisos apropiados.
+*Configurando postfix:
+**Creamos el archivo virtual_mailbox_domains.cf:
+
+```
+user = mailserver
+password = &lt;laDelUsuario_mailserver&gt;
+hosts = &lt;dirección máquina con Mysql&gt;
+dbname = mailserver
+query= SELECT 1 FROM VIRTUAL_DOMAINS WHERE NAME='%s'
+#Esta consulta permite averiguar si un dominio se encuentra en la tabla o no. Si es que sí, devolverá un 1 (da igual lo que 
+#devuelva, pero tiene que ofrecer algún resultado)
+```
+
+**Creamos el archivo virtual_mailbox_maps.cf:
+
+```
+user = mailserver
+password = &lt;laDelUsuario_mailserver&gt;
+hosts = &lt;dirección máquina con Mysql&gt;
+dbname = mailserver
+query= SELECT PATH FROM VIRTUAL_USERS WHERE EMAIL='%s'
+#Esta consulta permite averiguar dónde albergar los correos de un usuario)
+```
+**Añadimos al main.cf:
+
+```
+virtual_mailbox_domains=mysql:/etc/postfix/virtual_mailbox_domains.cf
+virtual_mailbox_maps=mysql:/etc/postfix/virtual_mailbox_maps.cf
+```
+*Recargamos la configuración de postfix, comprobamos con postmap y ya está.
+*Faltará comprobar que el envío de correos funciona correctamente haciendo uso de los nuevos usuarios virtuales.</pre>
 </div>
 <div created="20150121233339584" modified="20150121233435094" title="Primer correo">
 <pre>*Configura el servidor de correo para que pueda reenviar correos de cualquier máquina de la red 192.168.1.0/24 (o la que tengas configurada). Comprueba que funciona. Para ello, levanta otra máquina virtual y trata de enviar desde esta nueva máquina algún correo a filemon@asix.net.
