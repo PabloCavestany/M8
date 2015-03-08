@@ -161,6 +161,8 @@ Error message and password prompt
 
 <li>Actividades UF3</li>
 
+<li>Actividades UF4</li>
+
 <li>ActividadesUF1</li>
 
 <li>Auditorias en Apache</li>
@@ -189,6 +191,8 @@ Error message and password prompt
 
 <li>Contenido UF3</li>
 
+<li>Contenido UF4</li>
+
 <li>ContenidoUF1</li>
 
 <li>Cosillas</li>
@@ -208,6 +212,8 @@ Error message and password prompt
 <li>Draft of 'New Tiddler'</li>
 
 <li>Espacio de nombres de dominio</li>
+
+<li>Formatos multimedia</li>
 
 <li>Funcionamiento</li>
 
@@ -242,6 +248,8 @@ Error message and password prompt
 <li>Mensajes</li>
 
 <li>Módulos en Apache</li>
+
+<li>Monta un radio</li>
 
 <li>Posible uso de TFTP</li>
 
@@ -279,9 +287,13 @@ Error message and password prompt
 
 <li>Servicio Web: protocolo HTTP</li>
 
+<li>Servidor streaming audio</li>
+
 <li>Servidores de correo</li>
 
 <li>Servidores de nombres</li>
+
+<li>Streaming</li>
 
 <li>Tcpdump</li>
 
@@ -298,6 +310,8 @@ Error message and password prompt
 <li>UF2</li>
 
 <li>UF3</li>
+
+<li>UF4</li>
 
 <li>Vagrant: lo más sencillo</li>
 
@@ -4864,8 +4878,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150212134458633" title="$:/state/sidebar">
-<pre>no</pre>
+<div modified="20150308232804262" title="$:/state/sidebar">
+<pre>yes</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4876,7 +4890,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="Índice UF3 [[Temporización UF3]]" title="$:/StoryList">
+<div list="" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -4893,7 +4907,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20141012221534022" modified="20150116170516799" title="$:/temp/NewTagName">
+<div created="20141012221534022" modified="20150308231226946" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.2">
@@ -5263,6 +5277,18 @@ Servicio Correo
 #[[Postfix con MySql]]
 &lt;&lt;&lt;
 </pre>
+</div>
+<div created="20150308232037460" modified="20150308232743254" title="Actividades UF4">
+<pre>''Proyectos básicos''
+
+&lt;&lt;&lt;
+#[[Servidor streaming audio]]
+&lt;&lt;&lt;
+''Proyectos no básicos''
+
+&lt;&lt;&lt;
+#[[Monta un radio]]
+&lt;&lt;&lt;</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
 <pre>@@background-color:grey;
@@ -5724,6 +5750,12 @@ __Servicio Web__
 #[[Seguridad correo]]
 </pre>
 </div>
+<div created="20150308231208465" modified="20150308231306219" tags="UF4" title="Contenido UF4">
+<pre>#[[Formatos multimedia]]
+#[[Streaming]]
+#[[Protocolos Streaming]]
+#[[Distribución y suscripción de audio y vídeo]]</pre>
+</div>
 <div created="20141012221525617" modified="20141116213448126" title="ContenidoUF1">
 <pre>''Servicios de configuración automática de red''
 
@@ -5858,6 +5890,61 @@ Ejemplos:
 *Un nombre de dominio puede ser registrado a través de diferentes compañías, conocidas como ''agentes registradores'' (//registrant//). Estos agentes asesoran a los registradores (personas, empresas u organizaciones que desean registrar un nombre) y tramitan la solicitud haciendo de intermediarios con los agentes de registro.
 *Los agentes registradores deben estar acreditados por los operadores de registro y tienen libertad para asignar una parte del precio del registro.
 </pre>
+</div>
+<div created="20150308231333338" modified="20150308231557198" title="Formatos multimedia">
+<pre>__Codecs__
+
+*Debido a que los contenidos multimedia suelen tener gran cantidad de información, los ficheros tienden a ser voluminosos. Por eso se tiende más al empleo de sistemas de compresión de datos para reducir el tamaño de ficheros. Las herramientas software encargadas del proceso de compresión/descompresión se denominan //Codecs//.
+*El proceso habitual consiste en transformar un fichero por medio un codec, transmitirlo por la red como una cadena de bits (//stream//) y, al llegar al destino, restaurarlo empleando el mismo codec.
+*Las técnicas de compresión son muy diferentes según la naturaleza de los datos (audio, vídeo, etc.). Pero una primera clasificación se puede realizar en función del mecanismo general para hacer la compresión de datos:
+**''Codecs de compresión sin pérdida'': aplican algoritmos de compresión que tratan de eliminar  la redundancia de datos originales pero sin descartar nada. Es decir, el archivo siempre se podrá restaurar a su calidad original. Ejemplos: ZIP, FLAC,...
+**''Codecs de comprensión con pérdida'': se asume cierta pérdida de calidad en el proceso de compresión, pero a cambio, se consigue reducir drásticamente el tamaño del fichero. Ejemplos: MP3, MPEG...
+*El ''ratio de compresión'' nos mide la proporción en que se reduce un fichero después de la aplicación de un codec. A mayor valor, mayor compresión. Así un ratio de 5:1 indica que se comprime el fichero 5 veces obteniendo un fichero comprimido de un 20% del tamaño original.
+__Formatos contenedores__
+
+*Actualmente los formatos de archivos multimedia  disponen de flexibilidad suficiente para poder almacenar de forma integrada información relativa a varios medios diferentes. Por ejemplo un fichero que almacene una película debería poder contener datos relativos al vídeo, audio, subtítulos en varios idiomas y además información de sincronización de todo lo anterior. A este tipo de formatos se les llama formatos contenedores.
+*Un formato almacenado en un formato contenedor necesitará varios codecs para poder codificar/descodificar cada uno de los elementos que forman parte del contenedor. 
+*Algunos formatos contenedores habituales:
+**''Ogg'': popular, gratuito, código abierto desarrollado por la fundición //Xiph//.
+**''Matroska'':genérico, código abierto, usado para audio-vídeo de alta calidad.
+**''AVI'': formato propietario de //Microsoft//.
+**''MP4 (MPEG-14)'': desarrollado por un grupo de trabajo MPEG (//Moving Picture Experts Group//).
+
+__Formatos y codec de audio__
+
+*Los parámetros que caracterizan los formatos de audio son:
+**''Frecuencia de muestreo'': Muestras por segundo en hertzios.
+**''Calidad'': Número de bits empleado para codificar cada muestra. (8,16 o 32)
+*Lógicamente a mayor calidad o mayor frecuencia, mayor es el tamaño del fichero. Por lo tanto, habrá que buscar soluciones de compromiso que dependerán del objetivo perseguido. 
+*Algunos de los formatos más habituales y codecs son:
+**''WAV'': //Microsoft//.
+**''AIFF'': //Apple//
+**''MP3'' (MPEG-1 y MPEG-2): codec perteneciente al conjunto de estándares desarrollados por MPEG. Permite reducir el tamaño en 10:1 sin apenas pérdida de calidad. Permite la parametriazación de su codificación en función del ''bitrate'' que mide la cantidad de bits empleados para codificar en segundo de audio. A mayor //bitrate//, mayor tamaño del fichero.
+**''WMA'': Desarrollado para el reproductor //Microsoft Windows Media Player//.
+**''ACC'': codec desarrollado por el grupo MPEG-2 que ha sido adoptado como codec de audio dentro del formato contenedor MP4.
+
+__Formatos de imagen__
+
+*Se caracterizan por:
+**''Profundidad de color'': número máximo de colores diferentes para cada pixel que distingue el formato. Se mide en bits (8,16,24,32).
+**''Resolución'': cantidad de puntos que se consideran a la hora de digitalizar la imagen. Se mide en megapixels o bien en dimensiones de imagen (pixels ancho x pixels alto). Así una imagen de 6 Megapixels  equivalen a 2000 pixels de ancho x 3000 de largo.
+*El tamaño del fichero vendrá dado por el producto entre el número de píxeles y el número de bits de la profundidad del color.
+*Los formatos más comunes son:
+**''RAW'': gran calidad (64 de profundidad)
+**''BMP'': formato de mapa de bits. Apenas realiza compresión de datos por lo que ocupa mucho espacio.
+**''GIF'': poca calidad (8bits)
+**''JPEG'': formato de compresión con pérdida pero admite diferentes calidades.
+**''PNG'': similar al GIF pero de mayor calidad.
+
+__Formatos y codecs de vídeo__
+
+*Vienen determinados por:
+**''Resolución y profundidad del color'': ya que un vídeo son una serie de imágenes consecutivas.
+**''Frames'': número de imágenes por segundo. Se mide en fps (frames per second). Valores típicos entre 15 y 30.
+*Formatos:
+**''~RealVideo'': formato propietario de //~RealMedia//
+**''Windows Media Video'': formato propietario de //Microsoft//.
+**''Xvid'': codec libre basado en el estándar ~MPEG-4 ASP</pre>
 </div>
 <div created="20141012221818208" modified="20141012221819892" title="Funcionamiento">
 <pre>El funcionamiento del servicio DHCP sigue estos pasos:
@@ -6287,6 +6374,9 @@ Están formados por tres partes:
 <pre>Uno de los puntos fuertes de Apache es su &quot;modularidad&quot;: su capacidad para adquirir funcionalidades nuevas y potentes añadiéndole un pequeño &quot;módulo&quot; de código.
 
 Esta actividad consiste en investigar y evaluar un módulo muy concreto: [[mod_status|http://httpd.apache.org/docs/2.2/en/mod/mod_status.html]]. Simplemente se pide la instalación del módulo y cómo funciona.</pre>
+</div>
+<div created="20150308232731063" modified="20150308232732835" title="Monta un radio">
+<pre>Monta tu propia [[radio|http://www.radionomy.com/ES]]. Espectacular estos belgas...</pre>
 </div>
 <div created="20141119005645561" modified="20141119010009438" title="Posible uso de TFTP">
 <pre>Una de las variantes del protocolo FTP es TFTP. 
@@ -7010,6 +7100,74 @@ __Método TRACE__
 **500-599: Errores en el servidor, Server Error: el servidor no puede atender una petición porque ha existido algún problema.
 </pre>
 </div>
+<div created="20150308232242534" modified="20150308232636740" title="Servidor streaming audio">
+<pre>!!Servidor streaming
+En esta práctica instalaremos el software //Icecast2//, servidor de streaming libre y gratuito y comprobaremos su funcionamiento desde el lado del cliente.
+
+*Iniciamos sesión con permisos de root en Ubuntu.
+*Instalamos el paquete icecast2: `sudo apt-get install icecast2`
+*Podemos seguir las indicaciones de la instalación o hacerlo manualmente:
+**Editamos el archivo de configuración `/etc/icecast2/icecast.xml`:
+***Usuario &quot;source&quot; es el productor del contenido multimedia.
+***Usuario &quot;relay&quot; se usuará para emitir contenido de otros servidores multimedia.
+***Usuario &quot;admin&quot; para administración del servidor.
+***El puerto del servicio será el 8000.
+***Configuramos los directorios que empleará el servidor para guardar logs, los ficheros para streaming y los ficheros de administración.
+```
+&lt;source-password&gt;sourcepwd&lt;/source-password&gt;
+&lt;admin-user&gt;admin&lt;/admin-password&gt;
+&lt;admin-password&gt;tentenpie&lt;/admin-password&gt;
+&lt;logdir&gt;/var/log/icecast2&lt;/logdir&gt;
+&lt;webroot&gt;/usr/share/icecast2/web&lt;/webroot&gt;
+&lt;adminroot&gt;/usr/share/icecast2/admin&lt;/adminroot&gt;
+```
+**Guardamos cambios.
+**Editamos el fichero /etc/default/icecast2 para habilitar el script de init.d:
+```
+ENABLE=true
+```
+**Iniciamos el servicio: `$/etc/init.d/icecast start`
+
+Comprobamos que todo va bien:
+
+En el navegador indicamos la IP y el puerto configurados previamente en el archivo de configuración (127.0.0.1:8000 por defecto). Nos debe aparecer la pagina de administración del servidor. La página de inicio nos solicitará el nombre de usuario y la contraseña que establecimos en el fichero de configuración.
+
+NOTA: No dejes de mirar la documentación del icecast. La sección de preguntas frecuentes está francamente bien.
+
+!!Configuración de un servidor de streaming en directo con playlists en ~IceCast
+En esta práctica se configura primero un reproductor de contenido multimedia (ices2) como productor en directo conectándolo al servidor de streaming Icecast2. Icecast2 realiza entonces una emisión de difusión de ese contenido al que los clientes se conectarán.
+
+*Instalamos el codec vorbis (para poder emplear el formato ogg) y el reproductor ices2: `sudo apt-get install ices2 vorbis-tools`
+*Configuracióhn de una playlist:
+**Creamos un fichero de configuración para playlist: modificamos el fichero de ejemplo /usr/share/doc/ices2/examples/ices-playlist.xml y lo renombramos como /etc/ices2/ices-playlist.xml
+**Editamos el fichero de configuración /etc/ices2/ices-playlist.xml  establecemos los parámetros de nuestra emisora mediante:
+**Indicaremos: el nombre del fichero que contiene la playlist, el nombre del servidor, el puerto de escucha, la contraseña para poder conectarnos desde el productor hacia el servidor (sourcepwd) y el punto de montaje de la playlist que indica la referencia a poner en la URL (se accederá al contenido desde `http://servidor:8000/playlist.ogg`
+```
+&lt;input&gt;
+&lt;module&gt;playlist&lt;/module&gt;
+&lt;param name=&quot;type&quot;&gt;basic&lt;/param&gt;
+&lt;param name=&quot;file&quot;&gt;/playlist.ogg&lt;/param&gt;
+&lt;/input&gt;
+
+&lt;hostname&gt;localhost&lt;/hostname&gt;
+&lt;port&gt;8000&lt;/port&gt;
+
+&lt;password&gt;sourcepwd&lt;/password&gt;
+
+&lt;mount&gt;/playlist.ogg&lt;/mount&gt;
+```
+*Creamos el fichero playlist.ogg conteniendo la ruta absoluta de los ficheros .ogg que van a formar parte de la playlist: 
+```
+/media/sd5/Musica/cancion1.ogg
+/media/sda5/Musica/cancion2.ogg
+...
+```
+
+*Ejecutamos el codificador: `sudo ices2 /etc/ices2/ices-playlist.xml`
+
+Comprobación final: accedemos del nuevo desde el navegador y comprobamos que todo está en orden desde la página de //Active Mountpoints//. Después podemos probar a acceder desde algún cliente estilo Amarok, Banshee, Totem, etc. Simplemente habrá que añadir la URL de nuestra radio: 
+`http: //127.0.0.1:8000/playlist.ogg.m3u`</pre>
+</div>
 <div created="20150121232930097" modified="20150121233156932" title="Servidores de correo">
 <pre>;Definición
 :Un servidor de correo es un conjunto de aplicaciones y procesos que permiten el almacenamiento y reenvío de mensajes de correo electrónico. El componente principal de un servidor de correo es el MTA pero también puede integrar una serie de componentes adicionales para ampliar y mejorar su funcionalidad.
@@ -7122,6 +7280,38 @@ Los más utilizados son:
 *Simple DNS (www.simpledns.com)
 *Cisco Network Registrar
 *//dnsmasq//</pre>
+</div>
+<div created="20150308231632331" modified="20150308231906431" title="Streaming">
+<pre>!!Introducción
+*El servicio de streaming permite el intercambio de ficheros, generalmente multimedia, desde un servidor hacia un cliente.
+*La diferencia con otros servicios similares es que mientras en otros servicios hay que esperar la descarga completa del fichero antes de poder emplearlo, mediante streaming es posible suministrar un flujo de datos continuo  entre el servidor y cliente de forma que este último pueda procesar o reproducir la información según la va recibiendo del servidor.
+!!Características
+Para permitir la reproducción del contenido multimedia en el cliente según se va recibiendo del servidor, los ficheros, que se envían fragmentados desde el servidor, deben ser reensamblados y sincronizados en el cliente para que, sin disponer del fichero completo, se puedan reproducir.
+
+__''Arquitecturas''__
+
+*Arquitectura cliente/servidor clásica
+*Arquitectura sin servidor (//server-less//): se utiliza un servidor web. Se simula streaming mediante protocolo HTTP. Se denomina //falso-streaming//. 
+*Arquitectura sin cliente (//Client-less//): no existe la aplicación propiamente dicha sino que está incrustada en otra por ejemplo, cuando se reproducen animaciones en //Flash// o //applets// en un navegador. En este sentido, html5 incluye nuevas etiquetas (`&lt;audio&gt; y &lt;video&gt;`) que incluyen //codecs// que permiten visualizar desde el navegador el contenido multimedia sin necesidad de abrir un reproductor propiamente dicho.
+__''Componentes''__
+
+*Servidores de streaming: alojan y ofrecen los recursos.
+*Clientes de streaming: que permiten a los usuarios acceder a los recursos disponibles en los servidores de streaming y reproducirlos con la ayuda de //codecs//. Estos //codecs// nos permitirán tanto la codificación del contenido multimedia en un formato comprimido en el servidor, como su posterior decodificación en el cliente. El cliente dispondrá también de un ''buffer'' para almacenar de forma temporal los datos que se van recibiendo desde el servidor.
+*Arquitecturas rápidas de red que consiguen mediante replicación y distribución de contenidos en diversos nodos de la red aumentar la velocidad de descarga.
+*Protocolos rápidos específicos para streaming como RTPS y RTP. (Los veremos más adelante)
+*Productor: es el encarga de generar el contenido multimedia. Este contenido puede emitirse en directo o bien almacenarse en el servidor para cuando lo solicite un cliente. 
+*Formatos de audio/video y //codecs//: los contenidos generados por el productor son comprimidos empleando //codecs// para ser transmitidos al servidor de streaming que, a su vez, puede emplear nuevos //codecs// para ofrecer diferentes calidades o formatos a los clientes.
+__''Tipos de streaming''__
+
+*En directo: el servidor controla la transmisión. El contenido es emitido a criterio de servidor en un instante dado. No hay interactividad con el cliente. Está orientado a la multidifusión: todos los clientes reproducen los mismos contenidos. El contenido puede, a su vez, difundirse por la red mediante //unicast// o //multicast//. 
+*Bajo demanda (//on demand//): los clientes controlan la transmisión. El servidor espera las peticiones de los clientes y son estos los que deciden qué contenido multimedia quieren recibir en cada momento. Permite interactividad con el cliente (saltar partes, repetir otras, etc.)
+*Casi bajo demanda (//Near On Demand//): donde se simula un servicio bajo demanda gracias a emplear multitud de flujos en directo en constante emisión de forma que el cliente, cuando se conecta al servidor, realmente se incorpora al flujo de datos más cercano a lo solicitado.
+__''Conexiones''__
+
+Para que el servicio de streaming funcione son necesarios dos flujos de datos diferentes pero interrelacionados:
+
+*Flujo de datos para el control de la transmisión. Emplea RTPS encapsulado en TCP o UDP y permite gestionar la interactividad con el cliente. 
+*Flujo de datos para el transporte del contenido multimedia. Emplea RTP encapsulado en UDP. En los paquetes RTP van encapsulados, fraccionados y multiplexados los contenidos multimedia para incluir simultáneamente las partes de audio y vídeo en función del codec y formato elegido.</pre>
 </div>
 <div created="20141026232023389" modified="20141026232138872" title="Tcpdump">
 <pre>Esnifa con la utilidad Tcpdump el contenido de una comunicación cliente-servidor en el típico caso de una concesión de parámetros de red. Interpreta cada uno de los paquetes interceptados.</pre>
@@ -7396,6 +7586,9 @@ __''13-11''__
 </div>
 <div created="20150116170344041" modified="20150116170441950" tags="Índice" title="UF3">
 <pre>&lt;&lt;list-links &quot;[tag[UF3]]&quot;&gt;&gt;</pre>
+</div>
+<div created="20150308231126860" modified="20150308231202086" tags="Índice" title="UF4">
+<pre>&lt;&lt;list-links &quot;[tag[UF4]]&quot;&gt;&gt;</pre>
 </div>
 <div created="20141016153300883" modified="20141016163748717" tags="Cosillas" title="Vagrant: lo más sencillo">
 <pre>*Creo directorio en mi home `mkdir MáquinasVirtuales`
