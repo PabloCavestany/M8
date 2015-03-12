@@ -181,6 +181,8 @@ Error message and password prompt
 
 <li>Clientes DNS (resolver)</li>
 
+<li>Codecs</li>
+
 <li>Comunicación Encriptada con SSL/TLS</li>
 
 <li>Configuración básica en vsftp</li>
@@ -204,6 +206,8 @@ Error message and password prompt
 <li>DHCP con dos interfaces</li>
 
 <li>Direcciones y cuentas de correo</li>
+
+<li>Distribución y suscripción de audio y vídeo</li>
 
 <li>DNS Dinámico</li>
 
@@ -265,6 +269,8 @@ Error message and password prompt
 
 <li>Protocolos</li>
 
+<li>Protocolos Streaming</li>
+
 <li>Proxy reverse con Apache</li>
 
 <li>Registro de recursos</li>
@@ -286,6 +292,8 @@ Error message and password prompt
 <li>Servicio Web: definición y componentes</li>
 
 <li>Servicio Web: protocolo HTTP</li>
+
+<li>Servidor streaming a la carta</li>
 
 <li>Servidor streaming audio</li>
 
@@ -4878,8 +4886,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150308232804262" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20150311232249573" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4890,7 +4898,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="[[Actividades UF4]] Índice UF4" title="$:/StoryList">
+<div list="Índice UF4 [[Contenido UF4]] [[Distribución y suscripción de audio y vídeo]] [[Protocolos Streaming]] [[Actividades UF4]] [[Servidor streaming a la carta]] Codecs" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5278,16 +5286,18 @@ Servicio Correo
 &lt;&lt;&lt;
 </pre>
 </div>
-<div created="20150308232037460" modified="20150308233434394" tags="UF4" title="Actividades UF4">
+<div created="20150308232037460" modified="20150312001340118" tags="UF4" title="Actividades UF4">
 <pre>''Proyectos básicos''
 
 &lt;&lt;&lt;
 #[[Servidor streaming audio]]
+#[[Codecs]]
 &lt;&lt;&lt;
 ''Proyectos no básicos''
 
 &lt;&lt;&lt;
 #[[Monta un radio]]
+#[[Servidor streaming a la carta]]
 &lt;&lt;&lt;</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
@@ -5640,6 +5650,13 @@ Cuando un servidor recibe una consulta iterativa:
 *La RFC 1912 recomienda un valor TTL positivo de 1día o mayor (2 o 3 semanas)
 *La RFC 2308 recomienda un valor TTL negativo de como máximo 3horas.</pre>
 </div>
+<div created="20150312000936959" modified="20150312001749950" title="Codecs">
+<pre>NOTA: El objetivo de esta práctica es familiarizarse con el concepto de Codec. Si, por lo que sea, estás interesado en trabajar con otros codecs o aplicaciones conversoras no hay ningún problema. 
+
+#Descarga el codec [[FLAC|http://flac.sourceforge.net/index.html]] y prueba a comprimir diferentes ficheros de audio para comprobar el ratio de compresión que es capaz de alcanzar. Restaura a continuación los ficheros comprimidos y comprueba si el fichero restaurado coincide exactamente con el original. 
+#La aplicación [[dbPowerAmp|http://www.dbpoweramp.com/]] nos permite conversiones entre los diversos formatos de audio y la aplicación de multitud de codecs. Aplícala para pasar un fichero .waw o .cd a mp3 y viceversa de forma repetida. Comprueba si va reduciéndose el tamaño del fichero mp3 y si se aprecia la pérdida de calidad al reproducir el mismo.
+#¿Para que sirven las herramientas //Gspot// o //~MediaInfo// o //~AVICodec//? Instala alguna de ellas y realiza alguna prueba para ver cómo funcionan..</pre>
+</div>
 <div created="20150222230107658" modified="20150222230729120" title="Comunicación Encriptada con SSL/TLS">
 <pre>[[Fuente|http://www.postfix.org/TLS_README.html]](quick and dirty)
 
@@ -5829,6 +5846,13 @@ Utilidades de las cuentas redirigidas y los alias:
 *Crearnos varias &quot;identidades&quot; con diferentes cuentas de correo pero con el mismo buzón. Los clientes de correo podrán clasificar los correos en función de la cuenta a la que van dirigidos.
 *Usar un alias para suscribirse a un foro y, cuando ya no estemos interesados en el foro, dar de baja el alias (no hay que tocar la cuenta principal y dejamos de recibir mensajes que no nos interesan)
 *Enviarte mensajes a ti mismo, crear varias cuentas en las diferentes redes, etc.</pre>
+</div>
+<div created="20150311232655105" modified="20150311232737740" title="Distribución y suscripción de audio y vídeo">
+<pre>Cuando hablamos de distribución y suscripción de audio y vídeo nos referimos a los //podcast// (//Personal On Demand Broadcasting//). Podemos definir podcast como un fichero, generalmente de audio o vídeo, que contiene una serie de etiquetas que permiten la distribución por suscripción (//syndication//) de dicho archivo, de forma que un usuario cualquiera pueda recibir las actualizaciones de los //podcast// en tiempo real.
+
+El término //podcasting// se emplea de forma genérica para referirnos a la distribución de ficheros de audio obtenidos de forma automatizada gracias a formatos de redifusión web como RSS o Atom. La gran ventaja que ofrece el //podcasting// respecto a la simple navegación web es la posibilidad de suscripción a contenidos de nuestro interés.
+
+Para mantener nuestros podcast actualizados, tenemos dos opciones: aplicaciones específicas (Juice, Doppler, Amarok, ~GoogleReader..) o el propio navegador web (marcadores dinámicos)</pre>
 </div>
 <div created="20141020012237430" modified="20141020012247998" title="DNS Dinámico">
 <pre>Las actualizaciones de los archivos de zona se pueden realizar de forma manual o dinámica.
@@ -6608,6 +6632,71 @@ __''Protocolo IMAP''__
 **Acceso simultáneo al mismo buzón por múltiples usuarios.
 **Crear, borrar y manipular buzones.</pre>
 </div>
+<div created="20150311232048941" modified="20150311232622998" title="Protocolos Streaming">
+<pre>Hay muchos protocolos para streaming tanto libres como propietarios. Veremos los más habituales.
+
+!!Protocolo HTTP
+Hay dos opciones:
+
+*Se realiza una conexión HTTP normal y se descargaría el fichero completamente. A continuación, se remitiría el fichero al reproductor multimedia que reproduciría su contenido.
+*Otra opción es obtener información sobre un fichero multimedia y posteriormente descargarlo mediante HTTP encapsulado sobre UDP, para acelerar la transferencia de datos.
+En ambas opciones hay que descargar el fichero completamente para reproducirlo. Por esta razón al protocolo HTTP se le denomina de pseudo-streaming.
+
+!!Protocolo RTSP
+*//Real Time Streaming Protocol//
+*Protocolo a nivel de aplicación encargado de la gestión y control de la transmisión de uno o varios streams de contenido multimedia hacia un cliente. 
+*Normalmente viaja sobre TCP (554/TCP) aunque puede utilizar UDP (para //multicast//) (554/UDP)
+*El formato de los mensajes es del estilo de los mensajes de HTTP: mensajes de petición respuesta; las URL (`rtsp://zebra.cpd.ua.es/directoOptica`), integración con SSL/TSL, etc.
+*Características propias:
+**Es un protocolo con estado que marca la situación específica en la que se encuentra la conexión.
+**Es un protocolo multiservidor, que permite controlar sesiones con diferentes servidores para una misma reproducción multimedia en el cliente.
+**Servidores y clientes pueden realizar peticiones RTSP.
+**La transmisión del contenido multimedia propiamente dicho, se hace mediante conexiones separadas empleando un protocolo diferente (RTP).
+*''Métodos RTSP'':
+**DESCRIBE: método empleado por el cliente para obtener una descripción de un contenido multimedia referenciado por una URL RTSP.
+```
+Ejemplo: Cliente → Servidor: Realiza petición informando de formatos aceptados por el cliente
+            DESCRIBE rtsp://unservidor.com/uncontenido RTSP/1.0
+            Accept: application/sdp, application/rtsl, application/mheg
+
+Servidor → Cliente: Contesta informando sobre flujos necesarios para la reproducción.
+            RTSP/1.0 200 OK
+           Content-Type: application/sdp
+           Content-Length: 376
+           i=Descripción del contenido
+           m=audio 3456 RTP/AVP 0
+           m=video 2232 RTP/AVP 31
+```
+**SETUP: se emplea a continuación del método DESCRIBE. El cliente indica al servidor el protocolo de transporte de datos (normalmente, RTP) y varios parámetros para la transmisión.
+```
+Ejemplo: Cliente →Servidor
+          SETUP rtsp://unservidor.com/directorio/fichero.rm RTSP/1.0
+         Transport: RTP/AVP; unicast; client_port=4588-4589
+
+Respuesta  Servidor →Cliente:
+         RTSP/1.0 200 OK
+         Session: 47112344
+         Transport: RTP/AVP;unicast;
+        client_port=4588-4589;server_port=6256-6257
+```
+**PLAY: con este método el cliente indica al servidor que puede empezar a emitir el stream de datos multimedia. Se envía por parte del cliente después de haber recibido la respuesta SETUP del servidor.
+**PAUSE: el cliente solicita al servidor que detenga momentáneamente el flujo de datos pero no finaliza la sesión
+**TEARDOWN: el cliente finaliza la sesión, cierra la conexión y libera los recursos.
+Las transiciones entre estados puede representarse con un diagrama de estados:
+[img[DiagramaRTSP|http://profesores.elo.utfsm.cl/~agv/elo323/2s12/project/reports/MarceioBaeza/images/sesiones.JPG]]
+
+!!Protocolo RTP
+*//Real Time Protocol//
+*Protocolo a nivel de aplicación encargado del transporte del flujo de datos multimedia entre servidor y cliente.
+*Encapsulado en UDP normalmente aunque puede ir sobre TCP.
+*En el servidor todos los flujos de datos son multiplexados conjuntamente en paquetes RTP que a su vez van encapsulados en segmentos del nivel de transporte (TCP/UDP). Cada paquete RTP va numerado de forma consecutiva para reconocer la pérdida de paquetes que en cualquier caso nunca serán retransmitidos por la demora que eso supondría. En su lugar, cuando el cliente observa la pérdida de un paquete, por lo general, tratará de realizar una interpolación a partir de paquetes anteriores y posteriores.
+*Para permitir que los múltiples flujos incluidos en los paquetes RTP se sincronicen sin problemas en el buffer de entrada del cliente, incluso cuando haya  pérdida de paquetes, se emplean marcas de tiempo en cada uno de los flujos multiplexados de forma que siempre sea posible asociar un instante de vídeo con el correspondiente de audio o texto del subtítulo.
+*RTP es un protocolo que también se utiliza en Voz IP y videoconferencia.
+!!Protocolo RTCP
+*//Real Time Control Protocol//
+*Puesto RTP es un protocolo unidireccional del servidor hacia el cliente, el protocolo RTCP permite informar desde el cliente al servidor de la calidad del servicio prestado en función, por ejemplo, del número de paquetes perdidos, etc.
+*Se encapsula en UDP y emplea normalmente un puerto consecutivo al empleado por RTP.</pre>
+</div>
 <div created="20141214215409201" modified="20141214215515447" title="Proxy reverse con Apache">
 <pre>Lee [[esto | http://httpd.apache.org/docs/2.2/mod/mod_proxy.html]] y siguiendo las indicaciones del ejemplo que muestran (en el enlace) trata de montar un proxy reverse.</pre>
 </div>
@@ -7098,6 +7187,29 @@ __Método TRACE__
 **300-399: Redirección //Redirection//: La petición ha sido procesada y redirigida a otra localización.
 **400-499: Errores del cliente //Client Error//: el servidor indica que hay algún error en la petición o que no se puede conceder.
 **500-599: Errores en el servidor, Server Error: el servidor no puede atender una petición porque ha existido algún problema.
+</pre>
+</div>
+<div created="20150312001047220" modified="20150312001330186" title="Servidor streaming a la carta">
+<pre>Fundamentalmente hay dos tipos de servidores de streaming: a la carta y por difusión. ¿Qué diferencias hay entre uno y otro?
+
+En esta actividad vamos a instalar un servidor a la carta. Se trata de [[gnump3d|http://www.gnu.org/software/gnump3d/download.html]].
+
+__Instalación__
+
+*Levantamos una máquina Debian o similar
+*Descargamos el software: `wget http://savannah.gnu.org/download/gnump3d/gnump3d-3.0.tar.gz`
+*Descomprimimos y nos movemos a la carpeta generada 
+*Instalamos: `make install`
+
+__Configuración__
+
+*Echa un vistazo al archivo de configuración: `nano /etc/gnump3d/gnump3d.conf`
+*En principio no hay que cambiar nada en el archivo, solo tienes que averiguar la ruta al contenido multimedia. Para ello no hay más que ir leyendo el archivo. De momento, con una lectura rápida bastará.
+
+__Puesta en marcha__
+
+*`gnump3d &amp;`
+*A continuación, desde cualquier navegador: &lt;~IP_debian&gt;: 8888
 </pre>
 </div>
 <div created="20150308232242534" modified="20150308232636740" title="Servidor streaming audio">
