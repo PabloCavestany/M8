@@ -165,6 +165,8 @@ Error message and password prompt
 
 <li>ActividadesUF1</li>
 
+<li>Asterisk</li>
+
 <li>Auditorias en Apache</li>
 
 <li>Autenticación con SASL</li>
@@ -208,6 +210,8 @@ Error message and password prompt
 <li>Direcciones y cuentas de correo</li>
 
 <li>Distribución y suscripción de audio y vídeo</li>
+
+<li>Distribución y suscripción de audio y vídeo. Actividad</li>
 
 <li>DNS Dinámico</li>
 
@@ -292,6 +296,8 @@ Error message and password prompt
 <li>Servicio Web: definición y componentes</li>
 
 <li>Servicio Web: protocolo HTTP</li>
+
+<li>Servidor de flash video</li>
 
 <li>Servidor streaming a la carta</li>
 
@@ -4888,8 +4894,8 @@ Error message and password prompt
 <div modified="20141020005554085" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20150312210732709" title="$:/state/sidebar">
-<pre>yes</pre>
+<div modified="20150315232024401" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div modified="20141006094642627" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Settings</pre>
@@ -4900,7 +4906,7 @@ Error message and password prompt
 <div modified="20141012224809735" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
-<div list="[[Temporización UF4]] UF4" title="$:/StoryList">
+<div list="Índice UF4 [[Actividades UF4]] Asterisk" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -5288,18 +5294,22 @@ Servicio Correo
 &lt;&lt;&lt;
 </pre>
 </div>
-<div created="20150308232037460" modified="20150312001340118" tags="UF4" title="Actividades UF4">
+<div created="20150308232037460" modified="20150316011138664" tags="UF4" title="Actividades UF4">
 <pre>''Proyectos básicos''
 
 &lt;&lt;&lt;
 #[[Servidor streaming audio]]
 #[[Codecs]]
+#[[Servidor streaming video|https://manuais.iessanclemente.net/index.php/Instalaci%C3%B3n_de_Servidores_de_Video_en_Debian#Instalaci.C3.B3n_de_Darwin_Streaming_Server]]
 &lt;&lt;&lt;
 ''Proyectos no básicos''
 
 &lt;&lt;&lt;
 #[[Monta un radio]]
 #[[Servidor streaming a la carta]]
+#[[Servidor de flash video]]
+#[[Distribución y suscripción de audio y vídeo. Actividad]]
+#[[Asterisk]]
 &lt;&lt;&lt;</pre>
 </div>
 <div created="20141012221844948" modified="20141116213329895" title="ActividadesUF1">
@@ -5334,6 +5344,11 @@ DNS
 [[IpCop DNS]]
 
 [[Delegación DNS]]</pre>
+</div>
+<div created="20150316002905410" modified="20150316011128933" title="Asterisk">
+<pre>__Trabajo de investigación__
+
+Bájate de la [[página oficial|http://www.asterisk.org/]] la imagen de un sistema linux con el programa Asterisk ya instalado. A continuación, monta dos softphones (utiliza dos máquinas distintas) y realiza una llamada.</pre>
 </div>
 <div created="20150112104122264" modified="20150112110046756" title="Auditorias en Apache">
 <pre>El primer paso para realizar auditorias en Apache es la configuración de los ficheros de error. En apache hay dos fundamentales:
@@ -5855,6 +5870,12 @@ Utilidades de las cuentas redirigidas y los alias:
 El término //podcasting// se emplea de forma genérica para referirnos a la distribución de ficheros de audio obtenidos de forma automatizada gracias a formatos de redifusión web como RSS o Atom. La gran ventaja que ofrece el //podcasting// respecto a la simple navegación web es la posibilidad de suscripción a contenidos de nuestro interés.
 
 Para mantener nuestros podcast actualizados, tenemos dos opciones: aplicaciones específicas (Juice, Doppler, Amarok, ~GoogleReader..) o el propio navegador web (marcadores dinámicos)</pre>
+</div>
+<div created="20150315023018814" modified="20150315023100706" title="Distribución y suscripción de audio y vídeo. Actividad">
+<pre>*Accede desde el //Firefox// a la página general de podcasts de la Web de RTVE [[aquí|http://www.rtve.es/radio/podcast/]] y busca un programa de tu interés.
+* Accede a él y crea una suscripción desde el navegador mediante el marcador dinámico pulsando el enlace RSS. 
+*¿Qué formato tiene el fichero del enlace? 
+*Aprecia a continuación las características del nuevo marcador y averigua las diferencias con los marcadores convencionales.</pre>
 </div>
 <div created="20141020012237430" modified="20141020012247998" title="DNS Dinámico">
 <pre>Las actualizaciones de los archivos de zona se pueden realizar de forma manual o dinámica.
@@ -7190,6 +7211,11 @@ __Método TRACE__
 **400-499: Errores del cliente //Client Error//: el servidor indica que hay algún error en la petición o que no se puede conceder.
 **500-599: Errores en el servidor, Server Error: el servidor no puede atender una petición porque ha existido algún problema.
 </pre>
+</div>
+<div created="20150315020859273" modified="20150315021024471" title="Servidor de flash video">
+<pre>Interesantísimo proyecto: [[fuente|https://manuais.iessanclemente.net/index.php/Instalaci%C3%B3n_de_Servidores_de_Video_en_Debian#Instalaci.C3.B3n_de_RED5_Streaming_Server]]
+
+Se trata de la instalación del servidor RD5 de adobe (versión gratuita).</pre>
 </div>
 <div created="20150312001047220" modified="20150312001330186" title="Servidor streaming a la carta">
 <pre>Fundamentalmente hay dos tipos de servidores de streaming: a la carta y por difusión. ¿Qué diferencias hay entre uno y otro?
